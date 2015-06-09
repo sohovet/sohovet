@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sohovet_vaccine_reminder_add_send_form" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.reminder.add.send.form</field>
+            <field name="model">sohovet.vaccine.reminder</field>
+            <field name="inherit_id" ref="sohovet_vaccine.sohovet_vaccine_reminder_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/*" position="before">
+                    <header>
+                        <button name="button_send" type="object" string="Enviar SMS"
+                                attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('movilSMS', '=', False)]}"/>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_reminder_sent_wizard_form" model="ir.ui.view">
+            <field name="name">Enviar SMS</field>
+            <field name="model">sohovet.vaccine.reminder.send.wizard</field>
+            <field name="inherit_id" ref="sohovet_vaccine.sohovet_vaccine_reminder_sent_wizard_form"/>
+            <field name="arch" type="xml">
+                    <field name="num_sms" position="after">
+                        <field name="balance"/>
+                    </field>
+                    <group name="information" position="inside">
+                        <div>
+                            <field name="has_credits" invisible="1"/>
+                            El coste total de los mensajes es de <b><field name="total" nolabel="1" class="oe_inline"/> € </b><br/>
+                            <field name="confirm" nolabel="1" class="oe_inline"
+                                   attrs="{'readonly': [('has_credits', '=', False)]}"/> Confirmar envío de mensajes
+                            <!--<field name="confirm" nolabel="1" class="oe_inline"/> Confirmar envío de mensajes-->
+                        </div>
+
+                    </group>
+
+                <button name="send_all" position="replace">
+                    <button name="send_all" string="Enviar mensajes" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('confirm', '=', False)]}"/>
+                </button>
+
+            </field>
+        </record>
+    </data>
+</openerp>

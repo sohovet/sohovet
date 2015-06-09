@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report
+            string="Picking"
+            id="stock.action_report_picking"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="sohovet_stock_picking_report.albaran"
+            file="sohovet_stock_picking_report.albaran"
+        />
+
+    </data>
+</openerp>

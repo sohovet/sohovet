@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sohovet_product_template_only_form_view" model="ir.ui.view">
+            <field name="name">product.template.form </field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <div name="buttons" position="inside">
+                    <button class="oe_inline oe_stat_button" name="sohovet_import_supplier_products.action_open_import_items"
+                            type="action" icon="fa-list">
+                        <div>Importaciones<br/>de proveedor</div>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+        <record id="action_open_import_items" model="ir.actions.act_window">
+            <field name="name">Importar productos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sohovet.import.products.item</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sohovet_import_products_items_tree2"/>
+            <field name="target">current</field>
+            <field name="domain">[('template_id', '=', active_id), ('state', '=', 'imported')]</field>
+            <!--<field name="context">{'default_supplier_id': active_id}</field>-->
+        </record>
+
+    </data>
+</openerp>

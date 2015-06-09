@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="sohovet_vaccine_menu_top" name="Vacunas" sequence="21"/>
+        <menuitem id="sohovet_vaccine_menu_main" parent="sohovet_vaccine_menu_top" name="Vacunas" sequence="0"/>
+		<menuitem id="sohovet_vaccine_menu_configuration" parent="sohovet_vaccine_menu_top" name="Configuración" sequence="20" groups="base.group_no_one"/>
+
+        <record id="sohovet_vaccine_type_tree" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.type.tree</field>
+            <field name="model">sohovet.vaccine.type</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de vacuna">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_type_action" model="ir.actions.act_window">
+            <field name="name">Tipos de vacuna</field>
+            <field name="res_model">sohovet.vaccine.type</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sohovet_vaccine_type_tree"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">Pulse para añadir un nuevo tipo de vacuna.</p>
+			</field>
+        </record>
+
+        <menuitem id="sohovet_vaccine_type_menu" parent="sohovet_vaccine_menu_configuration" action="sohovet_vaccine_type_action" name="Tipos de vacuna" sequence="10"/>
+
+        <record id="sohovet_vaccine_rule_form" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.rule.form</field>
+            <field name="model">sohovet.vaccine.rule</field>
+            <field name="arch" type="xml">
+                <form string="Reglas de vacunación" version="7.0">
+                    <group>
+                        <field name="animal_type_id"/>
+                        <field name="type_id"/>
+                        <field name="next_type_id"/>
+                        <field name="periodicity"/>
+                        <!--<field name="init_month"/>-->
+                        <!--<field name="end_month"/>-->
+                        <!--<field name="message"/>-->
+                        <!--<field name="short_message"/>-->
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_rule_tree" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.rule.tree</field>
+            <field name="model">sohovet.vaccine.rule</field>
+            <field name="arch" type="xml">
+                <tree string="Reglas de vacunación" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="animal_type_id"/>
+                    <field name="type_id"/>
+                    <field name="next_type_id"/>
+                    <field name="periodicity"/>
+                    <!--<field name="init_month"/>-->
+                    <!--<field name="end_month"/>-->
+                    <!--<field name="message"/>-->
+                    <!--<field name="short_message"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_rule_action" model="ir.actions.act_window">
+            <field name="name">Reglas de vacunación</field>
+            <field name="res_model">sohovet.vaccine.rule</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sohovet_vaccine_rule_tree"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">Pulse para añadir un nuevo tipo de vacuna.</p>
+			</field>
+        </record>
+
+        <menuitem id="sohovet_vaccine_rule_menu" parent="sohovet_vaccine_menu_configuration" action="sohovet_vaccine_rule_action" name="Reglas de vacunación" sequence="20"/>
+
+
+        <record id="sohovet_vaccine_tree" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.tree</field>
+            <field name="model">sohovet.vaccine</field>
+            <field name="arch" type="xml">
+                <tree string="Vacunas">
+                    <field name="type_id"/>
+                    <field name="animal_id"/>
+                    <field name="date"/>
+                    <field name="extern"/>
+                    <field name="date_next" string="Fecha de la siguiente vacunación"/>
+                    <field name="num_sent_reminders"/>
+                    <field name="last_reminder_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_form" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.form</field>
+            <field name="model">sohovet.vaccine</field>
+            <field name="arch" type="xml">
+                <form string="Vacunas" version="7.0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="type_id" options="{'no_open': True}"/>
+                                <field name="animal_id"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="extern"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Información del animal">
+                                <group>
+                                    <group>
+                                        <field name="animal_type_id" options="{'no_open': True}"/>
+                                        <field name="specie_id" options="{'no_open': True}"/>
+                                        <field name="animal_active"/>
+                                        <field name="animal_alive"/>
+                                    </group>
+                                    <group>
+                                        <field name="partner_id" options="{'no_open': True}"/>
+                                        <field name="partner_active"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Siguiente vacuna">
+                                <group>
+                                    <group>
+                                        <field name="next_type_id" options="{'no_open': True}"/>
+                                        <field name="date_next_computed" options="{'no_open': True}"/>
+                                    </group>
+                                    <group>
+                                        <field name="next_vaccine"/>
+                                        <field name="date_next"/>
+                                    </group>
+                                </group>
+                                <group string="Recordatorios">
+                                    <field name="reminder_ids" nolabel="1" domain="[('state', '!=', 'cancel')]">
+                                        <tree string="Vacunas">
+                                            <field name="state"/>
+                                            <field name="date"/>
+                                            <!--<field name="text"/>-->
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+
+                            <!--<page string="Todas las vacunas">-->
+                                <!--<field name="other_vaccines" nolabel="1">-->
+                                    <!--<tree string="Vacunas">-->
+                                        <!--<field name="type_id"/>-->
+                                        <!--<field name="date"/>-->
+                                        <!--<field name="extern"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                            <!--</page>-->
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_search" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.search</field>
+            <field name="model">sohovet.vaccine</field>
+            <field name="arch" type="xml">
+                <search string="Buscar vacunas">
+                   <field name="animal_id"/>
+                   <field name="type_id"/>
+                    <filter string="Animal activo y vivo" domain="[('animal_active', '=', True),
+                       ('animal_alive', '=', True), ('partner_active', '=', True)]"/>
+                   <group expand="0" string="Agrupar por">
+                       <filter string="Propietario" context="{'group_by': 'partner_id'}"/>
+                       <filter string="Animal" context="{'group_by': 'animal_id'}"/>
+                   </group>
+               </search>
+
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_action" model="ir.actions.act_window">
+            <field name="name">Vacunas</field>
+            <field name="res_model">sohovet.vaccine</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+            <field name="search_view_id" ref="sohovet_vaccine_search"/>
+				<p class="oe_view_nocontent_create">Pulse para añadir una nueva vacuna.</p>
+			</field>
+        </record>
+
+        <menuitem id="sohovet_vaccine_menu" parent="sohovet_vaccine_menu_main" action="sohovet_vaccine_action" name="Vacunas" sequence="1"/>
+
+        <record id="sohovet_vaccine_reminder_tree" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.reminder.tree</field>
+            <field name="model">sohovet.vaccine.reminder</field>
+            <field name="arch" type="xml">
+                <tree string="Recordatorio de vacunas" create="0">
+                    <field name="date" attrs="{'invisible': [('state', '!=', 'sent')]}"/>
+                    <field name="batch_number" attrs="{'invisible': [('state', '!=', 'sent')]}"/>
+                    <field name="partner_id"/>
+                    <field name="type"/>
+                    <field name="vaccine_ids" widget="many2many_tags"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_reminder_form" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.reminder.form</field>
+            <field name="model">sohovet.vaccine.reminder</field>
+            <field name="arch" type="xml">
+                <form string="Recordatorio de vacunas" version="7.0" create="0" edit="0">
+                    <header>
+                        <field name="state" widget="statusbar" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="movilSMS"/>
+                                <field name="type"/>
+                                <field name="date" attrs="{'invisible': [('state', '!=', 'sent')]}" readonly="1"/>
+                                <field name="batch_number" attrs="{'invisible': [('state', '!=', 'sent')]}"/>
+                            </group>
+                            <group>
+                                <field name="text" nolabel="1" colspan="2"/>
+                                <div align="right"><field class="oe_inline" name="num_characters" nolabel="1"/> caracteres (<field class="oe_inline" name="num_sms" nolabel="1"/> SMS)</div>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="vaccine_ids">
+                                <tree string="Vacunas">
+                                    <field name="type_id"/>
+                                    <field name="date"/>
+                                    <field name="date_next_computed" string="Fecha siguiente"/>
+                                    <field name="animal_id"/>
+                                    <field name="date_next" string="Vacunado el..."/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_reminder_search" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.reminder.search</field>
+            <field name="model">sohovet.vaccine.reminder</field>
+            <field name="arch" type="xml">
+                <search string="Buscar recordatorios">
+                    <group string="Estado">
+                        <filter name="filter_draft" string="Borrador" domain="[('state', '=', 'draft')]"/>
+                        <filter name="filter_sent" string="Enviado" domain="[('state', '=', 'sent')]"/>
+                        <filter name="filter_cancel" string="Cancelado" domain="[('state', '=', 'cancel')]"/>
+                        <filter name="filter_incomplete" string="Incompleto" domain="[('state', '=', 'incomplete')]"/>
+                    </group>
+                    <field name="type"/>
+                    <group string="Varios">
+                        <filter name="all_equal_type" string="Todas las vacunas del mismo tipo" domain="[('all_equal_type', '=', True)]"/>
+                    </group>
+                    <field name="text"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_reminder_action" model="ir.actions.act_window">
+            <field name="name">Recordatorios</field>
+            <field name="res_model">sohovet.vaccine.reminder</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="sohovet_vaccine_reminder_search"/>
+            <field name="context">{'search_default_filter_draft': 'draft'}</field>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">Pulse para añadir un nuevo recordatorio de vacuna.</p>
+			</field>
+        </record>
+
+        <menuitem id="sohovet_vaccine_reminder_menu_main" parent="sohovet_vaccine_menu_top" name="Recordatorios" sequence="10"/>
+        <menuitem id="sohovet_vaccine_reminder_menu" parent="sohovet_vaccine_reminder_menu_main" action="sohovet_vaccine_reminder_action" name="Recordatorios SMS" sequence="1"/>
+
+
+        <record id="sohovet_vaccine_reminder_message_form" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.reminder.message.form</field>
+            <field name="model">sohovet.vaccine.reminder.message</field>
+            <field name="arch" type="xml">
+                <form string="Mensajes para recordatorio" version="7.0">
+                    <group>
+                    <field name="animal_type_id"/>
+                    <field name="type_id"/>
+                    <field name="init_month"/>
+                    <field name="end_month"/>
+                    <field name="message"/>
+                    <field name="short_message"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_reminder_message_tree" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.reminder.message.tree</field>
+            <field name="model">sohovet.vaccine.reminder.message</field>
+            <field name="arch" type="xml">
+                <tree string="Mensajes por tipo de vacuna" editable="bottom">
+                    <field name="animal_type_id"/>
+                    <field name="type_id"/>
+                    <field name="init_month"/>
+                    <field name="end_month"/>
+                    <field name="message"/>
+                    <field name="short_message"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_reminder_message_action" model="ir.actions.act_window">
+            <field name="name">Mensajes por tipo de vacuna</field>
+            <field name="res_model">sohovet.vaccine.reminder.message</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sohovet_vaccine_reminder_message_tree"/>
+            <field name="help" type="html">
+				<p class="oe_view_nocontent_create">Pulse para añadir un nuevo mensaje de recordatorio.</p>
+			</field>
+        </record>
+
+        <menuitem id="sohovet_vaccine_general_config_menu" name="Configuración de mensajes" parent="sohovet_vaccine.sohovet_vaccine_menu_configuration" action="sohovet_vaccine_config_action" sequence="30"/>
+        <menuitem id="sohovet_vaccine_reminder_message_menu" parent="sohovet_vaccine_general_config_menu" action="sohovet_vaccine_reminder_message_action" name="Mensajes por tipo de vacuna" sequence="10"/>
+
+        <record id="sohovet_animal_vaccines_form" model="ir.ui.view">
+            <field name="name">sohovet.animal.vaccines.form</field>
+            <field name="model">sohovet.animal</field>
+            <field name="inherit_id" ref="sohovet_animal.sohovet_animal_form"/>
+            <field name="arch" type="xml">
+                <group name="information" position="after">
+                    <group name="vaccines">
+                        <field name="vaccines" readonly="1">
+                            <tree string="Vacunas">
+                                <field name="type_id"/>
+                                <field name="date"/>
+                                <field name="extern"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+
+        <record id="sohovet_vaccine_reminder_batch_form" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.reminder.batch.form</field>
+            <field name="model">sohovet.vaccine.reminder.batch</field>
+            <field name="arch" type="xml">
+                <form string="Lotes de mensajes" version="7.0" create="0" edit="0">
+                    <group>
+                        <field name="name"/>
+                        <field name="date"/>
+                        <field name="type"/>
+                    </group>
+                    <field name="reminder_ids"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_reminder_batch_tree" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.reminder.batch.tree</field>
+            <field name="model">sohovet.vaccine.reminder.batch</field>
+            <field name="arch" type="xml">
+                <tree string="Mensajes por tipo de vacuna" create="0">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_reminder_batch_action" model="ir.actions.act_window">
+            <field name="name">Lotes</field>
+            <field name="res_model">sohovet.vaccine.reminder.batch</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sohovet_vaccine_reminder_batch_tree"/>
+        </record>
+
+        <!--<menuitem id="sohovet_vaccine_reminder_batch_menu" parent="sohovet_vaccine_general_config_menu" action="sohovet_vaccine_reminder_batch_action" name="Lotes" sequence="20"/>-->
+
+    </data>
+</openerp>

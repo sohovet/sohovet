@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--
+        #####################################################
+        #################### RES PARTNER ####################
+        #####################################################
+        -->
+        <record id="sohovet_res_partner_form_calls_view" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <page name="reminder_tab" position="after">
+                    <page string="Llamadas">
+                        <field name="call_ids"
+                           context="{'tree_view_ref': 'sohovet_vaccine_call_reminder.sohovet_vaccine_call_reminder_no_parter_tree'}"/>
+                    </page>
+                </page>
+
+                <div name="buttons" position="inside">
+                    <button class="oe_inline oe_stat_button oe_view_only" name="register_call"
+                             type="object" icon="fa-phone" attrs="{'invisible': [('reminder_ids', '=', [(6,0,[])])]}">
+                         <div>Registrar<br/>llamada</div>
+                    </button>
+                </div>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sohovet_vaccine_reminders_wizard_view" model="ir.ui.view">
+            <field name="name">Generar recordatorios</field>
+            <field name="model">sohovet.vaccine.reminder.wizard</field>
+            <field name="arch" type="xml">
+                 <form string="Generar recordatorios" version="7.0">
+                     <group>
+                         <field name="type"/>
+                         <group>
+                             <field name="init_date" attrs="{'invisible': [('type', '!=', 'first')]}"/>
+                             <field name="end_date" attrs="{'invisible': [('type', '!=', 'first')]}"/>
+                             <field name="max_sent_reminders" attrs="{'invisible': [('type', '!=', 'other')]}"/>
+                             <field name="last_reminder_min_date" attrs="{'invisible': [('type', '!=', 'other')]}"/>
+                             <field name="last_reminder_max_date" attrs="{'invisible': [('type', '!=', 'other')]}"/>
+                         </group>
+                     </group>
+                     <footer>
+                         <button name="generate_reminders" string="Generar recordatorios" type="object" class="oe_highlight"/>
+                         <button string="Salir" special="cancel" type="object" class="oe_link oe_right"/>
+                     </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_reminders_wizard_action" model="ir.actions.act_window">
+            <field name="name">Generar recordatorios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sohovet.vaccine.reminder.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sohovet_vaccine_reminders_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="sohovet_vaccine_reminder_wizard_menu" parent="sohovet_vaccine.sohovet_vaccine_reminder_menu"
+                  action="sohovet_vaccine_reminders_wizard_action" name="Generar recordatorios" sequence="10"
+                 groups="base.group_no_one"/>
+    </data>
+</openerp>

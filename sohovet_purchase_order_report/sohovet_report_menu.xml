@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            string="Purchase Order"
+            id="purchase.action_report_purchase_order"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            name="sohovet_purchase_order_report.orden_compra"
+            file="sohovet_purchase_order_report.orden_compra"
+        />
+
+        <report 
+            string="Request for Quotation" 
+            id="purchase.report_purchase_quotation"
+            model="purchase.order" 
+            report_type="qweb-pdf"
+            name="sohovet_purchase_order_report.peticion_presupuesto"
+            file="sohovet_purchase_order_report.peticion_presupuesto"
+            groups="base.group_no_one"
+        />
+    </data>
+</openerp>

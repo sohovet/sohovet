@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+		<record id="sohovet_vaccine_reminder_batch_sequence_type" model="ir.sequence.type">
+            <field name="name">Secuencia para envios de recordatorios</field>
+            <field name="code">reminder.batch.sequence</field>
+        </record>
+
+        <record model="ir.sequence" id="sohovet_vaccine_reminder_batch_sequence">
+            <field name="name">Secuencia para envios de recordatorios</field>
+            <field name="code">reminder.batch.sequence</field>
+            <field name="prefix">LOTE_</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+            <!--<field name="padding">6</field>-->
+            <field name="implementation">standard</field>
+        </record>
+    </data>
+</openerp>

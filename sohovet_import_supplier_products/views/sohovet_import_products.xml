@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sohovet_import_products_form" model="ir.ui.view">
+            <field name="name">Importar productos</field>
+            <field name="model">sohovet.import.products</field>
+            <field name="view_type">form</field>
+            <field name="arch" type="xml">
+                 <form string="Importar productos" version="7.0" create="false">
+                     <header>
+                         <button name="save_items" states="confirm_data" string="Confirmar datos" type="object" class="oe_highlight"/>
+                         <button name="save_prices" states="confirm_price" string="Confirmar precios" type="object" class="oe_highlight"/>
+                         <button name="back_to_confirm_data" states="confirm_price" string="Volver a confirmar datos" type="object"/>
+                         <field name="state" widget="statusbar" statusbar_visible="confirm_data,confirm_price,imported" readonly="1"/>
+                     </header>
+                     <div class="oe_right oe_button_box" name="buttons" states="imported">
+                         <button class="oe_inline oe_stat_button" name="open_product_cost"
+                                 type="object" icon="fa-shopping-cart">
+                            <div>Gestionar<br/>costes</div>
+                         </button>
+                         <button class="oe_inline oe_stat_button" name="open_product_prices"
+                                 type="object" icon="fa-money">
+                            <div>Gestionar<br/>precios</div>
+                         </button>
+                     </div>
+
+                     <group>
+                         <group>
+                             <field name="description_mode" attrs="{'readonly': [('state', '!=', 'confirm_data')]}"/>
+                             <!--<field name="ubication_mode" attrs="{'readonly': [('state', '!=', 'confirm_data')]}"/>-->
+                             <!--<field name="asterisk_mode" attrs="{'readonly': [('state', '!=', 'confirm_data')]}"/>-->
+                         </group>
+                         <group>
+                             <field name="create_uid" readonly="1" string="Creado por"/>
+                             <field name="create_date" readonly="1" string="Fecha de creación"/>
+                             <field name="write_uid" readonly="1" string="Confirmado por" attrs="{'invisible': [('state', '!=', 'imported')]}"/>
+                             <field name="write_date" readonly="1" string="Fecha de confirmación" attrs="{'invisible': [('state', '!=', 'imported')]}"/>
+                         </group>
+                     </group>
+                     <field name="item_ids" states="confirm_data" context="{'tree_view_ref': 'sohovet_import_supplier_products.sohovet_import_products_items_tree'}"/>
+                     <field name="item_ids2" states="confirm_price" readonly="1" context="{'tree_view_ref': 'sohovet_import_supplier_products.sohovet_import_products_items_prices_tree'}"/>
+                     <field name="item_ids3" states="imported,cancelled" readonly="1" context="{'tree_view_ref': 'sohovet_import_supplier_products.sohovet_import_products_items_tree'}"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_import_products_tree" model="ir.ui.view">
+            <field name="name">Importar productos</field>
+            <field name="model">sohovet.import.products</field>
+            <field name="view_type">tree</field>
+            <field name="arch" type="xml">
+                 <tree string="Importar productos" create="false">
+                     <field name="supplier_id"/>
+                     <field name="create_uid" string="Creado por"/>
+                     <field name="create_date" string="Fecha de creación"/>
+                     <field name="write_uid" string="Confirmado por" attrs="{'invisible': [('state', '!=', 'imported')]}"/>
+                     <field name="write_date" string="Fecha de confirmación" attrs="{'invisible': [('state', '!=', 'imported')]}"/>
+                     <field name="state"/>
+                 </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_import_products_items_tree" model="ir.ui.view">
+            <field name="name">Importar productos</field>
+            <field name="model">sohovet.import.products.item</field>
+            <field name="view_type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Productos" options="{'no_open': True}" editable="top" create="false" colors="{red:new_product}">
+                    <field name="new_product"/>
+                    <field name="vendible"/>
+                    <field name="ref_interna"/>
+                    <field name="ref_proveedor" attrs="{'readonly': [('ref_interna', '=', False), ('new_product', '=', False)]}"/>
+                    <field name="ean13"/>
+                    <field name="descripcion"/>
+                    <field name="categoria" options='{"no_open": True}'/>
+                    <field name="grupo" options='{"no_open": True}'/>
+                    <field name="marca" options='{"no_open": True}' domain="['|', ('active', '=', True), ('active', '=', False)]"/>
+                    <field name="unidades_compra" options='{"no_open": True}'/>
+                    <field name="product_uom" options='{"no_open": True}'/>
+                    <field name="coste_compra" attrs="{'invisible': [('unidades_compra', '=', 0)]}"/>
+                    <field name="iva_compra_sel"/>
+                    <field name="iva_venta_sel"/>
+                    <field name="descuento"/>
+                    <field name="stock_min"/>
+                    <field name="ubicacion"/>
+                 </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_import_products_items_tree2" model="ir.ui.view">
+            <field name="name">Importar productos</field>
+            <field name="model">sohovet.import.products.item</field>
+            <field name="view_type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Productos" options="{'no_open': True}" editable="top" create="false" colors="{red:new_product}">
+                    <field name="new_product"/>
+                    <field name="vendible"/>
+                    <field name="ref_interna"/>
+                    <field name="ref_proveedor" attrs="{'readonly': [('ref_interna', '=', False)]}"/>
+                    <field name="ean13"/>
+                    <field name="descripcion"/>
+                    <field name="categoria" options='{"no_open": True}'/>
+                    <field name="grupo" options='{"no_open": True}'/>
+                    <field name="marca" options='{"no_open": True}'/>
+                    <field name="unidades_compra" options='{"no_open": True}'/>
+                    <field name="product_uom" options='{"no_open": True}'/>
+                    <field name="coste_compra"/>
+                    <field name="iva_compra_sel"/>
+                    <field name="iva_venta_sel"/>
+                    <field name="descuento"/>
+                    <field name="stock_min"/>
+                    <field name="ubicacion"/>
+                 </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_import_products_items_prices_tree" model="ir.ui.view">
+            <field name="name">Importar productos</field>
+            <field name="model">sohovet.import.products.item</field>
+            <field name="view_type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Productos" options="{'no_open': True}" editable="top" create="false" colors="{red:new_product}">
+                    <!--<field name="base_fijo" invisible="1"/>-->
+                    <field name="new_product"/>
+                    <field name="vendible" readonly="1"/>
+                    <field name="template_id" invisible="1"/>
+                    <field name="ref_proveedor" invisible="1"/>
+                    <field name="descripcion" readonly="1"/>
+                    <field name="precio_coste_actual" readonly="1" attrs="{'invisible': [('new_product', '=', True)]}"/>
+                    <field name="precio_coste" readonly="1"/>
+                    <field name="categoria" options='{"no_open": True}' readonly="1"/>
+                    <field name="margen_categoria_actual" attrs="{'invisible': [('vendible', '=', False)]}"/>
+                    <field name="margen_categoria" attrs="{'invisible': [('vendible', '=', False)]}"/>
+                    <field name="stock_minimo_actual"/>
+                    <field name="stock_minimo_nuevo"/>
+                    <!--<field name="base_fijo_valor" attrs="{'invisible': [('base_fijo', '=', False)]}"/>-->
+                 </tree>
+            </field>
+        </record>
+
+        <!--<record id="sohovet_import_products_items_overview_tree" model="ir.ui.view">-->
+            <!--<field name="name">Importar productos</field>-->
+            <!--<field name="model">sohovet.import.products.item</field>-->
+            <!--<field name="view_type">tree</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Productos" create="false" colors="{red:new_product}">-->
+                    <!--<field name="new_product"/>-->
+                    <!--<field name="ref_proveedor"/>-->
+                    <!--<field name="import_ean13" invisible="1"/>-->
+                    <!--<field name="ean13" attrs="{'invisible': [('import_ean13', '=', False)]}"/>-->
+                    <!--<field name="import_descripcion" invisible="1"/>-->
+                    <!--<field name="descripcion" attrs="{'invisible': [('import_descripcion', '=', False)]}"/>-->
+                    <!--<field name="product_uom" options='{"no_open": True}' attrs="{'invisible': [('import_descripcion', '=', False)]}"/>-->
+                    <!--<field name="import_categoria" invisible="1"/>-->
+                    <!--<field name="categoria" options='{"no_open": True}' attrs="{'invisible': [('import_categoria', '=', False)]}"/>-->
+                    <!--<field name="margen_corrector" attrs="{'invisible': [('import_categoria', '=', False)]}"/>-->
+                    <!--<field name="import_grupo" invisible="1"/>-->
+                    <!--<field name="grupo" options='{"no_open": True}' attrs="{'invisible': [('import_grupo', '=', False)]}"/>-->
+                    <!--<field name="import_marca" invisible="1"/>-->
+                    <!--<field name="marca" options='{"no_open": True}' attrs="{'invisible': [('import_marca', '=', False)]}"/>-->
+                    <!--<field name="import_unidades_compra" invisible="1"/>-->
+                    <!--<field name="unidades_compra" options='{"no_open": True}' attrs="{'invisible': [('import_unidades_compra', '=', False)]}"/>-->
+                    <!--<field name="import_coste_compra" invisible="1"/>-->
+                    <!--<field name="coste_compra" attrs="{'invisible': [('import_coste_compra', '=', False)]}"/>-->
+                    <!--<field name="import_iva_compra" invisible="1"/>-->
+                    <!--<field name="iva_compra_sel" attrs="{'invisible': [('import_iva_compra', '=', False)]}"/>-->
+                    <!--<field name="import_iva_venta" invisible="1"/>-->
+                    <!--<field name="iva_venta_sel" attrs="{'invisible': [('import_iva_venta', '=', False)]}"/>-->
+                    <!--<field name="import_descuento" invisible="1"/>-->
+                    <!--<field name="descuento" attrs="{'invisible': [('import_descuento', '=', False)]}"/>-->
+                    <!--<field name="import_vendible" invisible="1"/>-->
+                    <!--<field name="vendible" attrs="{'invisible': [('import_vendible', '=', False)]}"/>-->
+                    <!--<field name="import_stock_min" invisible="1"/>-->
+                    <!--<field name="stock_min" attrs="{'invisible': [('import_stock_min', '=', False)]}"/>-->
+                    <!--<field name="import_ubicacion" invisible="1"/>-->
+                    <!--<field name="ubicacion" attrs="{'invisible': [('import_ubicacion', '=', False)]}"/>-->
+                 <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="sohovet_import_products_items_form" model="ir.ui.view">
+            <field name="name">Importar productos</field>
+            <field name="model">sohovet.import.products.item</field>
+            <field name="view_type">form</field>
+            <field name="arch" type="xml">
+                <form string="Productos" version="7.0" create="false" edit="false">
+                    <group>
+                        <group>
+                            <field name="supplier_id"/>
+                            <field name="ref_proveedor"/>
+                            <field name="ean13"/>
+                            <field name="descripcion"/>
+                            <field name="categoria"/>
+                            <field name="grupo"/>
+                            <field name="vendible"/>
+                        </group>
+                        <group>
+                            <field name="unidades_compra"/>
+                            <field name="coste_compra"/>
+                            <field name="iva_compra"/>
+                            <field name="iva_venta"/>
+                            <field name="descuento"/>
+                            <field name="stock_min"/>
+                        </group>
+                    </group>
+                 </form>
+            </field>
+        </record>
+    </data>
+</openerp>

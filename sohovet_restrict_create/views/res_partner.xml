@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_form_no_create" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="100"/>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user')])]"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </field>
+                <field name="state_id" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                </field>
+                <field name="country_id" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                </field>
+                <field name="title" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                </field>
+                <field name="property_stock_customer" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                </field>
+                <field name="property_stock_supplier" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                </field>
+                <field name="property_account_receivable" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                </field>
+                <field name="property_account_payable" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                </field>
+                <page string="Accounting" position="attributes">
+                    <attribute name="groups"></attribute>
+                </page>
+            </field>
+        </record>
+
+        <record id="view_partner_form_no_create2" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="101"/>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="attributes">
+                    <attribute name="options">{'no_create': False}</attribute>
+                </field>
+                <field name="state_id" position="attributes">
+                    <attribute name="options">{'no_create': False, 'no_open': False}</attribute>
+                </field>
+                <field name="country_id" position="attributes">
+                    <attribute name="options">{'no_create': False, 'no_open': False}</attribute>
+                </field>
+                <field name="title" position="attributes">
+                    <attribute name="options">{'no_create': False, 'no_open': False}</attribute>
+                </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="options">{'no_create': False, 'no_open': False}</attribute>
+                </field>
+                <field name="property_stock_customer" position="attributes">
+                    <attribute name="options">{'no_create': False, 'no_open': False}</attribute>
+                </field>
+                <field name="property_stock_supplier" position="attributes">
+                    <attribute name="options">{'no_create': False, 'no_open': False}</attribute>
+                </field>
+                <field name="property_account_receivable" position="attributes">
+                    <attribute name="options">{'no_create': False, 'no_open': False}</attribute>
+                </field>
+                <field name="property_account_payable" position="attributes">
+                    <attribute name="options">{'no_create': False, 'no_open': False}</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!--<record model="sohovet.vaccine.config" id="sohovet_vacine_config">-->
+            <!--<field name="sms_initial_msg">Hola $nombre!</field>-->
+            <!--<field name="sms_end_msg">Pídenos cita en el 91 393 20 10</field>-->
+        <!--</record>-->
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type1">
+            <field name="name">Chip</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type2">
+            <field name="name">Copro Pendiente</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type3">
+            <field name="name">Coprológico Neg</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type4">
+            <field name="name">Coprológico Pos</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type5">
+            <field name="name">Coronavirus</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type6">
+            <field name="name">Desparasitación</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type7">
+            <field name="name">Enf. Hemorrágic</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type8">
+            <field name="name">Inhibición Celo</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type9">
+            <field name="name">KC</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type10">
+            <field name="name">Leish Pendiente</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type11">
+            <field name="name">Leishmania</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type12">
+            <field name="name">Leishmania Neg</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type13">
+            <field name="name">Leishmania Pos</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type14">
+            <field name="name">Leucemia</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type15">
+            <field name="name">Mixomatosis</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type16">
+            <field name="name">Parvovirus</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type17">
+            <field name="name">Pif</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type18">
+            <field name="name">Prog Salud</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type19">
+            <field name="name">Puppy</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type20">
+            <field name="name">Rabia</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type21">
+            <field name="name">Revisión Dental</field>
+        </record>
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type22">
+            <field name="name">Test Leishmania</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type23">
+            <field name="name">Tetravalente</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vacine_type24">
+            <field name="name">Trivalente</field>
+        </record>
+
+        <record model="sohovet.vaccine.type" id="sohovet_vaccine_type25">
+            <field name="name">1ª rev. mamaria</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule1">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type6"/>  <!-- Desparasitacion -->
+            <field name="next_type_id" ref="sohovet_vacine_type6"/>  <!-- Desparasitacion -->
+            <field name="periodicity">3</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule2">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type12"/>  <!-- Leishmania Neg -->
+            <field name="next_type_id" ref="sohovet_vacine_type12"/>  <!-- Leishmania Neg -->
+            <field name="periodicity">12</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule3">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type20"/>  <!-- Rabia -->
+            <field name="next_type_id" ref="sohovet_vacine_type20"/>  <!-- Rabia -->
+            <field name="periodicity">12</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule4">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type23"/>  <!-- Tetravalente -->
+            <field name="next_type_id" ref="sohovet_vacine_type23"/>  <!-- Tetravalente -->
+            <field name="periodicity">12</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule5">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type5"/>  <!-- Coronavirus -->
+            <field name="next_type_id" ref="sohovet_vacine_type5"/>  <!-- Coronavirus -->
+            <field name="periodicity">12</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule6">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type24"/>  <!-- Trivalente -->
+            <field name="next_type_id" ref="sohovet_vacine_type24"/>  <!-- Trivalente -->
+            <field name="periodicity">12</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule7">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type9"/>  <!-- KC -->
+            <field name="next_type_id" ref="sohovet_vacine_type9"/>  <!-- KC -->
+            <field name="periodicity">12</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule8">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type3"/>  <!-- Gato -->
+            <field name="type_id" ref="sohovet_vacine_type24"/>  <!-- Trivalente -->
+            <field name="next_type_id" ref="sohovet_vacine_type24"/>  <!-- Trivalente -->
+            <field name="periodicity">12</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule9">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type3"/>  <!-- Gato -->
+            <field name="type_id" ref="sohovet_vacine_type14"/>  <!-- Leucemia -->
+            <field name="next_type_id" ref="sohovet_vacine_type14"/>  <!-- Leucemia -->
+            <field name="periodicity">12</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule10">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type3"/>  <!-- Gato -->
+            <field name="type_id" ref="sohovet_vacine_type17"/>  <!-- Pif -->
+            <field name="next_type_id" ref="sohovet_vacine_type17"/>  <!-- Pif -->
+            <field name="periodicity">12</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule11">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type3"/>  <!-- Gato -->
+            <field name="type_id" ref="sohovet_vacine_type8"/>  <!-- Inhibición celo -->
+            <field name="next_type_id" ref="sohovet_vacine_type8"/>  <!-- Inhibición celo -->
+            <field name="periodicity">5</field>
+        </record>
+
+        <record model="sohovet.vaccine.rule" id="sohovet_vacine_rule12">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type3"/>  <!-- Gato -->
+            <field name="type_id" ref="sohovet_vacine_type6"/>  <!-- Desparasitacion -->
+            <field name="next_type_id" ref="sohovet_vacine_type6"/>  <!-- Desparasitacion -->
+            <field name="periodicity">3</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message1">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type6"/>  <!-- Desparasitacion -->
+            <field name="init_month">11</field>
+            <field name="end_month">1</field>
+            <field name="message">su desparasitación trimestral</field>
+            <field name="short_message">desparasitación trimestral</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message2">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type6"/>  <!-- Desparasitacion -->
+            <field name="init_month">2</field>
+            <field name="end_month">10</field>
+            <field name="message">su desparasitación trimestral con protección contra Leishmania</field>
+            <field name="short_message">desparasitación trimestral con protección contra Leishmania</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message3">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type12"/>  <!-- Leishmania Neg -->
+            <field name="init_month">1</field>
+            <field name="end_month">12</field>
+            <field name="message">el test anual para la detección de la Leishmania</field>
+            <field name="short_message">test Leishmania</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message4">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type20"/>  <!-- Rabia -->
+            <field name="init_month">1</field>
+            <field name="end_month">12</field>
+            <field name="message">la vacuna de la Rabia</field>
+            <field name="short_message">vacuna de la Rabia</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message5">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type23"/>  <!-- Tetravalente -->
+            <field name="init_month">1</field>
+            <field name="end_month">12</field>
+            <field name="message">la vacuna Tetravalente</field>
+            <field name="short_message">vacuna Tetravalente</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message6">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type5"/>  <!-- Coronavirus -->
+            <field name="init_month">1</field>
+            <field name="end_month">12</field>
+            <field name="message">la vacuna del Coronavirus</field>
+            <field name="short_message">vacuna del Coronavirus</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message7">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type24"/>  <!-- Trivalente -->
+            <field name="init_month">1</field>
+            <field name="end_month">12</field>
+            <field name="message">la vacuna Trivalente</field>
+            <field name="short_message">vacuna Trivalente</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message8">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type1"/>  <!-- Perro -->
+            <field name="type_id" ref="sohovet_vacine_type9"/>  <!-- KC -->
+            <field name="init_month">1</field>
+            <field name="end_month">12</field>
+            <field name="message">la vacuna de la Rinotraqueitis Canina</field>
+            <field name="short_message">vacuna de la Rinotraqueitis Canina</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message9">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type3"/>  <!-- Gato -->
+            <field name="type_id" ref="sohovet_vacine_type24"/>  <!-- Trivalente -->
+            <field name="init_month">1</field>
+            <field name="end_month">12</field>
+            <field name="message">la vacuna Trivalente</field>
+            <field name="short_message">vacuna Trivalente</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message10">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type3"/>  <!-- Gato -->
+            <field name="type_id" ref="sohovet_vacine_type14"/>  <!-- Leucemia -->
+            <field name="init_month">1</field>
+            <field name="end_month">12</field>
+            <field name="message">su control anual de Leucemia</field>
+            <field name="short_message">control Leucemia</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message11">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type3"/>  <!-- Gato -->
+            <field name="type_id" ref="sohovet_vacine_type17"/>  <!-- Pif -->
+            <field name="init_month">1</field>
+            <field name="end_month">12</field>
+            <field name="message">su vacuna de la Peritonitis Infecciosa Felina</field>
+            <field name="short_message">vacuna de la Peritonitis Infecciosa Felina</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message12">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type3"/>  <!-- Gato -->
+            <field name="type_id" ref="sohovet_vacine_type8"/>  <!-- Inhibición celo -->
+            <field name="init_month">1</field>
+            <field name="end_month">12</field>
+            <field name="message">la inhibición de celo</field>
+            <field name="short_message">inhibición de celo</field>
+        </record>
+
+        <record model="sohovet.vaccine.reminder.message" id="sohovet_reminder_message13">
+            <field name="animal_type_id" ref="sohovet_animal.sohovet_animal_type3"/>  <!-- Gato -->
+            <field name="type_id" ref="sohovet_vacine_type6"/>  <!-- Desparasitacion -->
+            <field name="init_month">1</field>
+            <field name="end_month">12</field>
+            <field name="message">su desparasitación trimestral</field>
+            <field name="short_message">desparasitación trimestral</field>
+        </record>
+    </data>
+</openerp>

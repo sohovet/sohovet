@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sohovet_product_brand_type,access_sohovet_product_brand_type,model_sohovet_product_brand_type,,1,0,0,0
+access_sohovet_product_brand,access_sohovet_product_brand,model_sohovet_product_brand,,1,1,1,1
+access_sohovet_product_group,access_sohovet_product_group,model_sohovet_product_group,,1,0,0,0

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="sohovet_appointment_form_view" model="ir.ui.view">
+            <field name="name">sohovet.appointment.form</field>
+            <field name="model">sohovet.appointment</field>
+            <field name="arch" type="xml">
+                <form name="Citas" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="date_create" string="Fecha creación"/>
+                            <field name="day" string="Fecha cita"/>
+                            <field name="initial_time"/>
+                            <field name="end_time"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_appointment_tree_view" model="ir.ui.view">
+            <field name="name">sohovet.appointment.tree</field>
+            <field name="model">sohovet.appointment</field>
+            <field name="arch" type="xml">
+                <tree name="Citas">
+                    <field name="date_create" string="Fecha creación"/>
+                    <field name="day" string="Fecha cita"/>
+                    <field name="initial_time"/>
+                    <field name="end_time"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!--
+        #####################################################
+        #################### RES PARTNER ####################
+        #####################################################
+        -->
+        <record id="sohovet_res_partner_form_appointment_view" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page name="internal_notes" position="after">
+                    <page string="Citas">
+                        <field name="appointment_ids" readonly="1"/>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>

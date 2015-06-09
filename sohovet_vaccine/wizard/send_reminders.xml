@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sohovet_vaccine_reminder_sent_wizard_form" model="ir.ui.view">
+            <field name="name">Generar CSV</field>
+            <field name="model">sohovet.vaccine.reminder.send.wizard</field>
+            <field name="arch" type="xml">
+                 <form string="Enviar recordatorios" version="7.0">
+                     <group name="information">
+                         <group>
+                             <field name="filename" invisible="1"/>
+                             <field name="bin_file" filename="filename" readonly="1"/>
+                             <field name="num_reminders" readonly="1"/>
+                             <field name="num_sms" readonly="1"/>
+                         </group>
+                     </group>
+                     <!--<p><b>ATENCIÓN:</b> Actualizar todos los clientes desde la base de datos Sovohet puede-->
+                         <!--tardar entre 15 y 20 minutos.<br/></p>-->
+                     <footer>
+                         <button name="send_all" string="Enviar mensajes" type="object" class="oe_highlight"/>
+                         <button string="Salir" special="cancel" type="object" class="oe_link oe_right"/>
+                     </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Enviar todos los seleccionados"
+           res_model="sohovet.vaccine.reminder.send.wizard"
+           src_model="sohovet.vaccine.reminder"
+           view_mode="form"
+           view_id="sohovet_vaccine_reminder_sent_wizard_form"
+           target="new"
+           key2="client_action_multi"
+           id="sohovet_vaccine_reminder_send_wizard_action"
+           context="{'send_all_selected': True}"
+           groups="base.group_no_one"
+                />
+
+        <act_window name="Enviar un lote"
+           res_model="sohovet.vaccine.reminder.send.wizard"
+           src_model="sohovet.vaccine.reminder"
+           view_mode="form"
+           view_id="sohovet_vaccine_reminder_sent_wizard_form"
+           target="new"
+           key2="client_action_multi"
+           id="sohovet_vaccine_reminder_send_wizard_action2"
+           context="{'send_selected_batch': True}"
+           groups="base.group_no_one"
+                />
+
+        <record id="sohovet_vaccine_reminder_send_batch_wizard_action" model="ir.actions.act_window">
+            <field name="name">Enviar lote</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sohovet.vaccine.reminder.send.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'send_batch': True}</field>
+        </record>
+
+        <record id="sohovet_vaccine_reminder_send_all_wizard_action" model="ir.actions.act_window">
+            <field name="name">Enviar todos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sohovet.vaccine.reminder.send.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'send_all': True}</field>
+        </record>
+
+        <menuitem id="sohovet_vaccine_reminder_send_batch_wizard_menu" parent="sohovet_vaccine.sohovet_vaccine_reminder_menu"
+                  action="sohovet_vaccine_reminder_send_batch_wizard_action" name="Enviar lote" sequence="20"
+                  groups="base.group_no_one"/>
+
+        <menuitem id="sohovet_vaccine_reminder_send_all_wizard_menu" parent="sohovet_vaccine.sohovet_vaccine_reminder_menu"
+                  action="sohovet_vaccine_reminder_send_all_wizard_action" name="Enviar todos" sequence="30"
+                  groups="base.group_no_one"/>
+    </data>
+</openerp>

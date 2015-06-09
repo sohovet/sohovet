@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sohovet_animal_specie,access_sohovet_animal_specie,model_sohovet_animal_specie,,1,1,1,1
+access_sohovet_animal_breed,access_sohovet_animal_breed,model_sohovet_animal_breed,,1,1,1,1
+access_sohovet_animal_type,access_sohovet_animal_type,model_sohovet_animal_type,,1,1,1,1
+access_sohovet_animal,access_sohovet_animal,model_sohovet_animal,,1,1,1,1

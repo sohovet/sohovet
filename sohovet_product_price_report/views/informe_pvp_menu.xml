@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            string="Hoja de tarifas"
+            id="report_pvp_menu"
+            model="product.template"
+            report_type="qweb-pdf"
+            name="sohovet_product_price_report.informe_pvp"
+            file="sohovet_product_price_report.informe_pvp"
+        />
+    </data>
+</openerp>

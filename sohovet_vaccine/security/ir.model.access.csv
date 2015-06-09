@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sohovet_vaccine_type,access_sohovet_vaccine_type,model_sohovet_vaccine_type,,1,1,1,1
+access_sohovet_vaccine_rule,access_sohovet_vaccine_rule,model_sohovet_vaccine_rule,,1,1,1,1
+access_sohovet_vaccine,access_sohovet_vaccine,model_sohovet_vaccine,,1,1,1,1
+access_sohovet_vaccine_reminder,access_sohovet_vaccine_reminder,model_sohovet_vaccine_reminder,,1,1,1,1
+access_sohovet_vaccine_reminder_message,access_sohovet_vaccine_reminder_message,model_sohovet_vaccine_reminder_message,,1,1,1,1
+access_sohovet_vaccine_reminder_batch,access_sohovet_vaccine_reminder_batch,model_sohovet_vaccine_reminder_batch,,1,1,1,1

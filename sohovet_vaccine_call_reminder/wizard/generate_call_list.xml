@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sohovet_generate_call_list_wizard" model="ir.ui.view">
+            <field name="name">Generar listado de llamadas</field>
+            <field name="model">sohovet.vaccine.call_reminder.wizard</field>
+            <field name="arch" type="xml">
+                 <form string="Generar listado de llamadas" version="7.0">
+                     <p>Este asistente generará una lista de clientes con llamadas pendientes</p>
+                     <group>
+                         <field name="batch" options="{'no_open': True, 'no_create': True}"/>
+                         <field name="exclude_unreachable"/>
+                         <field name="n_items"/>
+                     </group>
+                     <footer>
+                        <button name="generate_list" string="Generar listado" type="object" class="oe_highlight"/>
+                        <button string="Salir" special="cancel" type="object" class="oe_link oe_right"/>
+                     </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_generate_call_list_wizard_action" model="ir.actions.act_window">
+            <field name="name">Clientes a llamar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sohovet.vaccine.call_reminder.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sohovet_generate_call_list_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="sohovet_generate_call_list_wizard_menu"  parent="sohovet_vaccine.sohovet_vaccine_reminder_menu_main"
+                  action="sohovet_generate_call_list_wizard_action" name="Clientes a llamar" sequence="30"/>
+    </data>
+</openerp>

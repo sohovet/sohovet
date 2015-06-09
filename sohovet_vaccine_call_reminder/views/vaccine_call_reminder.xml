@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sohovet_vaccine_call_reminder_form" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.call_reminder.form</field>
+            <field name="model">sohovet.vaccine.call_reminder</field>
+            <field name="arch" type="xml">
+                <form string="Llamadas" version="7.0" create="1">
+                    <field name="id" invisible="1"/>
+                    <!--<group>-->
+                        <!--<field name="sms_reminder_id"/>-->
+                    <!--</group>-->
+                    <group>
+                        <field name="partner_id" readonly="1"/>
+                        <field name="date"/>
+                        <field name="create_uid" class="oe_read_only" string="Realizada por" readonly="1"/>
+                        <field name="status"/>
+                    </group>
+                    <field name="notes" placeholder="Observaciones..."/>
+                    <footer class="oe_edit_only" attrs="{'invisible': [('id', '!=', False)]}">
+                        <button class="oe_highlight" name="write" type="object" string="Guardar"/> o
+                        <button name="cancel" string="Cancelar" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_call_reminder_no_partner_form" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.call_reminder.form</field>
+            <field name="model">sohovet.vaccine.call_reminder</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form string="Llamadas" version="7.0" create="1">
+                    <field name="id" invisible="1"/>
+                    <!--<group>-->
+                        <!--<field name="sms_reminder_id"/>-->
+                    <!--</group>-->
+                    <group>
+                        <field name="date"/>
+                        <field name="create_uid" class="oe_read_only" string="Realizada por" readonly="1"/>
+                        <field name="status"/>
+                    </group>
+                    <field name="notes" placeholder="Observaciones..."/>
+                    <footer class="oe_edit_only" attrs="{'invisible': [('id', '!=', False)]}">
+                        <button class="oe_highlight" name="write" type="object" string="Guardar"/> o
+                        <button name="cancel" string="Cancelar" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_call_reminder_tree" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.call_reminder.tree</field>
+            <field name="model">sohovet.vaccine.call_reminder</field>
+            <field name="arch" type="xml">
+                <tree string="Llamadas" create="0">
+                    <field name="create_date"/>
+                    <field name="create_uid" string="Realizada por"/>
+                    <field name="partner_id"/>
+                    <field name="status"/>
+                    <field name="notes"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_call_reminder_no_parter_tree" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.call_reminder.tree</field>
+            <field name="model">sohovet.vaccine.call_reminder</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <tree string="Llamadas" create="0">
+                    <field name="date"/>
+                    <field name="create_uid" string="Realizada por"/>
+                    <field name="status"/>
+                    <field name="notes"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="sohovet_vaccine_call_reminder_action" model="ir.actions.act_window">
+            <field name="name">Llamadas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sohovet.vaccine.call_reminder</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="target">current</field>-->
+        </record>
+
+        <menuitem id="sohovet_vaccine_call_reminder_menu"  parent="sohovet_vaccine.sohovet_vaccine_reminder_menu_main"
+                  action="sohovet_vaccine_call_reminder_action" name="Llamadas" sequence="20" groups="base.group_no_one"/>
+
+
+        <!--########################-->
+        <!--SOHOVET VACCINE REMINDER-->
+        <!--########################-->
+
+        <record id="sohovet_vaccine_reminder_tree_calls" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.call_reminder.tree</field>
+            <field name="model">sohovet.vaccine.reminder</field>
+            <field name="inherit_id" ref="sohovet_vaccine.sohovet_vaccine_reminder_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="n_calls" attrs="{'invisible': ['|', ('state', '!=', 'sent'), ('n_calls', '=', 0)]}"/>
+                    <button name="remove_calls" type="object" string="Borrar llamadas" attrs="{'invisible': [('n_calls', '=', 0)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="sohovet_vaccine_reminder_form_calls" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.call_reminder.form</field>
+            <field name="model">sohovet.vaccine.reminder</field>
+            <field name="inherit_id" ref="sohovet_vaccine.sohovet_vaccine_reminder_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/*" position="before">
+                    <div class="oe_right oe_button_box" name="buttons" attrs="{'invisible': [('state', '!=', 'sent')]}">
+                        <button class="oe_inline oe_stat_button oe_view_only" name="register_call"
+                                 type="object" icon="fa-phone">
+                             <div>Registrar<br/>llamada</div>
+                        </button>
+                        <button class="oe_inline oe_stat_button oe_view_only" name="remove_calls"
+                                 type="object" icon="fa-phone">
+                             <div>Borrar<br/>llamadas</div>
+                        </button>
+                    </div>
+                </xpath>
+                 <field name="vaccine_ids" position="after">
+                    <!--<label for="call_reminder_ids"/>-->
+                    <!--<field name="call_reminder_ids" attrs="{'invisible': [('state', '!=', 'sent')]}" nolabel="1"/>-->
+                     <field name="call_reminder_ids" attrs="{'invisible': [('state', '!=', 'sent')]}"
+                           context="{'tree_view_ref': 'sohovet_vaccine_call_reminder.sohovet_vaccine_call_reminder_no_parter_tree'}"/>
+
+                     <!--<button name="register_call" type="object" string="Nueva" attrs="{'invisible': [('state', '!=', 'sent')]}"/>-->
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--
+        #####################################################
+        #################### RES PARTNER ####################
+        #####################################################
+        -->
+        <record id="sohovet_res_partner_form_animals_view" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="18"/>
+            <field name="arch" type="xml">
+                <page name="internal_notes" position="after">
+                    <page name="reminder_tab" string="Recordatorios SMS">
+                        <field name="reminder_ids" readonly="1" domain="[('state', '=', 'sent')]">
+                            <!--<tree string="Animales">-->
+                                <!--<field name="name"/>-->
+                                <!--<field name="type_id"/>-->
+                                <!--<field name="specie_id"/>-->
+                                <!--<field name="breed_id"/>-->
+                            <!--</tree>-->
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

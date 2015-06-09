@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--
+        #####################################################
+        #################### RES PARTNER ####################
+        #####################################################
+        -->
+        <record id="sohovet_res_partner_form_view" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field eval="6" name="priority"/>
+            <field name="arch" type="xml">
+                <field name="comment" position="before">
+                    <label for="description" attrs="{'invisible': [('import_comments','=',False)]}" string="Comentarios"/>
+                </field>
+                <field name="comment" position="after">
+                    <label for="import_comments" attrs="{'invisible': [('import_comments','=',False)]}" string="Notas de importación"/>
+                    <field name="import_comments" attrs="{'invisible': [('import_comments','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

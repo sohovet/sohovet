@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--
+        ##########################################################
+        #################### PRODUCT TEMPLATE ####################
+        ##########################################################
+        -->
+        <record id="sohovet_product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="priority" eval="50"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="group_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="brand_id" options="{'no_open': True}"/>
+                </field>
+                <page string="Accounting" position="attributes">
+                    <attribute name="groups"></attribute>
+                </page>
+            </field>
+        </record>
+
+        <record id="sohovet_product_template_form_inherit_view" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <field name="categ_id" position="replace"/>
+                <label for="categ_id" position="replace"/>
+                <h1 position="after">
+                    <label class="oe_edit_only" for="supplier" string="Categoría"/>
+                    <field name="categ_id" options="{'no_open': True, 'no_create': True}"/>
+                </h1>
+                <page name="sales" position="replace"/>
+                <page name="variants" position="replace"/>
+                <group name="status" position="replace"/>
+                <group name="store" position="replace"/>
+                <group name="weight" position="replace"/>
+                <group name="packaging" position="replace"/>
+
+            </field>
+        </record>
+
+        <!--<record id="sohovet_product_template_form_inherit_view" model="ir.ui.view">-->
+            <!--<field name="name">product.template.form.inherit</field>-->
+            <!--<field name="model">product.template</field>-->
+            <!--<field name="priority">6</field>-->
+            <!--<field name="inherit_id" ref="account.product_template_form_view"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="purchase_ok" position="after">-->
+                    <!--<field name="botiquin"/>-->
+                <!--</field>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="sohovet_template_search_view" model="ir.ui.view">
+            <field name="name">product.template.search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <field name="categ_id" position="after">
+                    <field name="group_id"/>
+                    <field name="brand_id"/>
+                    <field name="seller_ids"/>
+                    <field name="uom_id"/>
+                </field>
+            </field>
+        </record>
+
+        <!--
+        ################################################
+        #################### MARCAS ####################
+        ################################################
+        -->
+
+        <record id="sohovet_product_brand_form_view" model="ir.ui.view">
+            <field name="name">sohovet.product.brand.form.view</field>
+            <field name="model">sohovet.product.brand</field>
+            <field name="arch" type="xml">
+                <form string="Marca" version="7.0">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="type" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_product_brand_tree_view" model="ir.ui.view">
+            <field name="name">sohovet.product.brand.tree.view</field>
+            <field name="model">sohovet.product.brand</field>
+            <field name="arch" type="xml">
+                <tree string="Marcas">
+                    <field name="name"/>
+                    <field name="type" options="{'no_open': True, 'no_create': True}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_product_brand_action" model="ir.actions.act_window">
+			<field name="name">Marcas</field>
+			<field name="res_model">sohovet.product.brand</field>
+			<field name="view_mode">form,tree</field>
+			<field name="view_id" eval="False"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Pulse para crear una nueva marca.</p>
+			</field>
+		</record>
+
+        <record id="sohovet_product_brand_action_form" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="sohovet_product_brand_form_view"/>
+			<field name="act_window_id" ref="sohovet_product_brand_action"/>
+		</record>
+
+		<record id="sohovet_product_brand_action_tree" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="sohovet_product_brand_tree_view"/>
+			<field name="act_window_id" ref="sohovet_product_brand_action"/>
+		</record>
+
+        <menuitem id="sohovet_product_brand_menu" parent="product.prod_config_main" action="sohovet_product_brand_action"
+                  name="Marcas" sequence="1"/>
+
+        <!-- Brand type action -->
+        <record id="sohovet_product_brand_type_action" model="ir.actions.act_window">
+			<field name="name">Tipos de marca</field>
+			<field name="res_model">sohovet.product.brand.type</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+        <!-- Brand type menu -->
+        <menuitem id="sohovet_product_brand_type_menu" parent="sohovet_product_brand_menu" action="sohovet_product_brand_type_action"
+                  name="Tipos de marca" sequence="1"/>
+
+        <!--
+        ################################################
+        #################### GRUPOS ####################
+        ################################################
+        -->
+
+        <record id="sohovet_product_group_form_view" model="ir.ui.view">
+            <field name="name">sohovet.product.group.form.view</field>
+            <field name="model">sohovet.product.group</field>
+            <field name="arch" type="xml">
+                <form string="Grupo" version="7.0">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_product_group_tree_view" model="ir.ui.view">
+            <field name="name">sohovet.product.group.tree.view</field>
+            <field name="model">sohovet.product.group</field>
+            <field name="arch" type="xml">
+                <tree string="Grupos">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_product_group_action" model="ir.actions.act_window">
+			<field name="name">Grupos</field>
+			<field name="res_model">sohovet.product.group</field>
+			<field name="view_mode">form,tree</field>
+			<field name="view_id" eval="False"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Pulse para crear una nuevo grupo.</p>
+			</field>
+		</record>
+
+        <record id="sohovet_product_group_action_form" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="sohovet_product_group_form_view"/>
+			<field name="act_window_id" ref="sohovet_product_group_action"/>
+		</record>
+
+		<record id="sohovet_product_group_action_tree" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="sohovet_product_group_tree_view"/>
+			<field name="act_window_id" ref="sohovet_product_group_action"/>
+		</record>
+
+        <menuitem id="sohovet_product_group_menu" parent="product.prod_config_main" action="sohovet_product_group_action"
+                  name="Grupos" sequence="2"/>
+
+
+        <record id="sohovet_product_supplierinfo_form_view" model="ir.ui.view">
+            <field name="name">sohovet.product.supplierinfo.form.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="attributes">
+                    <attribute name="colspan">4</attribute>
+                    <attribute name="options">{'no_open': True, 'no_create': True}</attribute>
+                </field>
+                <field name="product_name" position="attributes">
+                    <attribute name="colspan">4</attribute>
+                </field>
+                <field name="sequence" position="replace"/>
+                <field name="min_qty" position="replace"/>
+                <field name="delay" position="replace"/>
+                <field name="product_uom" position="replace"/>
+                <field name="product_code" position="after">
+                    <field name="supplier_discount"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="sohovet_product_supplierinfo_tree_view" model="ir.ui.view">
+            <field name="name">sohovet.product.supplierinfo.tree.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="delay" position="replace"/>
+                <field name="min_qty" position="replace">
+                    <field name="product_name"/>
+                    <field name="product_code"/>
+                    <field name="supplier_discount"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

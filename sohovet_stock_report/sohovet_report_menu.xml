@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            string="Informe de stock"
+            id="sohovet_stock_report"
+            model="sohovet.stock.report"
+            report_type="qweb-pdf"
+            name="sohovet_stock_report.informe_stock"
+            file="sohovet_stock_report.informe_stock"
+        />
+
+        <act_window name="Hoja de almacén (sólo stock mínimo)"
+           res_model="sohovet.stock.report"
+           src_model="product.template"
+           view_mode="form"
+           view_id="sohovet_stock_report_wizard"
+           target="new"
+           key2="client_action_multi"
+           id="warehouse_report_action"/>
+
+        <act_window name="Hoja de almacén (completa)"
+           res_model="sohovet.stock.report"
+           src_model="product.template"
+           view_mode="form"
+           view_id="sohovet_stock_report_wizard"
+           target="new"
+           key2="client_action_multi"
+           id="warehouse_report_action2"
+           context="{'stock_full_report': True}"/>
+
+        <record id="paperformat_internalA4" model="report.paperformat">
+            <field name="name">Informe interno A4</field>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">25</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="sohovet_stock_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="paperformat_internalA4"/>
+        </record>
+    </data>
+</openerp>

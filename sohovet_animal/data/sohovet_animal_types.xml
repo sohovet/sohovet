@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <record model="sohovet.animal.type" id="sohovet_animal_type1">
+            <field name="code">C</field>
+            <field name="name">C</field>
+        </record>
+
+        <record model="sohovet.animal.type" id="sohovet_animal_type2">
+            <field name="code">M</field>
+            <field name="name">M</field>
+        </record>
+
+        <record model="sohovet.animal.type" id="sohovet_animal_type3">
+            <field name="code">F</field>
+            <field name="name">F</field>
+        </record>
+
+        <record model="sohovet.animal.type" id="sohovet_animal_type4">
+            <field name="code">A</field>
+            <field name="name">A</field>
+        </record>
+
+        <record model="sohovet.animal.type" id="sohovet_animal_type5">
+            <field name="code">R</field>
+            <field name="name">R</field>
+        </record>
+
+        <record model="sohovet.animal.type" id="sohovet_animal_type6">
+            <field name="code">P</field>
+            <field name="name">P</field>
+        </record>
+    </data>
+</openerp>

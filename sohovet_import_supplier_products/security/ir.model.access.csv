@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sohovet_import_products,access_sohovet_import_products,model_sohovet_import_products,,1,1,1,1
+access_sohovet_import_products_item,access_sohovet_import_products_item,model_sohovet_import_products_item,,1,1,1,1

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="sohovet_textlocal_config_form" model="ir.ui.view">
+            <field name="name">sohovet.vaccine.config.form</field>
+            <field name="model">sohovet.vaccine.config</field>
+            <field name="inherit_id" ref="sohovet_vaccine.sohovet_vaccine_config_form"/>
+            <field name="arch" type="xml">
+                <group name="configuration" position="after">
+                    <group string="Configuración de TextLocal">
+                        <group>
+                            <field name="textlocal_user"/>
+                            <field name="textlocal_hash" string="* Hash" password="1"/>
+                            <field name="textlocal_sender_name"/>
+                        </group>
+                        <group>
+                            <field name="textlocal_sms_cost"/>
+                            <field name="textlocal_admin_phones"/>
+                        </group>
+                        <div>
+                            * Puede encontrar su código hash en la sección ayuda de Textlocal
+                            (<a href="https://control.txtlocal.co.uk/docs/" target="new">https://control.txtlocal.co.uk/docs/</a>)
+                        </div>
+                        <group>
+
+                        </group>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+        <!--<record id="sohovet_textlocal_config_action" model="ir.actions.act_window">-->
+            <!--<field name="name">Configuración de Textlocal</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">sohovet.textlocal.config</field>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="target">inline</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="sohovet_textlocal_config_menu" name="Configuración de Textlocal" parent="sohovet_vaccine.sohovet_vaccine_menu_configuration" action="sohovet_textlocal_config_action" sequence="40"/>-->
+
+    </data>
+</openerp>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sohovet_product_categ_wizard" model="ir.ui.view">
+            <field name="name">Category wizard</field>
+            <field name="model">sohovet.product.price.wizard</field>
+            <field name="arch" type="xml">
+                 <form string="Category wizard" version="7.0">
+
+                     <!--<div class="oe_horizontal_separator oe_clear">-->
+                         <!--This wizard changes the category of all selected products-->
+                     <!--</div>-->
+                     <group>
+                         <group>
+                             <field name="categ_id" options="{'no_create': True, 'no_open': True}"/>
+                             <field name="additional_margin"/>
+                             <field name="discount_percentage"/>
+                        </group>
+                         <group>
+                             <field name="category_margin"/>
+                             <field name="total_margin"/>
+                         </group>
+                     </group>
+                     <button name="apply_changes" string="Save" type="object"/>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Modificaciones en lote"
+                   res_model="sohovet.product.price.wizard"
+                   src_model="product.template"
+                   view_mode="form"
+                   view_id="sohovet_product_categ_wizard"
+                   target="new"
+                   key2="client_action_multi"
+                   id="change_category_action"/>
+    </data>
+</openerp>

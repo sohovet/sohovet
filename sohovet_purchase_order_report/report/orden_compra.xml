@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="report_purchaseorder_layout">
+    <t t-call="sohovet_purchase_order_report.report_purchaseorder_header" />
+    <t t-raw="0" />
+    <t t-call="sohovet_purchase_order_report.report_purchaseorder_footer" />
+</template>
+
+<template id="report_purchaseorder_header">
+    <div class="header">
+        <div id="header-logo" style="float: left; margin-bottom: 5px; position: relative; width: 50%;">
+            <img class="img-responsive" src="/sohovet/static/src/img/logo.gif"/>
+        </div>
+        <!--<div id="header-reference" style="float: right; margin-left: 5%; position: relative; width: 45%;">-->
+                <!--<p>www.happyanimal.es</p>-->
+        <!--</div>-->
+    </div>
+</template>
+
+<template id="report_purchaseorder_footer">
+    <div class="footer">
+        <!--<div style="float: left; width: 33%; text-align: left;">-->
+            <!--<ul class="list-inline">-->
+                <!--<li t-if="c.code"><span t-field="c.code"/></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <!--<div style="float: right; width: 33%; text-align: right;">-->
+        <div class="text-right">
+            <ul class="list-inline">
+                <li>Página:</li>
+                <li><span class="page"/></li>
+                <li>/</li>
+                <li><span class="topage"/></li>
+            </ul>
+        </div>
+
+        <div class="text-center" style="margin-top: 10px; border-top: 1px solid black;">
+            <p>
+                <ul class="list-inline">
+                    <li>HAPPY-ANIMAL S.L.</li>
+                    <li>-</li>
+                    <li>CIF: B81697377</li>
+                    <li>-</li>
+                    <li>Teléfono: +34 91 393 20 10</li>
+                    <li>-</li>
+                    <li>E-mail: pedidos@happyanimal.es</li>
+                </ul>
+            </p>
+        </div>
+    </div>
+</template>
+
+<template id="report_purchaseorder_document">
+    <t t-call="sohovet_purchase_order_report.report_purchaseorder_layout">
+        <div class="page">
+            <div class="oe_structure"/>
+            <div class="row">
+                <div class="col-xs-6">
+                    <strong>Dirección de envío:</strong>
+                    <div t-if="o.dest_address_id">
+                        <div t-field="o.dest_address_id"
+                            t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+                        <!--<p t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></p>-->
+                    </div>
+
+                    <div t-if="not o.dest_address_id and o.picking_type_id and o.picking_type_id.warehouse_id">
+                        <!--<span t-field="o.picking_type_id.warehouse_id.name"/>-->
+                        <div t-field="o.picking_type_id.warehouse_id.partner_id"
+                            t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                        <!--<p t-if="o.picking_type_id.warehouse_id.partner_id.vat">-->
+                            <!--VAT: <span t-field="o.picking_type_id.warehouse_id.partner_id.vat"/></p>-->
+                    </div>
+                </div>
+                <div class="col-xs-5 col-xs-offset-1">
+                    <strong>Proveedor:</strong>
+                    <div t-field="o.partner_id"
+                        t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                    <t t-if="o.partner_id.phone">Tel: <span t-field="o.partner_id.phone"/><br/></t>
+                    <t t-if="o.partner_id.fax">Fax: <span t-field="o.partner_id.fax"/><br/></t>
+                    <t t-if="o.partner_id.email">Mail: <span t-field="o.partner_id.email"/><br/></t>
+                    <t t-if="o.partner_id.vat">NIF/CIF: <span t-field="o.partner_id.vat"/><br/></t>
+                </div>
+            </div>
+
+            <h2 t-if="o.state != 'draft'">Pedido <span t-field="o.name"/></h2>
+            <h2 t-if="o.state == 'draft'">Solicitud de presupuesto <span t-field="o.name"/></h2>
+
+            <div class="row mt32 mb32">
+                <!--<div t-if="o.name" class="col-xs-3">-->
+                    <!--<strong>Our Order Reference:</strong>-->
+                    <!--<p t-field="o.name"/>-->
+                <!--</div>-->
+                <!--<div t-if="o.partner_ref" class="col-xs-3">-->
+                    <!--<strong>Your Order Reference</strong>-->
+                    <!--<p t-field="o.partner_ref"/>-->
+                <!--</div>-->
+                <div t-if="o.create_uid" class="col-xs-3">
+                    <strong>Creado por:</strong>
+                    <p t-field="o.create_uid"/>
+                </div>
+                <div t-if="o.validator" class="col-xs-3">
+                    <strong>Validado por:</strong>
+                    <p t-field="o.validator"/>
+                </div>
+                <div t-if="o.date_order" class="col-xs-3">
+                    <strong>Fecha de creación:</strong>
+                    <p t-field="o.date_order"/>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th colspan="2"><strong>Cantidad</strong></th>
+                        <th colspan="2"><strong>Código de producto y descripción</strong></th>
+                        <th class="text-right"><strong>Desc.</strong></th>
+                        <th class="text-right"><strong>IVA</strong></th>
+                        <th class="text-right"><strong>Precio<br/>unidad</strong></th>
+                        <th class="text-right"><strong>Precio<br/>neto</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.lines_ordered()" t-as="line">
+                        <td class="text-right">
+                            <strong><span t-esc="'%s' % int(line.product_qty) if int(line.product_qty) == line.product_qty
+                                                    else line.product_qty"/></strong>
+                        </td>
+                        <td class="text-left" style="white-space:nowrap;font-size:12px">
+                            <t t-if="line.product_uom.uom_type != 'reference'">
+                                <span t-esc="('x %s' % line.product_uom.name).replace('Unidades', 'unid.')"/>
+                            </t>
+                        </td>
+                        <td>
+                            <span t-field="line.desc_product_code"/>
+                        </td>
+                        <td>
+                            <span t-field="line.desc_product_name"/>
+                        </td>
+                        <td class="text-center">
+                            <t t-if="line.discount > 0">
+                                <span t-esc="'%s%%%%' % int(line.discount) if int(line.discount) == line.discount
+                                                    else line.discount"/>
+                            </t>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="'%s%%%%' % int(sum([t.amount * 100 for t in line.taxes_id]))"/>
+                        </td>
+                        <!--<td class="text-center">-->
+                            <!--<span t-field="line.date_planned"/>-->
+                        <!--</td>-->
+
+                        <td class="text-right">
+                            <t t-if="line.product_qty != 1">
+                                <span t-field="line.price_unit"/>
+                            </t>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="line.price_subtotal"
+                                t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row" style="page-break-inside: avoid">
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Base</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_untaxed"
+                                    t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                            </td>
+                        </tr>
+                        <tr t-foreach="o.taxes()" t-as="tax">
+                            <td width="30%">
+                                <span t-esc="tax['name']"/>
+                            </td>
+                            <td width="70%">
+                                <table width="100%">
+                                    <tr>
+                                        <td width="50%" class="text-right">
+                                            <span t-esc="tax['value']"/>
+                                        </td>
+                                        <td width="50%"/>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Impuestos</td>
+                            <td class="text-right">
+                                <span t-field="o.amount_tax"
+                                    t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                            </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_total"
+                                    t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <p t-field="o.notes"/>
+            <div class="oe_structure"/>
+        </div>
+    </t>
+</template>
+
+<template id="orden_compra">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sohovet_purchase_order_report.report_purchaseorder_document')"/>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

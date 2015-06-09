@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--
+        ##########################################################
+        #################### MARGEN (CATEGORIA) ##################
+        ##########################################################
+        -->
+        <record id="sohovet_product_category_form_view" model="ir.ui.view">
+            <field name="name">product.category.form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="category_margin" attrs="{'invisible': [('type', '!=', 'normal')]}" readonly="1"/>
+                    <group attrs="{'invisible': [('type', '!=', 'normal')]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="sohovet_product_category_list_view" model="ir.ui.view">
+            <field name="name">product.category.list</field>
+            <field name="model">product.category</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <tree string="Product Categories" editable="bottom" colors="red:category_margin == 0">
+                    <field name="category_margin"/>
+                    <button name="open_category" string="&#187;" type="object"/>
+                    <field name="name" readonly="1" string="Category"/>
+                    <button name="open_products_in_category" string="View products" type="object"/>
+                    <field name="parent_id" readonly="1" options="{'no_open': True}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_product_category_search_view" model="ir.ui.view">
+            <field name="name">product.category.search</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_search_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <filter name="filter_category_normal" string="Category normal" domain="[('type', '=', 'normal')]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="product.product_category_action_form" model="ir.actions.act_window">
+            <field name="name">Product Categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sohovet_product_category_list_view"/>
+            <field name="context">{"search_default_filter_category_normal":1}</field>
+            <field name="search_view_id" ref="sohovet_product_category_search_view"/>
+        </record>
+
+        <!--
+        ##########################################################
+        #################### PRODUCT PRODUCT FORM ################
+        ##########################################################
+        -->
+        <record id="sohovet_product_template_only_form_view" model="ir.ui.view">
+            <field name="name">product.template.product.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <field name="list_price" position="replace"/>
+                <page string="Information" position="after">
+                    <page string="Sell prices">
+                        <group>
+                            <group string="Compute method" cols="2">
+                                <field name="fixed_price"/>
+                                <field name="standard_price2" readonly="1"/>
+                                <field name="category_margin" readonly="1" attrs="{'invisible': [('fixed_price', '=', True)]}"/>
+                                <field name="additional_margin" attrs="{'invisible': [('fixed_price', '=', True)]}"/>
+                                <field name="total_margin" attrs="{'invisible': [('fixed_price', '=', True)]}"/>
+                            </group>
+                            <group string = "Standard sell price" cols="2">
+                                <field name="default_sell_price" attrs="{'readonly': [('fixed_price', '=', False)]}"/>
+                                <field name="taxes_percentage"/>
+                                <field name="default_sell_price_plus_taxes" attrs="{'readonly': [('fixed_price', '=', False)]}"/>
+                            </group>
+                            <group string = "Sale" cols="2">
+                                <field name="discount_percentage"/>
+                                <field name="real_margin_percentage"/>
+                                <field name="real_margin"/>
+                            </group>
+                            <group string = "Sell price with discount" cols="2">
+                                <field name="list_price" string="Sell price" attrs="{'readonly': [('fixed_price', '=', False)]}"/>
+                                <field name="list_price_plus_taxes" attrs="{'readonly': [('fixed_price', '=', False)]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+        <!--
+        ##########################################################
+        #################### PRECIOS DE COSTE ####################
+        ##########################################################
+        -->
+        <record id="set_cost_tree_view" model="ir.ui.view">
+            <field name="name">product.cost.tree.view</field>
+            <field name="model">product.template</field>
+            <field name="priority">40</field>
+            <field name="arch" type="xml">
+                <tree string="Products" editable="top">
+                    <field name="name" readonly="1" options='{"no_open": True}'/>
+                    <button name="open_template" string="&#187;" type="object"/>
+                    <field name="categ_name" readonly="1"/>
+                    <button name="open_category" string="&#187;" type="object"/>
+                    <field name="purchase_ok" invisible="True"/>
+                    <field name="purchase_uom_price" attrs="{'invisible': [('purchase_ok', '=', False)] }"/>
+                    <field name="purchase_uom_factor" attrs="{'invisible': [('purchase_ok', '=', False)] }"/>
+                    <field name="standard_price" attrs="{'readonly': [('purchase_ok', '=', True)]}"
+                           string="Coste unitario (sin IVA)"/>
+                    <field name="list_price" readonly="1" string="Base final (sin IVA)"/>
+                    <field name="list_price_plus_taxes" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="set_cost_action" model="ir.actions.act_window">
+            <field name="name">Cost prices</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_filter_to_purchase":1}</field>
+            <field name="view_id" ref="set_cost_tree_view"/>
+            <!--<field name="search_view_id" ref="sohovet_set_cost_search_view"/>-->
+        </record>
+
+        <menuitem
+            name="Cost prices"
+            action="set_cost_action"
+            id="cost_price_menuitem"
+            parent="purchase.menu_procurement_management_product"
+            sequence="40"/>
+
+        <!--
+        ##########################################################
+        #################### PRECIOS DE VENTA ####################
+        ##########################################################
+        -->
+        <record id="set_pvp_tree_view" model="ir.ui.view">
+            <field name="name">product.pvp.tree.view</field>
+            <field name="model">product.template</field>
+            <field name="priority">40</field>
+            <field name="arch" type="xml">
+                <tree string="Products" editable="top" create="false" colors="red:fixed_price">
+                    <field name="fixed_price" invisible="1"/>
+                    <field name="name"/>
+                    <button name="open_template" string="&#187;" type="object"/>
+                    <!--<field name="id"/>
+                    <button name="open_template" string="open" type="object"/>-->
+                    <field name="categ_name" readonly="1"/>
+                    <button name="open_category" string="&#187;" type="object"/>
+                    <field name="standard_price" string="Cost price" readonly="1"/>
+                    <field name="category_margin" readonly="1" attrs="{'invisible': [('fixed_price', '=' , True)]}"/>
+                    <field name="additional_margin" attrs="{'invisible': [('fixed_price', '=' , True)]}"/>
+                    <field name="total_margin" readonly="1" attrs="{'invisible': [('fixed_price', '=' , True)]}"/>
+                    <field name="fixed_price_value"/>
+                    <field name="default_sell_price" readonly="1"/>
+                    <field name="taxes_percentage" readonly="1"/>
+                    <field name="default_sell_price_plus_taxes" attrs="{'readonly': [('fixed_price', '=' , False)]}"/>
+                    <!--<field name="default_sell_price_plus_taxes" readonly="1"/>-->
+                    <field name="discount_percentage" on_change="0" invisible="1"/>
+                    <field name="discount_str"/>
+                    <field name="list_price" string="Sell price" readonly="1" on_change="0" attrs="{'invisible': [('discount_percentage', '=' , 0)]}"/>
+                    <field name="list_price_plus_taxes" readonly="1" on_change="0"/>
+                    <field name="real_margin_percentage"/>
+                    <field name="real_margin"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sohovet_set_pvp_search_view" model="ir.ui.view">
+            <field name="name">product.pvp.search</field>
+            <field name="model">product.template</field>
+            <field name="type">search</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <field name="categ_id" position="after">
+                    <separator/>
+                    <group string="Sell price type">
+                    <filter string="Fixed price" name="filter_fixed_price" icon="terp-accessories-archiver-minus" domain="[('fixed_price','=',1)]"/>
+                    <filter string="Margin price" name="filter_fixed_price" icon="terp-accessories-archiver-minus" domain="[('fixed_price','=',0)]"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+        <record id="set_pvp_action" model="ir.actions.act_window">
+            <field name="name">Sell prices</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_filter_to_sell":1}</field>
+            <!--<field name="domain">[('fixed_price','=',False)]</field>-->
+            <field name="view_id" ref="set_pvp_tree_view"/>
+            <!--<field name="search_view_id" ref="sohovet_set_pvp_search_view"/>-->
+        </record>
+
+        <menuitem
+            name="Sell prices"
+            id="sell_price_menuitem"
+            parent="base.menu_product"
+            action="set_pvp_action"
+            sequence="40"/>
+    </data>
+</openerp>

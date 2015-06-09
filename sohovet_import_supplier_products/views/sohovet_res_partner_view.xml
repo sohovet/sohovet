@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sohovet_import_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form </field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <div name="buttons" position="inside">
+                    <button class="oe_inline oe_stat_button" name="sohovet_import_supplier_products.action_open_imported_products"
+                            type="action" icon="fa-list" attrs="{'invisible': [['supplier', '=', False]]}">
+                        <div>Productos<br/>importados</div>
+                    </button>
+                    <button class="oe_inline oe_stat_button" name="sohovet_import_supplier_products.action_export_supplier_products"
+                            type="action" icon="fa-download" attrs="{'invisible': [['supplier', '=', False]]}">
+                        <div>Exportar<br/>productos</div>
+                    </button>
+                </div>
+
+                <xpath expr="/form/*" position="before">
+                    <header>
+                        <button name="sohovet_import_supplier_products.action_open_import_wizard"
+                                            type="action" string="Importar productos" attrs="{'invisible': [['supplier', '=', False]]}"/>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_open_imported_products" model="ir.actions.act_window">
+            <field name="name">Importar productos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sohovet.import.products</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="domain">[('supplier_id', '=', active_id)]</field>
+        </record>
+
+        <record id="action_export_supplier_products" model="ir.actions.act_window">
+            <field name="name">Exportar productos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sohovet.export.products.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

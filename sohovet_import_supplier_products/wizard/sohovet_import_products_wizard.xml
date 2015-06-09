@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sohovet_add_products_wizard" model="ir.ui.view">
+            <field name="name">Importar productos</field>
+            <field name="model">sohovet.import.products.wizard</field>
+            <field name="arch" type="xml">
+                 <form string="Importar productos" version="7.0" create="false" edit="false">
+                     <div class="oe_horizontal_separator oe_clear">
+                         <field name="supplier_id" class="oe_inline" readonly="1"
+                                              options='{"no_open": True}'/>
+                     </div>
+                     <group>
+                         <field name="xlsx_file"/>
+                     </group>
+
+                     <footer>
+                        <button name="read_csv" string="Leer fichero" type="object"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_open_import_wizard" model="ir.actions.act_window">
+            <field name="name">Importar productos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sohovet.import.products.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sohovet_add_products_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

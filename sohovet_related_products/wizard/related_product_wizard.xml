@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="sohovet_related_product_wizard" model="ir.ui.view">
+            <field name="name">Productos relacionados</field>
+            <field name="model">sohovet.related.product</field>
+            <field name="arch" type="xml">
+                 <form string="Related products" version="7.0">
+
+                     <div class="oe_horizontal_separator oe_clear">
+                         Producto: <field name="product1" class="oe_inline" readonly="1"
+                                              options='{"no_open": True}'/>
+
+                     </div>
+
+                     <group>
+                        <field name="product1_unitary"/>
+                        <div>
+                        <label for="product2" string="Producto unitario" attrs="{'invisible': [('product1_unitary','=',True)]}"/>
+                        <label for="product2" string="Producto agrupado" attrs="{'invisible': [('product1_unitary','=',False)]}"/>
+                        </div>
+                        <field name="product2" nolabel="1"/>
+                        <field name="units"/>
+                        <field name="update_price"/>
+
+                        <!--<label for="update_price"/>-->
+
+                     </group>
+                     <button name="save_changes" string="Crear vinculación" type="object"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="sohovet_related_product_unpack_wizard" model="ir.ui.view">
+            <field name="name">Desempaquetar producto</field>
+            <field name="model">sohovet.related.product.unpack</field>
+            <field name="arch" type="xml">
+                 <form string="Desempaquetar producto" version="7.0">
+                     <div class="oe_horizontal_separator oe_clear">
+                         Producto: <field name="product" class="oe_inline" readonly="1"
+                                              options='{"no_open": True}'/>
+                     </div>
+                    <group>
+                        <field name="location_id" domain="[('id', 'in', location_ids)]"/>
+                        <field name="location_dest_id"/>
+                     </group>
+                     <button name="unpack" string="Desempaquetar" type="object"/>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

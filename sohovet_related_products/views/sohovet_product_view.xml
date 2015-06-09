@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--
+        ##########################################################
+        #################### PRODUCT TEMPLATE ####################
+        ##########################################################
+        -->
+        <record id="sohovet_product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="priority">50</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+
+                <!--<field name="uom_id" position="replace"/>
+                <field name="uom_po_id" position="replace"/>-->
+
+                <div name="options" position="inside">
+                    <div>
+                        <field name="vinculated" attrs="{'invisible': [('vinculated','=',False)]}"/>
+                        <label for="vinculated" attrs="{'invisible': [('vinculated','=',False)]}"/>
+                        <button name="open_related_wizard" string="Vincular productos" type="object"
+                                 attrs="{'invisible': [('vinculated','=',True)]}"/>
+                    </div>
+                </div>
+
+                <page string="Information" position="after">
+                    <page string="Productos vinculados" attrs="{'invisible': [('vinculated','=',False)]}">
+                        <group>
+                            <field name="parent_id" attrs="{'invisible': [('parent_id','=',False)]}"/>
+                            <field name="child_id" attrs="{'invisible': [('child_id','=',False)]}"/>
+                            <field name="units" readonly="1"/>
+                            <button name="removeRelated" string="Borrar vinculo" type="object"/>
+                            <button name="open_unpack_wizard" string="Desagrupar una unidad" type="object"
+                                    attrs="{'invisible': [('child_id','=',False)]}"/>
+                        </group>
+                    </page>
+                </page>
+
+                <group name="general" position="replace">
+                    <group name="general" string="Precio">
+                        <field name="price_updated" invisible="1"/>
+                        <field name="standard_price"/>
+                        <field name="computed_price" attrs="{'invisible': [('price_updated','=',False)]}"/>
+                        <button name="copyPrice" string="Actualizar precio de coste" type="object"
+                                 attrs="{'invisible': [('price_updated','=',False)]}"/> <!--class="oe_edit_only"-->
+                    </group>
+                </group>
+            </field>
+        </record>
+
+        <record id="related_product_cost_tree_view" model="ir.ui.view">
+            <field name="name">product.related.product</field>
+            <field name="model">product.template</field>
+            <field name="priority">50</field>
+            <field name="arch" type="xml">
+                <tree string="Related products" editable="top"
+                      colors="green:standard_price == computed_price; red:standard_price != computed_price and not purchase_ok;">
+                    <field name="purchase_ok" readonly="1" invisible="1"/>
+                    <field name="price_updated" readonly="1" invisible="1"/>
+                    <field name="parent_id" string="Producto agrupado" readonly="1" options='{"no_open": True}'/>
+                    <field name="name" string="Producto unitario" readonly="1"/>
+                    <field name="units" readonly="1"/>
+                    <field name="parent_standard_price" string="Precio de coste (Producto agrupado)" readonly="1"/>
+                    <field name="computed_price" string="Precio calculado (Producto unitario)"/>
+                    <field name="standard_price" string="Precio de coste (Producto unitario)"/>
+                    <button name="copyPrice" string="Actualizar precio" type="object"
+                                 attrs="{'invisible': [('price_updated','=',False)]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="related_product_unpack_tree_view" model="ir.ui.view">
+            <field name="name">product.related.product</field>
+            <field name="model">product.template</field>
+            <field name="priority">50</field>
+            <field name="arch" type="xml">
+                <tree string="Related products" colors="red:qty_available &lt; 1">
+                    <field name="parent_id" string="Producto agrupado"/>
+                    <field name="name" string="Producto unitario"/>
+                    <field name="parent_qty_available"/>
+                    <button name="open_unpack_wizard" string="Desagrupar una unidad" type="object"
+                                 attrs="{'invisible': [('parent_qty_available','&lt;',1)]}"/>
+                    <field name="qty_available" string="Cantidad disponible (Producto unitario)"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="related_products_set_cost_action" model="ir.actions.act_window">
+            <field name="name">Productos relacionados</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('parent_id','!=',False)]</field>
+            <field name="view_id" ref="related_product_cost_tree_view"/>
+            <!--<field name="search_view_id" ref="product.product_template_search_view"/>-->
+        </record>
+
+        <record id="related_products_unpack_action" model="ir.actions.act_window">
+            <field name="name">Productos relacionados</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('parent_id','!=',False)]</field>
+            <field name="view_id" ref="related_product_unpack_tree_view"/>
+            <!--<field name="search_view_id" ref="product.product_template_search_view"/>-->
+        </record>
+
+        <record id="sohovet_template_search_view" model="ir.ui.view">
+            <field name="name">product.template.search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <field name="categ_id" position="after">
+                    <separator/>
+                    <group string="Productos relacionados">
+                        <filter name="filter_box_product" string="Productos relacionados (caja)" domain="[('vinculated', '=', True), ('child_id', '!=', False)]"/>
+                        <filter name="filter_unit_product" string="Productos relacionados (unidad)" domain="[('vinculated', '=', True), ('parent_id', '!=', False)]"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+        <menuitem
+            name="Productos relacionados"
+            id="related_products_menuitem"
+            parent="base.menu_product"
+            sequence="50"/>
+
+        <menuitem
+            name="Desagrupar unidades"
+            action="related_products_unpack_action"
+            id="related_products_unpack_action_menuitem"
+            parent="related_products_menuitem"
+            sequence="60"/>
+
+        <menuitem
+            name="Precios de coste"
+            action="related_products_set_cost_action"
+            id="related_products_set_cost_action_menuitem"
+            parent="related_products_menuitem"
+            sequence="70"/>
+
+        <menuitem
+            name="Productos relacionados"
+            id="related_products_menuitem2"
+            parent="purchase.menu_procurement_management_product"
+            sequence="50"/>
+
+        <menuitem
+            name="Desagrupar unidades"
+            action="related_products_unpack_action"
+            id="related_products_unpack_action_menuitem2"
+            parent="related_products_menuitem2"
+            sequence="60"/>
+
+        <menuitem
+            name="Precios de coste"
+            action="related_products_set_cost_action"
+            id="related_products_set_cost_action_menuitem2"
+            parent="related_products_menuitem2"
+            sequence="70"/>
+    </data>
+</openerp>

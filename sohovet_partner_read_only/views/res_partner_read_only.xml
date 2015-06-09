@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_form_ro" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <form position="attributes">
+                    <attribute name="create">0</attribute>
+                    <attribute name="edit">0</attribute>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_partner_tree_ro" model="ir.ui.view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <tree position="attributes">
+                    <attribute name="create">0</attribute>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_partner_kanban_ro" model="ir.ui.view">
+            <field name="name">res.partner.kanban</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <kanban position="attributes">
+                    <attribute name="create">0</attribute>
+                </kanban>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
