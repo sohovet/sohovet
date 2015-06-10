@@ -30,20 +30,34 @@ class PurchaseOrder(models.Model):
                                                     [x.product_tmpl_id.id for x in supplierinfos])])
         return allowed_products
 
+    @api.multi
+    def reset_to_defaults(self):
+        for line in self.order_line:
+            line.desc_product_name = line.product_id.name
+            line.product_uom = line.product_id.uom_po_id
+            line.price_unit = line.product_id.purchase_uom_price
+            line.taxes_id = line.product_id.supplier_taxes_id
+
+            for supplier in line.product_id.seller_ids:
+                if self.partner_id and supplier.name == self.partner_id:
+                    if supplier.product_code:
+                        line.desc_product_code = supplier.product_code
+                    if supplier.supplier_discount:
+                        line.discount = supplier.supplier_discount
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     discount = fields.Char('Discount')
 
-    desc_product_code = fields.Char('Código del producto', compute='_split_description', store=True,
+    desc_product_code = fields.Char('Código del producto', compute='split_description', store=True,
                                     readonly=False)
-    desc_product_name = fields.Char('Nombre del producto', compute='_split_description', store=True,
+    desc_product_name = fields.Char('Nombre del producto', compute='split_description', store=True,
                                     readonly=False)
 
     @api.one
     @api.depends('name')
-    def _split_description(self):
+    def split_description(self):
         if self.name:
             match = pattern.match(self.name)
             if match:
