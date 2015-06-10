@@ -33,6 +33,7 @@ import socket
 class sohovet_backup(models.Model):
     _name = 'sohovet.backup'
     _description = 'Backup'
+    _order = 'id DESC'
 
     name = fields.Char('Name')
     type = fields.Selection([('auto', u'Automático'), ('manual', u'Manual')], 'Tipo')
