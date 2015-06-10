@@ -154,7 +154,7 @@ class sohovet_import_products_wizard(models.TransientModel):
             vals['unidades_compra'] = int(fields['unidades_compra'])
 
         if 'unidad_compra' in fields and fields['unidad_compra']:
-            uom_id = self.env['product.uom'].search([('name', 'ilike', fields['unidad_compra'])])
+            uom_id = self.env['product.uom'].search([('name', '=', fields['unidad_compra'])])
             if uom_id:
                 vals['product_uom'] = uom_id.id
 
