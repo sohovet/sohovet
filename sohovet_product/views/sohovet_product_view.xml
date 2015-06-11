@@ -41,6 +41,9 @@
                 <group name="store" position="replace"/>
                 <group name="weight" position="replace"/>
                 <group name="packaging" position="replace"/>
+                <group string="Supply Chain Information" position="replace"/>
+                <group name="store" position="replace"/>
+                <button name="action_view_routes" position="replace"/>
 
             </field>
         </record>
