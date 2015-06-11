@@ -69,7 +69,7 @@
             <field name="arch" type="xml">
                 <field name="list_price" position="replace"/>
                 <page string="Information" position="after">
-                    <page string="Sell prices">
+                    <page string="Sell prices" attrs="{'invisible': [('sale_ok', '=', False)]}">
                         <group>
                             <group string="Compute method" cols="2">
                                 <field name="fixed_price"/>
