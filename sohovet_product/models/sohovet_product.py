@@ -58,6 +58,7 @@ class product_template(models.Model):
 
     brand_id = fields.Many2one('sohovet.product.brand', 'Marca')
     group_id = fields.Many2one('sohovet.product.group', 'Grupo', required=True)
+    type = fields.Selection(default='product')
 
     default_code = fields.Char(readonly=True, copy=False)
 
