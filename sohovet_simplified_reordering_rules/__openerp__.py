@@ -30,8 +30,8 @@
     'license': 'AGPL-3',
     'depends': ['purchase', 'sale'],
     'data': [
-        'views/sohovet_product_view.xml',
         'views/sohovet_orderpoint.xml',
+        'views/sohovet_product_view.xml',
     ],
     'active': False,
     'installable': True,
