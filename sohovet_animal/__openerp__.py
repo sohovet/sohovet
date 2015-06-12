@@ -23,7 +23,7 @@
 {
     'name': 'SOHOVet Animal',
     'version': '1.0',
-    'category': 'Productos',
+    'category': 'Products',
     'description': """Módulo que introduce el modelo 'Animales'""",
     'author': 'Juan Ignacio Alonso Barba',
     'website': 'http://www.enzo.es/',

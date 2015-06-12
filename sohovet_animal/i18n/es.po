@@ -1,0 +1,176 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sohovet_animal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-12 09:47+0000\n"
+"PO-Revision-Date: 2015-06-12 09:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sohovet_animal
+#: model:ir.actions.act_window,help:sohovet_animal.sohovet_animal_action
+msgid "<p class=\"oe_view_nocontent_create\">Click to add a new animal.</p>\n"
+"			"
+msgstr "<p class=\"oe_view_nocontent_create\">Pulse aquí para crear un nuevo animal.</p>\n"
+"			"
+
+#. module: sohovet_animal
+#: model:ir.actions.act_window,help:sohovet_animal.sohovet_animal_breed_action
+msgid "<p class=\"oe_view_nocontent_create\">Click to add a new breed.</p>\n"
+"			"
+msgstr "<p class=\"oe_view_nocontent_create\">Pulse aquí para crear una nueva raza.</p>\n"
+"			"
+
+#. module: sohovet_animal
+#: model:ir.actions.act_window,help:sohovet_animal.sohovet_animal_specie_action
+msgid "<p class=\"oe_view_nocontent_create\">Click to add a new specie.</p>\n"
+"			"
+msgstr "<p class=\"oe_view_nocontent_create\">Pulse aquí para crear una nueva especie.</p>\n"
+"			"
+
+#. module: sohovet_animal
+#: model:ir.actions.act_window,help:sohovet_animal.sohovet_animal_type_action
+msgid "<p class=\"oe_view_nocontent_create\">Click to add a new type of animal.</p>\n"
+"			"
+msgstr "<p class=\"oe_view_nocontent_create\">Pulse aquí para crear un nuevo tipo de animal.</p>\n"
+"			"
+
+
+#. module: sohovet_animal
+#: field:sohovet.animal,active:0
+msgid "Active"
+msgstr "Activo"
+
+#. module: sohovet_animal
+#: field:sohovet.animal,alive:0
+msgid "Alive"
+msgstr "Vivo"
+
+#. module: sohovet_animal
+#: model:ir.model,name:sohovet_animal.model_sohovet_animal
+#: view:sohovet.animal:sohovet_animal.sohovet_animal_form
+msgid "Animal"
+msgstr "Animal"
+
+#. module: sohovet_animal
+#: model:ir.actions.act_window,name:sohovet_animal.sohovet_animal_action
+#: view:res.partner:sohovet_animal.sohovet_res_partner_form_animals_view
+#: field:res.partner,animal_ids:0
+#: view:sohovet.animal:sohovet_animal.sohovet_animal_tree
+msgid "Animals"
+msgstr "Animales"
+
+#. module: sohovet_animal
+#: field:sohovet.animal,breed_id:0
+#: model:ir.model,name:sohovet_animal.model_sohovet_animal_breed
+msgid "Breed"
+msgstr "Raza"
+
+#. module: sohovet_animal
+#: model:ir.actions.act_window,name:sohovet_animal.sohovet_animal_breed_action
+msgid "Breeds"
+msgstr "Razas"
+
+#. module: sohovet_animal
+#: field:sohovet.animal.type,code:0
+msgid "Code"
+msgstr "Código"
+
+#. module: sohovet_animal
+#: field:sohovet.animal,create_uid:0
+#: field:sohovet.animal.breed,create_uid:0
+#: field:sohovet.animal.specie,create_uid:0
+#: field:sohovet.animal.type,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sohovet_animal
+#: field:sohovet.animal,create_date:0
+#: field:sohovet.animal.breed,create_date:0
+#: field:sohovet.animal.specie,create_date:0
+#: field:sohovet.animal.type,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: sohovet_animal
+#: field:sohovet.animal,id:0
+#: field:sohovet.animal.breed,id:0
+#: field:sohovet.animal.specie,id:0
+#: field:sohovet.animal.type,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: sohovet_animal
+#: view:sohovet.animal:sohovet_animal.sohovet_animal_form
+msgid "Information"
+msgstr "Información"
+
+#. module: sohovet_animal
+#: field:sohovet.animal,write_uid:0
+#: field:sohovet.animal.breed,write_uid:0
+#: field:sohovet.animal.specie,write_uid:0
+#: field:sohovet.animal.type,write_uid:0
+msgid "Last Updated by"
+msgstr "Última alctualización por"
+
+#. module: sohovet_animal
+#: field:sohovet.animal,write_date:0
+#: field:sohovet.animal.breed,write_date:0
+#: field:sohovet.animal.specie,write_date:0
+#: field:sohovet.animal.type,write_date:0
+msgid "Last Updated on"
+msgstr "Última alctualización el"
+
+#. module: sohovet_animal
+#: field:sohovet.animal,name:0
+#: field:sohovet.animal.breed,name:0
+#: field:sohovet.animal.specie,name:0
+#: field:sohovet.animal.type,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: sohovet_animal
+#: view:sohovet.animal:sohovet_animal.sohovet_animal_form
+#: field:sohovet.animal,partner_id:0
+msgid "Owner"
+msgstr "Propietario"
+
+#. module: sohovet_animal
+#: model:ir.model,name:sohovet_animal.model_res_partner
+msgid "Partner"
+msgstr "Propietario"
+
+#. module: sohovet_animal
+#: field:sohovet.animal,specie_id:0
+#: model:ir.model,name:sohovet_animal.model_sohovet_animal_specie
+msgid "Specie"
+msgstr "Especie"
+
+#. module: sohovet_animal
+#: model:ir.actions.act_window,name:sohovet_animal.sohovet_animal_specie_action
+msgid "Species"
+msgstr "Especies"
+
+#. module: sohovet_animal
+#: model:ir.model,name:sohovet_animal.model_sohovet_animal_type
+msgid "Animal type"
+msgstr "Tipo de animal"
+
+#. module: sohovet_animal
+#: field:sohovet.animal,type_id:0
+msgid "Type"
+msgstr "Tipo"
+
+#. module: sohovet_animal
+#: model:ir.actions.act_window,name:sohovet_animal.sohovet_animal_type_action
+msgid "Types"
+msgstr "Tipos"
+

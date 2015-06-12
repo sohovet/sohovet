@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
-        <!--
-        #####################################################
-        #################### RES PARTNER ####################
-        #####################################################
-        -->
         <record id="sohovet_res_partner_form_animals_view" model="ir.ui.view">
             <field name="name">res.partner.form</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <page name="internal_notes" position="after">
-                    <page string="Animales">
+                    <page string="Animals">
                         <field name="animal_ids" readonly="1">
-                            <tree string="Animales">
+                            <tree string="Animals">
                                 <field name="name"/>
                                 <field name="type_id"/>
                                 <field name="specie_id"/>

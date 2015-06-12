@@ -1,55 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <menuitem id="sohovet_animal_menu_top" name="Animales" sequence="20"/>
-        <menuitem id="sohovet_animal_menu_main" parent="sohovet_animal_menu_top" name="Animales" sequence="0"/>
-		<menuitem id="sohovet_animal_menu_configuration" parent="sohovet_animal_menu_top" name="Configuración" sequence="20"
-                 groups="base.group_no_one"/>
-
-        <menuitem id="sohovet_animal_partner_main" parent="sohovet_animal_menu_main" name="Propietarios"
-                  action="base.action_partner_form" sequence="10"/>
-
         <record id="sohovet_animal_specie_action" model="ir.actions.act_window">
-            <field name="name">Especies</field>
+            <field name="name">Species</field>
             <field name="res_model">sohovet.animal.specie</field>
             <field name="view_type">form</field>
             <!--<field name="view_id" ref="sohovet_vacine_type_tree"/>-->
             <field name="help" type="html">
-				<p class="oe_view_nocontent_create">Pulse para añadir una nueva especie.</p>
+				<p class="oe_view_nocontent_create">Click to add a new specie.</p>
 			</field>
         </record>
 
-        <menuitem id="sohovet_animal_specie_menu" parent="sohovet_animal_menu_configuration" action="sohovet_animal_specie_action" name="Especies" sequence="10"/>
-
         <record id="sohovet_animal_breed_action" model="ir.actions.act_window">
-            <field name="name">Especies</field>
+            <field name="name">Breeds</field>
             <field name="res_model">sohovet.animal.breed</field>
             <field name="view_type">form</field>
             <!--<field name="view_id" ref="sohovet_vacine_type_tree"/>-->
             <field name="help" type="html">
-				<p class="oe_view_nocontent_create">Pulse para añadir una nueva raza.</p>
+				<p class="oe_view_nocontent_create">Click to add a new breed.</p>
 			</field>
         </record>
 
-        <menuitem id="sohovet_animal_breed_menu" parent="sohovet_animal_menu_configuration" action="sohovet_animal_breed_action" name="Razas" sequence="20"/>
-
         <record id="sohovet_animal_type_action" model="ir.actions.act_window">
-            <field name="name">Tipos</field>
+            <field name="name">Types</field>
             <field name="res_model">sohovet.animal.type</field>
             <field name="view_type">form</field>
             <!--<field name="view_id" ref="sohovet_vacine_type_tree"/>-->
             <field name="help" type="html">
-				<p class="oe_view_nocontent_create">Pulse para añadir un nuevo tipo.</p>
+				<p class="oe_view_nocontent_create">Click to add a new type of animal.</p>
 			</field>
         </record>
-
-        <menuitem id="sohovet_animal_type_menu" parent="sohovet_animal_menu_configuration" action="sohovet_animal_type_action" name="Tipos" sequence="30"/>
 
         <record id="sohovet_animal_tree" model="ir.ui.view">
             <field name="name">sohovet.animal.tree</field>
             <field name="model">sohovet.animal</field>
             <field name="arch" type="xml">
-                <tree string="Animal">
+                <tree string="Animals">
                     <field name="name"/>
                     <field name="specie_id"/>
                     <field name="breed_id"/>
@@ -64,18 +50,23 @@
             <field name="arch" type="xml">
                 <form string="Animal" version="7.0">
                     <sheet>
-                        <group name="information">
-                            <group>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
                                 <field name="name"/>
-                                <field name="surname" readonly="1"/>
+                            </h1>
+                            <field name="active"/> <label for="active"/><br/>
+                            <field name="alive"/> <label for="alive"/>
+                        </div>
+                        <group name="main">
+                            <group name="information" string="Information">
                                 <field name="type_id"/>
                                 <field name="specie_id"/>
                                 <field name="breed_id"/>
                             </group>
-                            <group>
+                            <group name="owner" string="Owner">
                                 <field name="partner_id"/>
-                                <field name="active"/>
-                                <field name="alive"/>
+                                <!--<field name="surname"/>-->
                             </group>
                         </group>
                     </sheet>
@@ -84,15 +75,13 @@
         </record>
 
         <record id="sohovet_animal_action" model="ir.actions.act_window">
-            <field name="name">Animales</field>
+            <field name="name">Animals</field>
             <field name="res_model">sohovet.animal</field>
             <field name="view_type">form</field>
-            <!--<field name="view_id" ref="sohovet_vacine_type_tree"/>-->
             <field name="help" type="html">
-				<p class="oe_view_nocontent_create">Pulse para añadir un nuevo animal.</p>
+				<p class="oe_view_nocontent_create">Click to add a new animal.</p>
 			</field>
         </record>
 
-        <menuitem id="sohovet_animal_menu" parent="sohovet_animal_menu_main" action="sohovet_animal_action" name="Animales" sequence="20"/>
     </data>
 </openerp>

@@ -25,5 +25,5 @@ from openerp.exceptions import ValidationError
 class res_partner(models.Model):
     _inherit = 'res.partner'
 
-    animal_ids = fields.One2many('sohovet.animal', 'partner_id', 'Animales')
+    animal_ids = fields.One2many('sohovet.animal', 'partner_id', string='Animals')
 

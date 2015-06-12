@@ -24,40 +24,35 @@ from openerp.exceptions import ValidationError
 
 class sohovet_animal_specie(models.Model):
     _name = 'sohovet.animal.specie'
-    _description = 'Especie de animal'
+    _description = 'Specie'
 
-    name = fields.Char('Nombre')
+    name = fields.Char('Name')
 
 class sohovet_animal_breed(models.Model):
     _name = 'sohovet.animal.breed'
-    _description = 'Raza de animal'
+    _description = 'Breed'
 
-    name = fields.Char('Nombre')
+    name = fields.Char('Name')
 
 class sohovet_animal_type(models.Model):
     _name = 'sohovet.animal.type'
-    _description = 'Tipo de animal'
+    _description = 'Animal type'
 
     _rec_name = 'code'
 
-    code = fields.Char('Código')
-    name = fields.Char('Nombre')
+    code = fields.Char('Code')
+    name = fields.Char('Name')
 
 class sohovet_animal(models.Model):
     _name = 'sohovet.animal'
     _description = 'Animal'
 
-    name = fields.Char('Nombre', required=True)
-    surname = fields.Char('Apellidos')
-    specie_id = fields.Many2one('sohovet.animal.specie', 'Especie')
-    breed_id = fields.Many2one('sohovet.animal.breed', 'Raza')
-    type_id = fields.Many2one('sohovet.animal.type', 'Tipo')
-    active = fields.Boolean('Activo', default=True)
-    alive = fields.Boolean('Vivo', default=True)
-    partner_id = fields.Many2one('res.partner', 'Propietario', required=True, domain="[('customer', '=', True)]")
-    partner_active = fields.Boolean('Propietario activo', related='partner_id.active')
-
-    @api.one
-    @api.onchange('partner_id')
-    def _on_change_partner_id(self):
-        self.surname = self.partner_id.apellidos
+    name = fields.Char(string='Name', required=True)
+    surname = fields.Char(string='Surname', related='partner_id.lastname', readonly=True)
+    specie_id = fields.Many2one('sohovet.animal.specie', string='Specie')
+    breed_id = fields.Many2one('sohovet.animal.breed', string='Breed')
+    type_id = fields.Many2one('sohovet.animal.type', string='Type')
+    active = fields.Boolean(string='Active', default=True)
+    alive = fields.Boolean(string='Alive', default=True)
+    partner_id = fields.Many2one('res.partner', string='Owner', required=True, domain="[('customer', '=', True)]")
+    partner_active = fields.Boolean(string='Owner active', related='partner_id.active')
