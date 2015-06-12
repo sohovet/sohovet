@@ -21,7 +21,7 @@
 ##############################################################################
 
 from openerp import fields, models, api, _
-from openerp.exceptions import ValidationError
+import openerp.addons.decimal_precision as dp
 
 ########
 ## Product template
@@ -36,7 +36,8 @@ class product_template(models.Model):
     units = fields.Integer('Unidades por agrupación')
 
     parent_standard_price = fields.Float(string='Precio del producto unitario', related='parent_id.standard_price')
-    computed_price = fields.Float('Precio calculado', compute='computeUnitaryPrice')
+    computed_price = fields.Float('Precio calculado', compute='computeUnitaryPrice',
+                                  digits=dp.get_precision('Product Price'))
     price_updated = fields.Boolean('', compute='computeNeedsUpdate')
 
     parent_qty_available = fields.Float(string='Cantidad disponible (Producto agrupado)', related='parent_id.qty_available')
