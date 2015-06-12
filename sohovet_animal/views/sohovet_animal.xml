@@ -5,7 +5,6 @@
             <field name="name">Species</field>
             <field name="res_model">sohovet.animal.specie</field>
             <field name="view_type">form</field>
-            <!--<field name="view_id" ref="sohovet_vacine_type_tree"/>-->
             <field name="help" type="html">
 				<p class="oe_view_nocontent_create">Click to add a new specie.</p>
 			</field>
@@ -15,7 +14,6 @@
             <field name="name">Breeds</field>
             <field name="res_model">sohovet.animal.breed</field>
             <field name="view_type">form</field>
-            <!--<field name="view_id" ref="sohovet_vacine_type_tree"/>-->
             <field name="help" type="html">
 				<p class="oe_view_nocontent_create">Click to add a new breed.</p>
 			</field>
@@ -25,7 +23,6 @@
             <field name="name">Types</field>
             <field name="res_model">sohovet.animal.type</field>
             <field name="view_type">form</field>
-            <!--<field name="view_id" ref="sohovet_vacine_type_tree"/>-->
             <field name="help" type="html">
 				<p class="oe_view_nocontent_create">Click to add a new type of animal.</p>
 			</field>
@@ -66,7 +63,6 @@
                             </group>
                             <group name="owner" string="Owner">
                                 <field name="partner_id"/>
-                                <!--<field name="surname"/>-->
                             </group>
                         </group>
                     </sheet>

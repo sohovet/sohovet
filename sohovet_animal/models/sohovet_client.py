@@ -19,11 +19,9 @@
 #  along with this program. If not, see <http://www.gnu.org/licenses/>.      #
 #                                                                            #
 ##############################################################################
-from openerp import fields, models, api
-from openerp.exceptions import ValidationError
+from openerp import fields, models
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
 
     animal_ids = fields.One2many('sohovet.animal', 'partner_id', string='Animals')
-

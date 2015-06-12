@@ -20,4 +20,5 @@
 #                                                                            #
 ##############################################################################
 
-import sohovet_animal, sohovet_client
+import sohovet_animal
+import sohovet_client

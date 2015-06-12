@@ -28,8 +28,9 @@
     'author': 'Juan Ignacio Alonso Barba',
     'website': 'http://www.enzo.es/',
     'license': 'AGPL-3',
-    'depends': ['base',
-                'partner_firstname',
+    'depends': [
+        'base',
+        'partner_firstname',
     ],
     'data': [
         'data/sohovet_animal_types.xml',

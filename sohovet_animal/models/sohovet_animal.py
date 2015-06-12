@@ -19,8 +19,7 @@
 #  along with this program. If not, see <http://www.gnu.org/licenses/>.      #
 #                                                                            #
 ##############################################################################
-from openerp import fields, models, api
-from openerp.exceptions import ValidationError
+from openerp import fields, models
 
 class sohovet_animal_specie(models.Model):
     _name = 'sohovet.animal.specie'
