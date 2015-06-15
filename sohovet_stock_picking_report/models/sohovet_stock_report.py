@@ -28,6 +28,10 @@ class stock_picking(models.Model):
     def moves_ordered(self):
         return self.move_lines.sorted(key=lambda x: x.product_id.name)
 
+    @api.multi
+    def do_print_picking(self):
+        return self.env['report'].get_action(self, 'sohovet_stock_picking_report.report_picking')
+
 class product_product(models.Model):
     _inherit = 'product.product'
 

@@ -7,8 +7,8 @@
             id="stock.action_report_picking"
             model="stock.picking"
             report_type="qweb-pdf"
-            name="sohovet_stock_picking_report.albaran"
-            file="sohovet_stock_picking_report.albaran"
+            name="sohovet_stock_picking_report.report_picking"
+            file="sohovet_stock_picking_report.report_picking"
         />
 
     </data>

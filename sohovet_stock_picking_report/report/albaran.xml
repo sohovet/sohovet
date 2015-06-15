@@ -139,7 +139,7 @@
     </t>
 </template>
 
-<template id="albaran">
+<template id="report_picking">
     <t t-call="report.html_container">
         <t t-foreach="doc_ids" t-as="doc_id">
             <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sohovet_stock_picking_report.report_picking_document')"/>
