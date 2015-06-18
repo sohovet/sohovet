@@ -19,9 +19,19 @@
 #  along with this program. If not, see <http://www.gnu.org/licenses/>.      #
 #                                                                            #
 ##############################################################################
-from openerp import models, fields
+from openerp import models, fields, api
 
-class stockLocation(models.Model):
+class StockLocation(models.Model):
     _inherit = 'stock.location'
 
     code = fields.Char('Code', size=5)
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for location in self:
+            if location.code:
+                result.append((location.id, location.code))
+            else:
+                result.append((location.id, super(StockLocation, self).name_get()[0][1]))
+        return result
