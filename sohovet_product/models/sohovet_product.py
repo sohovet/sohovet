@@ -57,11 +57,10 @@ class product_template(models.Model):
     _inherit = 'product.template'
 
     brand_id = fields.Many2one('sohovet.product.brand', 'Marca')
-    group_id = fields.Many2one('sohovet.product.group', 'Grupo', required=True)
+    group_id = fields.Many2one('sohovet.product.group', 'Grupo')
     type = fields.Selection(default='product')
 
     default_code = fields.Char(readonly=True, copy=False)
-
 
     @api.model
     def create(self, vals):
@@ -128,7 +127,12 @@ class product_product(models.Model):
 class product_supplierinfo(models.Model):
     _inherit = 'product.supplierinfo'
 
-    supplier_discount = fields.Char('Descuento del proveedor')
+    supplier_discount = fields.Float('(%) Descuento')
+
+    @api.constrains('supplier_discount')
+    def _check_discount(self):
+        if self.supplier_discount and (self.supplier_discount < 0 or self.supplier_discount >= 100):
+            raise ValidationError('El descuento debe ser un entero entre 0 y 99')
 
     _sql_constraints = [
         ('product_code_uniq', 'unique(name, product_code)', 'El código de producto del proveedor debe ser único'

@@ -30,6 +30,7 @@
         'product',
         'sohovet_simplified_uom',
         'purchase',
+        'purchase_discount',
     ],
     'data': [
         'views/purchase_order_view.xml',

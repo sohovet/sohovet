@@ -65,8 +65,6 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
-    discount = fields.Char('Discount')
-
     desc_product_code = fields.Char('Código del producto', compute='split_description', store=True,
                                     readonly=False)
     desc_product_name = fields.Char('Nombre del producto', compute='split_description', store=True,
