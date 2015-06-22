@@ -20,7 +20,7 @@
 #                                                                            #
 ##############################################################################
 
-from openerp import fields, models, api, SUPERUSER_ID
+from openerp import fields, models, api, SUPERUSER_ID, _
 from openerp.exceptions import ValidationError
 
 
@@ -127,14 +127,14 @@ class product_product(models.Model):
 class product_supplierinfo(models.Model):
     _inherit = 'product.supplierinfo'
 
-    supplier_discount = fields.Float('(%) Descuento')
+    supplier_discount = fields.Float('(%) Discount', digits=(3, 1))
 
     @api.constrains('supplier_discount')
     def _check_discount(self):
-        if self.supplier_discount and (self.supplier_discount < 0 or self.supplier_discount >= 100):
-            raise ValidationError('El descuento debe ser un entero entre 0 y 99')
+        if self.supplier_discount and (self.supplier_discount < 0 or self.supplier_discount > 100):
+            raise ValidationError(_('Discount should be a number between 0 and 100'))
 
     _sql_constraints = [
-        ('product_code_uniq', 'unique(name, product_code)', 'El código de producto del proveedor debe ser único'
-                                                            'para cada producto del mismo proveedor')
+        ('product_code_uniq', 'unique(name, product_code)', _('Product code should be unique for each product of the'
+                                                              'same provider'))
     ]
