@@ -121,10 +121,10 @@ class sohovet_import_products_items(models.Model):
     iva_venta = fields.Many2one('account.tax', 'IVA venta')
     iva_venta_sel = fields.Selection(selection='_get_iva_venta_sel_items', string='IVA venta',
                                      compute='_get_iva_venta_sel', inverse='_set_iva_venta_sel')
-    descuento = fields.Char('Descuento proveedor')
+    descuento = fields.Float('Descuento proveedor')
     vendible = fields.Boolean('Vendible')
     stock_min = fields.Integer('Stock minimo')
-    ubicacion = fields.Many2one('stock.warehouse', 'Ubicación')
+    ubicacion = fields.Many2one('stock.location', 'Ubicación')
 
     precio_coste = fields.Float('Precio coste nuevo', digits=dp.get_precision('Product Price'), compute='_get_cost_price')
     precio_coste_actual = fields.Float('Precio coste actual', digits=dp.get_precision('Product Price'),
@@ -222,7 +222,7 @@ class sohovet_import_products_items(models.Model):
                                                                     [p.id for p in self.template_id.product_variant_ids])])
             aux_list = []
             for rule in rules:
-                aux_str = '%s:%d' % (rule.warehouse_id.code, rule.product_min_qty)
+                aux_str = '%s:%d' % (rule.location_id.code, rule.product_min_qty)
                 aux_list.append(aux_str)
             if aux_list:
                 self.stock_minimo_actual = ' / '.join(aux_list)
@@ -235,13 +235,13 @@ class sohovet_import_products_items(models.Model):
         aux_list = []
         contains = False
         for rule in rules:
-            if self.ubicacion and self.ubicacion.id == rule.warehouse_id.id:
+            if self.ubicacion and self.ubicacion.id == rule.location_id.id:
                 contains = True
                 if self.stock_min > 0:
-                    aux_str = '%s:%d' % (rule.warehouse_id.code, self.stock_min)
+                    aux_str = '%s:%d' % (rule.location_id.code, self.stock_min)
                     aux_list.append(aux_str)
             else:
-                aux_str = '%s:%d' % (rule.warehouse_id.code, rule.product_min_qty)
+                aux_str = '%s:%d' % (rule.location_id.code, rule.product_min_qty)
                 aux_list.append(aux_str)
 
         if self.ubicacion and not contains and self.stock_min > 0:
@@ -357,7 +357,6 @@ class sohovet_import_products_items(models.Model):
         if self.marca:
             self.template_id.brand_id = self.marca if self.marca.id != self.env.ref('sohovet_import_supplier_products.remove_brand').id else None
 
-
         # IVA COMPRA
         if self.iva_compra:
             self.template_id.supplier_taxes_id = [(6, 0, [self.iva_compra.id])]
@@ -371,7 +370,7 @@ class sohovet_import_products_items(models.Model):
             product_ids = [p.id for p in self.template_id.product_variant_ids]
 
             rules = self.env['stock.warehouse.orderpoint'].search([('product_id', 'in', product_ids),
-                                                                   ('warehouse_id', '=', self.ubicacion.id)])
+                                                                   ('location_id', '=', self.ubicacion.id)])
             if rules:  # Actualizamos
                 for rule in rules:
                     if not self.stock_min or self.stock_min == 0:
@@ -382,13 +381,23 @@ class sohovet_import_products_items(models.Model):
                 for product_id in product_ids:
                     orderpoint_data = {
                         'product_id': product_id,
-                        'warehouse_id': self.ubicacion.id,
-                        'location_id': self.ubicacion.lot_stock_id.id,
+                        'warehouse_id': self._get_warehouse(self.ubicacion).id,
+                        'location_id': self.ubicacion.id,
                         'product_min_qty': self.stock_min,
                         'product_max_qty': 0,
                         'qty_multiple': 1,
                     }
                     self.env['stock.warehouse.orderpoint'].create(orderpoint_data)
 
+    @api.one
+    def _get_warehouse(self, location_id):
+        warehouse_ids = self.env['stock.warehouse'].search([])
+        stock_locations = {warehouse.lot_stock_id: warehouse for warehouse in warehouse_ids}
 
+        if location_id in stock_locations:
+            return stock_locations[location_id]
+        elif location_id.location_id:
+            return self._get_warehouse(location_id.location_id)
+        else:
+            return None
 

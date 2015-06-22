@@ -72,6 +72,7 @@ class sohovetExportProductsWizard(models.TransientModel):
 
         text_format = workbook.add_format({'num_format': 49})
         int_format = workbook.add_format({'num_format': 1})
+        float_format = workbook.add_format({'num_format': 2})
 
         text_format_req = workbook.add_format({'num_format': 49, 'bg_color': '#F5F5CE'})
         int_format_req = workbook.add_format({'num_format': 1, 'bg_color': '#F5F5CE'})
@@ -182,7 +183,9 @@ class sohovetExportProductsWizard(models.TransientModel):
 
         # DESCUENTO
         worksheet1.write('N1', 'descuento', format_header)
-        worksheet1.set_column('N:N', 16, text_format)
+        worksheet1.set_column('N:N', 16, float_format)
+        worksheet1.data_validation('N2:N1048576', {'validate': 'decimal', 'criteria': 'between', 'minimum': 0,
+                                                   'maximum': 100})
 
         # STOCK_MIN
         worksheet1.write('O1', 'stock_min', format_header)
@@ -191,10 +194,10 @@ class sohovetExportProductsWizard(models.TransientModel):
 
         # UBICACIONES
         worksheet2.write(0, 6, 'ubicaciones', format_header)
-        warehouse_ids = self.env['stock.warehouse'].search([])
-        warehouse_ids = warehouse_ids.sorted(key=lambda r: r.name)
-        for i in range(len(warehouse_ids)):
-            worksheet2.write((i+1), 6, warehouse_ids[i].code)
+        location_ids = self.env['stock.location'].search([('code', '!=', False)])
+        location_ids = location_ids.sorted(key=lambda r: r.name)
+        for i in range(len(location_ids)):
+            worksheet2.write((i+1), 6, location_ids[i].code)
         worksheet2.set_column('G:G', 16)
 
         worksheet1.write('P1', 'ubicacion', format_header)
@@ -221,8 +224,9 @@ class sohovetExportProductsWizard(models.TransientModel):
             qtys = []
             codes = []
             for rule in stock_rules:
-                qtys.append(str(int(rule.product_min_qty)))
-                codes.append(rule.warehouse_id.code)
+                if rule.location_id.code:
+                    qtys.append(str(int(rule.product_min_qty)))
+                    codes.append(rule.location_id.code)
 
             fields = [
                 1 if template_id.sale_ok else 0,

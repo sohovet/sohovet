@@ -132,13 +132,13 @@ class sohovet_import_products_wizard(models.TransientModel):
             vals['descuento'] = fields['descuento']
 
         if 'categoria' in fields and fields['categoria']:
-            category_id = self.env['product.category'].search([('name', 'ilike', fields['categoria']),
+            category_id = self.env['product.category'].search([('name', '=', fields['categoria']),
                                                                ('type', '=', 'normal')])
             if category_id:
                 vals['categoria'] = category_id.id
 
         if 'grupo' in fields and fields['grupo']:
-            group_id = self.env['sohovet.product.group'].search([('name', 'ilike', fields['grupo'])])
+            group_id = self.env['sohovet.product.group'].search([('name', '=', fields['grupo'])])
             if group_id:
                 vals['grupo'] = group_id.id
 
@@ -148,7 +148,7 @@ class sohovet_import_products_wizard(models.TransientModel):
             else:
                 brand_id = self.env['sohovet.product.brand'].search([('name', 'ilike', fields['marca'])])
                 if brand_id:
-                    vals['marca'] = brand_id.id
+                    vals['marca'] = brand_id[0].id
 
         if 'unidades_compra' in fields and fields['unidades_compra']:
             vals['unidades_compra'] = int(fields['unidades_compra'])
@@ -180,9 +180,9 @@ class sohovet_import_products_wizard(models.TransientModel):
 
         if 'stock_min' in fields and 'ubicacion' in fields and fields['stock_min'] and fields['ubicacion']:
             if fields['stock_min'].isdigit() and not '/' in fields['ubicacion']:  # Varias ubicaciones...
-                warehouse_id = self.env['stock.warehouse'].search([('code', '=', fields['ubicacion'])])
-                if warehouse_id:
+                location_id = self.env['stock.location'].search([('code', '=', fields['ubicacion'])])
+                if location_id:
                     vals['stock_min'] = int(fields['stock_min'])
-                    vals['ubicacion'] = warehouse_id.id
+                    vals['ubicacion'] = location_id.id
 
         return vals
