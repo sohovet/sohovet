@@ -1,7 +1,7 @@
-# SOHOVeT
-Gestión de una clínica veterinaria con Odoo
+# SOHOVet
+Gestión de clínicas y hospitales veterinarios con Odoo
 
-SOHOVet contiene un conjunto de módulos para Odoo (www.odoo.com) que permite la gestión de una clínica veterinaria.
+SOHOVet contiene un conjunto de módulos para Odoo (www.odoo.com) que permite la gestión de clínicas y hospitales veterinarios.
 
 Versión inicial:
  - Compras a proveedores.
