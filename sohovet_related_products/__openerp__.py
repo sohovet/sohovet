@@ -28,7 +28,12 @@
     'author': 'Juan Ignacio Alonso Barba',
     'website': 'http://www.enzo.es/',
     'license': 'AGPL-3',
-    'depends': ['product', 'stock', 'purchase'],
+    'depends': [
+        'product',
+        'stock',
+        'purchase',
+        'sohovet_simplified_uom',
+    ],
     'data': [
         'views/sohovet_product_view.xml',
         'wizard/related_product_wizard.xml',

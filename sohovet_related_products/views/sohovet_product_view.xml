@@ -10,34 +10,51 @@
         <record id="sohovet_product_template_form_view" model="ir.ui.view">
             <field name="name">product.template.form</field>
             <field name="model">product.template</field>
-            <field name="priority">50</field>
+            <field name="priority">70</field>
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
 
                 <!--<field name="uom_id" position="replace"/>
                 <field name="uom_po_id" position="replace"/>-->
 
+                <div name="buttons" position="inside">
+                        <button class="oe_inline oe_stat_button oe_view_only"  name="open_related_wizard"  type="object"
+                                icon="fa-magic"  attrs="{'invisible': ['|', ('vinculated','=',True), ('purchase_uom_factor', '!=', 1)]}">
+                            <div>
+                                Crear producto<br/>unitario
+                            </div>
+                        </button>
+
+                </div>
+
                 <div name="options" position="inside">
                     <div>
                         <field name="vinculated" attrs="{'invisible': [('vinculated','=',False)]}"/>
                         <label for="vinculated" attrs="{'invisible': [('vinculated','=',False)]}"/>
-                        <button name="open_related_wizard" string="Vincular productos" type="object"
-                                 attrs="{'invisible': [('vinculated','=',True)]}"/>
+
                     </div>
                 </div>
 
-                <page string="Information" position="after">
-                    <page string="Productos vinculados" attrs="{'invisible': [('vinculated','=',False)]}">
-                        <group>
+                <separator string="Suppliers" position="before">
+                    <separator string="Productos vinculados" attrs="{'invisible': [('vinculated','=',False)]}"/>
+                        <group attrs="{'invisible': [('vinculated','=',False)]}">
                             <field name="parent_id" attrs="{'invisible': [('parent_id','=',False)]}"/>
-                            <field name="child_id" attrs="{'invisible': [('child_id','=',False)]}"/>
-                            <field name="units" readonly="1"/>
-                            <button name="removeRelated" string="Borrar vinculo" type="object"/>
-                            <button name="open_unpack_wizard" string="Desagrupar una unidad" type="object"
+                            <label for="child_id" attrs="{'invisible': [('child_id','=',False)]}"/>
+                            <div attrs="{'invisible': [('child_id','=',False)]}">
+                                <field name="child_id" attrs="{'invisible': [('child_id','=',False)]}" class="oe_inline"/>
+                                <button name="removeRelated" string="Eliminar" type="object"
                                     attrs="{'invisible': [('child_id','=',False)]}"/>
+                            </div>
+
+                            <label for="units"/>
+                            <div>
+                                <field name="units" readonly="1" class="oe_inline"/>
+                                <button name="open_unpack_wizard" string="⇒ Desagrupar una unidad" type="object" class="oe_link"
+                                        attrs="{'invisible': ['|', ('child_id','=',False), ('qty_available','&lt;',1)]}" groups="base.group_no_one"/>
+                            </div>
+
                         </group>
-                    </page>
-                </page>
+                </separator>
 
                 <group name="general" position="replace">
                     <group name="general" string="Precio">
@@ -48,6 +65,16 @@
                                  attrs="{'invisible': [('price_updated','=',False)]}"/> <!--class="oe_edit_only"-->
                     </group>
                 </group>
+
+                <field name="purchase_uom_factor" position="replace">
+                    <label for="purchase_uom_factor"/>
+                    <div>
+                        <field name="purchase_uom_factor" attrs="{'readonly': [('vinculated', '!=', False)]}"/>
+                        <!--<div attrs="{'invisible': [('child_id', '=', False)]}">(producto agrupado)</div>-->
+                        <!--<div attrs="{'invisible': [('parent_id', '=', False)]}">(producto unitario)</div>-->
+                    </div>
+                </field>
+
             </field>
         </record>
 
@@ -136,7 +163,8 @@
             action="related_products_unpack_action"
             id="related_products_unpack_action_menuitem"
             parent="related_products_menuitem"
-            sequence="60"/>
+            sequence="60"
+            groups="base.group_no_one"/>
 
         <menuitem
             name="Precios de coste"
@@ -156,7 +184,8 @@
             action="related_products_unpack_action"
             id="related_products_unpack_action_menuitem2"
             parent="related_products_menuitem2"
-            sequence="60"/>
+            sequence="60"
+            groups="base.group_no_one"/>
 
         <menuitem
             name="Precios de coste"

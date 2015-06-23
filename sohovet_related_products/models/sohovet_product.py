@@ -22,6 +22,7 @@
 
 from openerp import fields, models, api, _
 import openerp.addons.decimal_precision as dp
+from openerp.api import Environment
 
 ########
 ## Product template
@@ -43,32 +44,45 @@ class product_template(models.Model):
     parent_qty_available = fields.Float(string='Cantidad disponible (Producto agrupado)', related='parent_id.qty_available')
 
     @api.one
+    @api.onchange('name', 'child_id', 'parent_id')
+    def _set_name(self):
+        agrup_code = _(u'[Agrup]')
+        unit_code = _(u'[Unid]')
+
+        if self.child_id and not self.name[-1 * len(agrup_code):] == agrup_code:  # agrup
+            self.name = u'%s %s' % (self.name, agrup_code)
+
+        if self.parent_id and not self.name[-1 * len(unit_code):] == unit_code:  # unit
+            self.name = u'%s %s' % (self.name, unit_code)
+
+    @api.one
     @api.depends('parent_id', 'child_id')
     def isRelated(self):
         self.vinculated = self.child_id.id or self.parent_id.id
 
     @api.one
     def removeRelated(self):
-        if self.child_id:
-            self.child_id.parent_id = None
-            self.child_id.units = 0
-            self.child_id = None
-        elif self.parent_id:
-            self.parent_id.child_id = None
-            self.parent_id.units = 0
-            self.parent_id = None
-        self.units = 0
-        return True
+        agrup_code = _(u'[Agrup]')
 
+        parent = self if self.child_id else self.parent_id
+        child = self.child_id if self.child_id else self
+
+        if parent.name[-1 * len(agrup_code):] == agrup_code:
+            parent.name = self.name[:-1 * len(agrup_code)].strip()
+
+        parent.child_id = False
+        child.parent_id = False
+        child.active = False
+
+        return True
 
     @api.one
     @api.depends('parent_id', 'parent_id.standard_price')
     def computeUnitaryPrice(self):
         if self.parent_id:
-            self.computed_price = round(self.parent_standard_price / self.units, 2)
+            self.computed_price = self.parent_standard_price / self.units
         else:
             self.computed_price = 0
-
 
     @api.one
     def copyPrice(self):
@@ -77,12 +91,12 @@ class product_template(models.Model):
 
     @api.one
     def computeNeedsUpdate(self):
-        self.price_updated = self.parent_id.id and round(self.standard_price, 2) != round(self.computed_price, 2)
+        self.price_updated = self.parent_id.id and self.standard_price != self.computed_price
 
     @api.multi
     def open_related_wizard(self):
 
-        wizard_id = self.env['sohovet.related.product'].create({'product1': self.id})
+        wizard_id = self.env['sohovet.related.product'].create({'product': self.id})
 
         return {'name': 'Vincular productos',
                 'res_id': wizard_id.id,

@@ -19,48 +19,43 @@
 #  along with this program. If not, see <http://www.gnu.org/licenses/>.      #
 #                                                                            #
 ##############################################################################
-from openerp import fields, models, api
+from openerp import fields, models, api, _
 from openerp.exceptions import ValidationError
 
 class sohovet_related_product(models.TransientModel):
     _name = 'sohovet.related.product'
 
-    product1 = fields.Many2one('product.template', 'Producto 1',
-                               domain="[('vinculated', '=', False), ('id', '!=', product2)]", required=True)
-    product2 = fields.Many2one('product.template', 'Producto 2',
-                               domain="[('vinculated', '=', False), ('id', '!=', product1)]")
-
-    product1_unitary = fields.Boolean('Es un producto unitario')
+    product = fields.Many2one('product.template', 'Producto', required=True)
 
     units = fields.Integer('Unidades por agrupación')
-    update_price = fields.Boolean('Actualizar ahora el precio de coste del producto unitario')
 
     _defaults = {
-        'product1_unitary': True,
-        'update_price': True,
         'units': 1,
     }
 
     @api.multi
     def save_changes(self):
         if self.units <= 1:
-            raise ValidationError('El número de unidades debe ser mayor que 1')
-        if not self.product2.id:
-            raise ValidationError('Introduce el segundo producto')
+            raise ValidationError(_('The number of units should be greater than 1'))
 
-        if self.product1_unitary:
-            self.product1.parent_id = self.product2
-            self.product2.child_id = self.product1
-            if self.update_price:
-                self.product1.standard_price = round(self.product2.standard_price / self.units, 2)
-        else:
-            self.product1.child_id = self.product2
-            self.product2.parent_id = self.product1
-            if self.update_price:
-                self.product2.standard_price = round(self.product1.standard_price / self.units, 2)
+        agrup_code = _(u'[Agrup]')
+        unit_code = _(u'[Unid]')
 
-        self.product1.units = self.units
-        self.product2.units = self.units
+        new_vals = {
+            'units': self.units,
+            'parent_id': self.product.id,
+            'purchase_ok': False,
+            'standard_price': self.product.standard_price / self.units,
+            'purchase_uom_price': self.product.standard_price / self.units,
+            'purchase_uom_factor': 1,
+        }
+
+        product2 = self.product.copy(new_vals)
+        product2.name = self.product.name + u' ' + unit_code
+
+        self.product.name += u' ' + agrup_code
+        self.product.units = self.units
+        self.product.child_id = product2
 
         return {'type': 'ir.actions.act_window_close'}
 

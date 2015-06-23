@@ -8,26 +8,21 @@
             <field name="arch" type="xml">
                  <form string="Related products" version="7.0">
 
-                     <div class="oe_horizontal_separator oe_clear">
-                         Producto: <field name="product1" class="oe_inline" readonly="1"
-                                              options='{"no_open": True}'/>
-
+                     <div>
+                         Se creará el producto <strong><field name="product" class="oe_inline" readonly="1"  options='{"no_open": True}'/> [Unid]</strong>.
+                         <ul>
+                             <li>El precio de coste del nuevo producto se calculará como el coste del producto actual dividido entre el número de unidades por agrupación.</li>
+                             <li>El nuevo producto se marcará como "no comprable".</li>
+                             <li>Puede ser necesario <strong>revisar el precio de venta</strong> del nuevo producto.</li>
+                         </ul>
                      </div>
-
                      <group>
-                        <field name="product1_unitary"/>
-                        <div>
-                        <label for="product2" string="Producto unitario" attrs="{'invisible': [('product1_unitary','=',True)]}"/>
-                        <label for="product2" string="Producto agrupado" attrs="{'invisible': [('product1_unitary','=',False)]}"/>
-                        </div>
-                        <field name="product2" nolabel="1"/>
                         <field name="units"/>
-                        <field name="update_price"/>
-
-                        <!--<label for="update_price"/>-->
-
                      </group>
-                     <button name="save_changes" string="Crear vinculación" type="object"/>
+
+                     <footer>
+                        <button name="save_changes" class="oe_highlight" string="Crear producto unitario" type="object"/>
+                     </footer>
                 </form>
             </field>
         </record>
@@ -42,10 +37,14 @@
                                               options='{"no_open": True}'/>
                      </div>
                     <group>
-                        <field name="location_id" domain="[('id', 'in', location_ids)]"/>
-                        <field name="location_dest_id"/>
+                        <field name="location_id" domain="[('id', 'in', location_ids)]"
+                               options='{"no_open": True, "no_create": True}'/>
+                        <field name="location_dest_id"
+                               options='{"no_open": True, "no_create": True}'/>
                      </group>
-                     <button name="unpack" string="Desempaquetar" type="object"/>
+                     <footer>
+                        <button name="unpack" string="Desempaquetar" type="object" class="oe_highlight"/>
+                     </footer>
                 </form>
             </field>
         </record>
