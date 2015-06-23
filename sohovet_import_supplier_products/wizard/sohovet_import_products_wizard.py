@@ -129,7 +129,7 @@ class sohovet_import_products_wizard(models.TransientModel):
             vals['descripcion'] = fields['descripcion']
 
         if 'descuento' in fields and fields['descuento']:
-            vals['descuento'] = fields['descuento']
+            vals['descuento'] = int(fields['descuento'])
 
         if 'categoria' in fields and fields['categoria']:
             category_id = self.env['product.category'].search([('name', '=', fields['categoria']),

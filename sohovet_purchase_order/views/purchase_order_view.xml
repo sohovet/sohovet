@@ -32,6 +32,9 @@
                 <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="attributes">
                     <attribute name="string">Unidad</attribute>
                 </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='discount']" position="attributes">
+                    <attribute name="type">integer</attribute>
+                </xpath>
                 <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="attributes">
                     <attribute name="type">integer</attribute>
                 </xpath>

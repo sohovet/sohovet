@@ -121,7 +121,7 @@ class sohovet_import_products_items(models.Model):
     iva_venta = fields.Many2one('account.tax', 'IVA venta')
     iva_venta_sel = fields.Selection(selection='_get_iva_venta_sel_items', string='IVA venta',
                                      compute='_get_iva_venta_sel', inverse='_set_iva_venta_sel')
-    descuento = fields.Float('Descuento proveedor')
+    descuento = fields.Integer('Descuento proveedor')
     vendible = fields.Boolean('Vendible')
     stock_min = fields.Integer('Stock minimo')
     ubicacion = fields.Many2one('stock.location', 'Ubicación')

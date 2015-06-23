@@ -127,7 +127,7 @@ class product_product(models.Model):
 class product_supplierinfo(models.Model):
     _inherit = 'product.supplierinfo'
 
-    supplier_discount = fields.Float('(%) Discount', digits=(3, 1))
+    supplier_discount = fields.Integer('(%) Discount')
 
     @api.constrains('supplier_discount')
     def _check_discount(self):

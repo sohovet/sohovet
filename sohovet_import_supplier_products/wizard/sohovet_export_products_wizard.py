@@ -183,8 +183,8 @@ class sohovetExportProductsWizard(models.TransientModel):
 
         # DESCUENTO
         worksheet1.write('N1', 'descuento', format_header)
-        worksheet1.set_column('N:N', 16, float_format)
-        worksheet1.data_validation('N2:N1048576', {'validate': 'decimal', 'criteria': 'between', 'minimum': 0,
+        worksheet1.set_column('N:N', 16, int_format)
+        worksheet1.data_validation('N2:N1048576', {'validate': 'integer', 'criteria': 'between', 'minimum': 0,
                                                    'maximum': 100})
 
         # STOCK_MIN
