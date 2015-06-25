@@ -26,8 +26,8 @@
                         <field name="purchase_uom_price"/>
                     </group>
                 </group>
-                <field name="standard_price" position="replace">
-                    <field name="standard_price" attrs="{'readonly': [('purchase_ok', '=', True)]}"/>
+                <field name="standard_price" position="attributes">
+                    <attribute name="attrs">{'readonly': [('purchase_ok', '=', True)]}</attribute>
                 </field>
             </field>
         </record>
