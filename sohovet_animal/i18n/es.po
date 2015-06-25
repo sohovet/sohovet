@@ -119,7 +119,7 @@ msgstr "Información"
 #: field:sohovet.animal.specie,write_uid:0
 #: field:sohovet.animal.type,write_uid:0
 msgid "Last Updated by"
-msgstr "Última alctualización por"
+msgstr "Última actualización por"
 
 #. module: sohovet_animal
 #: field:sohovet.animal,write_date:0
@@ -127,7 +127,7 @@ msgstr "Última alctualización por"
 #: field:sohovet.animal.specie,write_date:0
 #: field:sohovet.animal.type,write_date:0
 msgid "Last Updated on"
-msgstr "Última alctualización el"
+msgstr "Última actualización el"
 
 #. module: sohovet_animal
 #: field:sohovet.animal,name:0
