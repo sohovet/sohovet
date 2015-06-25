@@ -51,6 +51,12 @@ class product_template(models.Model):
                     uom_po_id = self.env['product.uom'].create(uom_po_id_data)
                 self.uom_po_id = uom_po_id
 
+    @api.model
+    def create(self, vals):
+        vals['uom_po_id'] = vals['uom_id']
+        res = super(product_template, self).create(vals)
+        return res
+
     @api.one
     @api.onchange('purchase_uom_price', 'purchase_uom_factor')
     def _set_purchase_uom_price(self):
