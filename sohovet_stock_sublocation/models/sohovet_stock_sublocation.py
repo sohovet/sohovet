@@ -19,32 +19,15 @@
 #  along with this program. If not, see <http://www.gnu.org/licenses/>.      #
 #                                                                            #
 ##############################################################################
-from openerp import models, fields, api
-import openerp.addons.decimal_precision as dp
 
-class stock_picking(models.Model):
-    _inherit = 'stock.picking'
+from openerp import fields, models, api, SUPERUSER_ID, _
+from openerp.exceptions import ValidationError
 
-    def moves_ordered(self):
-        return self.move_lines.sorted(key=lambda x: x.product_id.name)
 
-    @api.multi
-    def do_print_picking(self):
-        return self.env['report'].get_action(self, 'sohovet_stock_picking_report.report_picking')
+class StockSubLocation(models.Model):
+    _name = 'stock.sublocation'
+    _description = 'Stock sublocation'
 
-class product_product(models.Model):
-    _inherit = 'product.product'
-
-    def supplier_product_code(self, supplier_id):
-        for seller in self.seller_ids:
-            if seller.name.id == supplier_id.id:
-                return seller.product_code
-
-        return False
-
-    def location_code(self):
-        orderpoints = self.env['stock.warehouse.orderpoint'].search([('product_id', '=', self.id)])
-        if orderpoints:
-            return orderpoints[0].location_id.code
-        else:
-            return u''
+    name = fields.Char('Name', required=True)
+    code = fields.Char('Code', size=5, required=True)
+    location_id = fields.Many2one('stock.location', string='Parent location', required=True)

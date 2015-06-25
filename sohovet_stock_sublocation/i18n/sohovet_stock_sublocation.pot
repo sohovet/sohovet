@@ -1,0 +1,80 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sohovet_stock_sublocation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-25 10:55+0000\n"
+"PO-Revision-Date: 2015-06-25 10:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sohovet_stock_sublocation
+#: model:ir.actions.act_window,help:sohovet_stock_sublocation.sohovet_stock_sublocation_action
+msgid "<p class=\"oe_view_nocontent_create\">Click to add a sublocation.</p>\n"
+"			"
+msgstr ""
+
+#. module: sohovet_stock_sublocation
+#: field:stock.sublocation,code:0
+msgid "Code"
+msgstr ""
+
+#. module: sohovet_stock_sublocation
+#: field:stock.sublocation,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: sohovet_stock_sublocation
+#: field:stock.sublocation,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: sohovet_stock_sublocation
+#: field:stock.sublocation,id:0
+msgid "ID"
+msgstr ""
+
+#. module: sohovet_stock_sublocation
+#: field:stock.sublocation,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sohovet_stock_sublocation
+#: field:stock.sublocation,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sohovet_stock_sublocation
+#: field:stock.sublocation,name:0
+msgid "Name"
+msgstr ""
+
+#. module: sohovet_stock_sublocation
+#: field:stock.sublocation,location_id:0
+msgid "Parent location"
+msgstr ""
+
+#. module: sohovet_stock_sublocation
+#: model:ir.model,name:sohovet_stock_sublocation.model_stock_sublocation
+msgid "Stock sublocation"
+msgstr ""
+
+#. module: sohovet_stock_sublocation
+#: view:stock.sublocation:sohovet_stock_sublocation.sohovet_stock_sublocation_form_view
+#: view:stock.sublocation:sohovet_stock_sublocation.sohovet_stock_sublocation_tree_view
+msgid "Sublocation"
+msgstr ""
+
+#. module: sohovet_stock_sublocation
+#: model:ir.actions.act_window,name:sohovet_stock_sublocation.sohovet_stock_sublocation_action
+#: model:ir.ui.menu,name:sohovet_stock_sublocation.sohovet_stock_sublocation_menu
+msgid "Sublocations"
+msgstr ""
+

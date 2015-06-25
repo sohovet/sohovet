@@ -19,32 +19,22 @@
 #  along with this program. If not, see <http://www.gnu.org/licenses/>.      #
 #                                                                            #
 ##############################################################################
-from openerp import models, fields, api
-import openerp.addons.decimal_precision as dp
 
-class stock_picking(models.Model):
-    _inherit = 'stock.picking'
-
-    def moves_ordered(self):
-        return self.move_lines.sorted(key=lambda x: x.product_id.name)
-
-    @api.multi
-    def do_print_picking(self):
-        return self.env['report'].get_action(self, 'sohovet_stock_picking_report.report_picking')
-
-class product_product(models.Model):
-    _inherit = 'product.product'
-
-    def supplier_product_code(self, supplier_id):
-        for seller in self.seller_ids:
-            if seller.name.id == supplier_id.id:
-                return seller.product_code
-
-        return False
-
-    def location_code(self):
-        orderpoints = self.env['stock.warehouse.orderpoint'].search([('product_id', '=', self.id)])
-        if orderpoints:
-            return orderpoints[0].location_id.code
-        else:
-            return u''
+{
+    'name': 'SOHOVet product location',
+    'version': '1.0',
+    'category': 'Productos',
+    'description': """Módulo que añade el campo localización a los productos.""",
+    'author': 'Juan Ignacio Alonso Barba',
+    'website': 'http://www.enzo.es/',
+    'license': 'AGPL-3',
+    'depends': [
+        'product',
+        'sohovet_stock_sublocation',
+    ],
+    'data': [
+        'views/sohovet_product_sublocation_view.xml',
+    ],
+    'active': False,
+    'installable': True,
+}

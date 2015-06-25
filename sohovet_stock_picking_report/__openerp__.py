@@ -30,6 +30,7 @@
     'license': 'AGPL-3',
     'depends': [
         'stock',
+        'sohovet_product_sublocation',
     ],
     'data': [
         'sohovet_report_menu.xml',

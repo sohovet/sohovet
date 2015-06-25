@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sohovet_product_sublocation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-25 11:25+0000\n"
+"PO-Revision-Date: 2015-06-25 11:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sohovet_product_sublocation
+#: view:product.template:sohovet_product_sublocation.sohovet_product_template_form_view
+msgid "Location"
+msgstr "Localización"
+
+#. module: sohovet_product_sublocation
+#: model:ir.model,name:sohovet_product_sublocation.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: sohovet_product_sublocation
+#: field:product.template,sublocation_id:0
+msgid "Sublocation"
+msgstr "Localización"
+
