@@ -125,6 +125,7 @@ class sohovet_import_products_items(models.Model):
     vendible = fields.Boolean('Vendible')
     stock_min = fields.Integer('Stock minimo')
     ubicacion = fields.Many2one('stock.location', 'Ubicación')
+    localizacion = fields.Many2one('stock.sublocation', 'Localización')
 
     precio_coste = fields.Float('Precio coste nuevo', digits=dp.get_precision('Product Price'), compute='_get_cost_price')
     precio_coste_actual = fields.Float('Precio coste actual', digits=dp.get_precision('Product Price'),
@@ -222,7 +223,11 @@ class sohovet_import_products_items(models.Model):
                                                                     [p.id for p in self.template_id.product_variant_ids])])
             aux_list = []
             for rule in rules:
-                aux_str = '%s:%d' % (rule.location_id.code, rule.product_min_qty)
+                sublocations = self.template_id.sublocations(rule.location_id)
+                if sublocations:
+                    aux_str = '%s:%d' % (sublocations[0].code, rule.product_min_qty)
+                else:
+                    aux_str = '%s:%d' % (rule.warehouse_id.code, rule.product_min_qty)
                 aux_list.append(aux_str)
             if aux_list:
                 self.stock_minimo_actual = ' / '.join(aux_list)
@@ -238,14 +243,18 @@ class sohovet_import_products_items(models.Model):
             if self.ubicacion and self.ubicacion.id == rule.location_id.id:
                 contains = True
                 if self.stock_min > 0:
-                    aux_str = '%s:%d' % (rule.location_id.code, self.stock_min)
+                    aux_str = '%s:%d' % (self.localizacion.code, self.stock_min)
                     aux_list.append(aux_str)
             else:
-                aux_str = '%s:%d' % (rule.location_id.code, rule.product_min_qty)
+                sublocations = self.template_id.sublocations(rule.location_id)
+                if sublocations:
+                    aux_str = '%s:%d' % (sublocations[0].code, rule.product_min_qty)
+                else:
+                    aux_str = '%s:%d' % (rule.warehouse_id.code, rule.product_min_qty)
                 aux_list.append(aux_str)
 
         if self.ubicacion and not contains and self.stock_min > 0:
-                aux_str = '%s:%d' % (self.ubicacion.code, self.stock_min)
+                aux_str = '%s:%d' % (self.localizacion.code, self.stock_min)
                 aux_list.append(aux_str)
 
         if aux_list:
@@ -364,6 +373,13 @@ class sohovet_import_products_items(models.Model):
         # IVA VENTA
         if self.iva_venta:
             self.template_id.taxes_id = [(6, 0, [self.iva_venta.id])]
+
+        # LOCALIZACIONES
+        sublocation_ids = [sublocation.id for sublocation in self.template_id.sublocation_ids
+                           if sublocation.location_id != self.ubicacion]
+        if self.localizacion:
+            sublocation_ids.append(self.localizacion.id)
+        self.template_id.sublocation_ids = [(6, 0, sublocation_ids)]
 
         # ABASTECIMIENTOS
         if self.ubicacion:

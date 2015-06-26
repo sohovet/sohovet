@@ -82,7 +82,7 @@
                     <field name="iva_venta_sel"/>
                     <field name="descuento"/>
                     <field name="stock_min"/>
-                    <field name="ubicacion"/>
+                    <field name="localizacion"/>
                  </tree>
             </field>
         </record>
@@ -109,7 +109,7 @@
                     <field name="iva_venta_sel"/>
                     <field name="descuento"/>
                     <field name="stock_min"/>
-                    <field name="ubicacion"/>
+                    <field name="localizacion"/>
                  </tree>
             </field>
         </record>

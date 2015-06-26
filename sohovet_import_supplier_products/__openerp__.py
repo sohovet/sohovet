@@ -31,7 +31,7 @@
     'depends': [
         'product',
         'sohovet_product',
-        'sohovet_stock_location_code',
+        'sohovet_stock_sublocation',
         'sohovet_product_price',
     ],
     'data': [

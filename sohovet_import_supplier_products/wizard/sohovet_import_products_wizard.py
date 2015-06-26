@@ -29,7 +29,7 @@ import base64
 
 valid_fields = [
     'ref_interna', 'ref_proveedor', 'ean13', 'descripcion', 'categoria', 'grupo', 'marca', 'unidades_compra',
-    'unidad_compra', 'coste_compra', 'iva_compra', 'iva_venta', 'descuento', 'vendible', 'stock_min', 'ubicacion',
+    'unidad_compra', 'coste_compra', 'iva_compra', 'iva_venta', 'descuento', 'vendible', 'stock_min', 'localizacion',
 ]
 
 SALE_TAX_TEMPLATE = 'S_IVA%s'
@@ -178,11 +178,16 @@ class sohovet_import_products_wizard(models.TransientModel):
         if 'vendible' in fields and fields['vendible']:
             vals['vendible'] = fields['vendible'] != '0'
 
-        if 'stock_min' in fields and 'ubicacion' in fields and fields['stock_min'] and fields['ubicacion']:
-            if fields['stock_min'].isdigit() and not '/' in fields['ubicacion']:  # Varias ubicaciones...
-                location_id = self.env['stock.location'].search([('code', '=', fields['ubicacion'])])
-                if location_id:
+        if 'localizacion' in fields and fields['localizacion']:
+            sublocation_id = self.env['stock.sublocation'].search([('code', '=', fields['localizacion'])])
+            if sublocation_id:
+                vals['localizacion'] = sublocation_id.id
+
+        if 'stock_min' in fields and 'localizacion' in fields and fields['stock_min'] and fields['localizacion']:
+            if fields['stock_min'].isdigit() and '/' not in fields['localizacion']:  # Varias ubicaciones...
+                sublocation_id = self.env['stock.sublocation'].search([('code', '=', fields['localizacion'])])
+                if sublocation_id:
                     vals['stock_min'] = int(fields['stock_min'])
-                    vals['ubicacion'] = location_id.id
+                    vals['ubicacion'] = sublocation_id.location_id.id
 
         return vals

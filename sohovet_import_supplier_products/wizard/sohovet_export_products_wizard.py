@@ -193,14 +193,14 @@ class sohovetExportProductsWizard(models.TransientModel):
         worksheet1.data_validation('O2:O1048576', {'validate': 'integer', 'criteria': '>=', 'value': 0})
 
         # UBICACIONES
-        worksheet2.write(0, 6, 'ubicaciones', format_header)
-        location_ids = self.env['stock.location'].search([('code', '!=', False)])
-        location_ids = location_ids.sorted(key=lambda r: r.name)
-        for i in range(len(location_ids)):
-            worksheet2.write((i+1), 6, location_ids[i].code)
+        worksheet2.write(0, 6, 'localizaciones', format_header)
+        sublocation_ids = self.env['stock.sublocation'].search([])
+        sublocation_ids = sublocation_ids.sorted(key=lambda r: r.name)
+        for i in range(len(sublocation_ids)):
+            worksheet2.write((i+1), 6, sublocation_ids[i].code)
         worksheet2.set_column('G:G', 16)
 
-        worksheet1.write('P1', 'ubicacion', format_header)
+        worksheet1.write('P1', 'localizacion', format_header)
         worksheet1.set_column('P:P', 16, text_format)
         worksheet1.data_validation('P2:P1048576', {'validate': 'list', 'source': '=Validacion!$G$2:$G$%d' % (i+2)})
 
@@ -224,9 +224,12 @@ class sohovetExportProductsWizard(models.TransientModel):
             qtys = []
             codes = []
             for rule in stock_rules:
-                if rule.location_id.code:
-                    qtys.append(str(int(rule.product_min_qty)))
-                    codes.append(rule.location_id.code)
+                qtys.append(str(int(rule.product_min_qty)))
+                sublocations = template_id.sublocations(rule.location_id)
+                if sublocations:
+                    codes.append(sublocations[0].code)
+                else:
+                    codes.append(rule.warehouse_id.code)
 
             fields = [
                 1 if template_id.sale_ok else 0,
