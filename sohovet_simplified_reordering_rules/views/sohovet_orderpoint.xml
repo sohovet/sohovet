@@ -8,12 +8,14 @@
         <field name="arch" type="xml">
             <tree editable="top">
                 <field name="name" invisible="1"/>
-                <field name="product_id" readonly="1" options="{'no_open': True}"/>
-                <field name="location_id" invisible="1"/>
+                <field name="warehouse_lot_stock_id" invisible="1"/>
+                <field name="product_id" options="{'no_open': True, 'no_create': True}}"
+                       domain="[('id', 'in', product_ids)]"/>
+                <field name="warehouse_id" options="{'no_open': True, 'no_create': True}"/>
+                <field name="location_id" options="{'no_open': True, 'no_create': True}"
+                        domain="[('id', 'child_of', warehouse_lot_stock_id)]"/>
                 <field name="product_max_qty" invisible="1"/>
                 <field name="qty_multiple" invisible="1"/>
-
-                <field name="warehouse_id" on_change="onchange_warehouse_id(warehouse_id)"/>
                 <field name="product_min_qty" widget="integer"/>
             </tree>
         </field>

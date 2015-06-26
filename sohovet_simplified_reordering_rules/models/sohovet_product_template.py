@@ -20,4 +20,32 @@
 #                                                                            #
 ##############################################################################
 
-from . import models
+from openerp import fields, models, api, _
+
+
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+
+    @api.multi
+    def action_open_orderpoint(self):
+        product_ids = [variant.id for variant in self.product_variant_ids]
+        context = {'product_ids': product_ids}
+
+        if len(product_ids) == 1:
+            context['default_product_id'] = product_ids[0]
+
+        warehouse_ids = self.env['stock.warehouse'].search([])
+        if len(warehouse_ids) == 1:
+            context['default_warehouse_id'] = warehouse_ids[0].id
+
+        action = {
+            'name': _('Reordering rules'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'stock.warehouse.orderpoint',
+            'view_type': 'form',
+            'view_mode': 'tree',
+            'view_id': self.env.ref('sohovet_simplified_reordering_rules.sohovet_warehouse_orderpoint_editable_tree').id,
+            'context': context,
+            'domain': [('product_id', 'in', product_ids)],
+        }
+        return action

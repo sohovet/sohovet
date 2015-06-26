@@ -20,4 +20,4 @@
 #                                                                            #
 ##############################################################################
 
-from . import models
+from . import sohovet_product_template, sohovet_orderpoint

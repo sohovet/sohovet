@@ -20,4 +20,11 @@
 #                                                                            #
 ##############################################################################
 
-from . import models
+from openerp import fields, models, api
+
+
+class StockWarehouseOrderpoint(models.Model):
+    _inherit = 'stock.warehouse.orderpoint'
+
+    warehouse_lot_stock_id = fields.Many2one('stock.location', string='Warehouse default stock location',
+                                             related='warehouse_id.lot_stock_id', store=False)
