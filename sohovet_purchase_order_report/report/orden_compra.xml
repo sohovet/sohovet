@@ -115,9 +115,9 @@
                     <tr>
                         <th colspan="2"><strong>Cantidad</strong></th>
                         <th colspan="2"><strong>Código de producto y descripción</strong></th>
+                        <th class="text-right"><strong>Precio<br/>unidad</strong></th>
                         <th class="text-right"><strong>Desc.</strong></th>
                         <th class="text-right"><strong>IVA</strong></th>
-                        <th class="text-right"><strong>Precio<br/>unidad</strong></th>
                         <th class="text-right"><strong>Precio<br/>neto</strong></th>
                     </tr>
                 </thead>
@@ -139,6 +139,9 @@
                             <span t-field="line.desc_product_name"/>
                         </td>
                         <td class="text-right">
+                            <span t-field="line.price_unit"/>
+                        </td>
+                        <td class="text-right">
                             <t t-if="line.discount > 0">
                                 <span t-esc="'%s%%%%' % int(line.discount) if int(line.discount) == line.discount
                                                     else line.discount"/>
@@ -150,12 +153,6 @@
                         <!--<td class="text-center">-->
                             <!--<span t-field="line.date_planned"/>-->
                         <!--</td>-->
-
-                        <td class="text-right">
-                            <t t-if="line.product_qty != 1">
-                                <span t-field="line.price_unit"/>
-                            </t>
-                        </td>
                         <td class="text-right">
                             <span t-field="line.price_subtotal"
                                 t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
