@@ -25,5 +25,5 @@ from openerp.exceptions import ValidationError
 class res_partner(models.Model):
     _inherit = 'res.partner'
 
-    reminder_ids = fields.One2many('sohovet.vaccine.reminder', 'partner_id', 'Recordatorios', domain=[('state', '=', 'sent')])
+    reminder_ids = fields.One2many('sohovet.vaccine.reminder', 'partner_id', 'Reminders', domain=[('state', '=', 'sent')])
 
