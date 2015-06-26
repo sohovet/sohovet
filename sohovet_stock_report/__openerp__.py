@@ -29,7 +29,8 @@
     'website': 'http://www.enzo.es/',
     'license': 'AGPL-3',
     'depends': [
-        'sohovet_product'
+        'sohovet_product',
+        'sohovet_product_sublocation',
     ],
     'data': [
         'wizard/sohovet_stock_report.xml',

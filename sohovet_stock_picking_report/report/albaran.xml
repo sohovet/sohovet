@@ -126,8 +126,8 @@
                         </t>
                     </td>
 
-                    <t t-if="o.picking_type_id.code != 'incoming'"><td class="text-right"><span t-esc="move.product_id.sublocation_id.code"/></td></t>
-                    <t t-if="o.picking_type_id.code != 'outgoing'"><td class="text-right"><span t-esc="move.product_id.sublocation_id.code"/></td></t>
+                    <t t-if="o.picking_type_id.code != 'incoming'"><td class="text-right"><span t-esc="move.product_id.sublocations(move.location_id).code"/></td></t>
+                    <t t-if="o.picking_type_id.code != 'outgoing'"><td class="text-right"><span t-esc="move.product_id.sublocations(move.location_dest_id).code"/></td></t>
                     <!--<t t-if="o.picking_type_id.code != 'incoming'"><td class="text-right"><span t-esc="move.location_id.name_get()[0][1].split('/')[0]"/></td></t>-->
                     <!--<t t-if="o.picking_type_id.code != 'outgoing'"><td class="text-right"><span t-esc="move.location_dest_id.name_get()[0][1].split('/')[0]"/></td></t>-->
 

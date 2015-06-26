@@ -21,10 +21,10 @@
 ##############################################################################
 
 {
-    'name': 'SOHOVet stock sublocation',
+    'name': 'SOHOVet stock localizacion',
     'version': '1.0',
     'category': 'Productos',
-    'description': """Módulo que añade el modelo 'sublocation'""",
+    'description': """Módulo que añade el modelo 'localizacion'""",
     'author': 'Juan Ignacio Alonso Barba',
     'website': 'http://www.enzo.es/',
     'license': 'AGPL-3',
@@ -33,6 +33,7 @@
     ],
     'data': [
         'views/sohovet_sublocation_view.xml',
+        'security/ir.model.access.csv',
     ],
     'active': False,
     'installable': True,

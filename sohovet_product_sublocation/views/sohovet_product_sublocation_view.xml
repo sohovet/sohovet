@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <group string="Stock and Expected Variations" position="after">
                     <group string="Location">
-                        <field name="sublocation_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="sublocation_ids" widget="many2many_tags" options="{'no_create': True}"/>
                     </group>
                 </group>
             </field>

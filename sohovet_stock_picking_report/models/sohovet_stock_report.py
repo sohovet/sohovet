@@ -32,6 +32,7 @@ class stock_picking(models.Model):
     def do_print_picking(self):
         return self.env['report'].get_action(self, 'sohovet_stock_picking_report.report_picking')
 
+
 class product_product(models.Model):
     _inherit = 'product.product'
 
@@ -41,10 +42,3 @@ class product_product(models.Model):
                 return seller.product_code
 
         return False
-
-    def location_code(self):
-        orderpoints = self.env['stock.warehouse.orderpoint'].search([('product_id', '=', self.id)])
-        if orderpoints:
-            return orderpoints[0].location_id.code
-        else:
-            return u''

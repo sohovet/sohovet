@@ -63,7 +63,7 @@
                         <thead>
                             <tr>
                                 <th colspan="1" width="8%"><strong>Grupo</strong></th>
-                                <th colspan="1" width="8%"><strong>Ubic.</strong></th>
+                                <th colspan="1" width="8%"><strong>Local.</strong></th>
                                 <th colspan="1" width="42%"><strong>Producto</strong></th>
                                 <th colspan="1" width="8%" class="text-right"><strong>Unidades<br/>compra</strong></th>
                                 <th colspan="1" width="8%" class="text-right"><strong>PVP<br/>unidad</strong></th>
@@ -80,8 +80,8 @@
                                             <span t-esc="product.name.group_id.name[:5]"/>
                                         </td>
                                         <td>
-                                            <t t-if="product.ubication">
-                                                <span t-field="product.ubication.code"/>
+                                            <t t-if="product.sublocation">
+                                                <span t-field="product.sublocation.code"/>
                                             </t>
                                         </td>
                                         <td>

@@ -48,45 +48,43 @@ class sohovetStockReport(models.TransientModel):
                     for quant in quants_ids:
                         qty_available += quant.qty
 
+                    sublocations = stock_rule.product_id.product_tmpl_id.sublocations(stock_rule.location_id)
+
                     item_data = {
                         # 'report_id': self.id,
-                        'can_change_name': False,
                         'name': stock_rule.product_id.id,
                         'qty_available': qty_available,
                         'supplier_id': stock_rule.product_id.seller_id.id,
-                        'ubication': stock_rule.warehouse_id.id,
+                        'sublocation': sublocations and sublocations[0].id or False,
                         'qty_min': int(stock_rule.product_min_qty),
                         'stock_rule': stock_rule.id,
                     }
                     item_ids.append(item_data)
             elif 'stock_full_report' in self.env.context:
                 for product_id in template_id.product_variant_ids:
-                    locations = {}
-                    quants_ids = self.env['stock.quant'].search([('product_id', '=', product_id.id)])
+                    if template_id.sublocation_ids:
+                        for sublocation_id in template_id.sublocation_ids:
+                            quants_ids = self.env['stock.quant'].search([('product_id', '=', product_id.id),
+                                                                         ('location_id', '=', sublocation_id.location_id.id)])
 
-                    for quant in quants_ids:
-                        if quant.location_id.id in locations:
-                            locations[quant.location_id.id] += quant.qty
-                        else:
-                            locations[quant.location_id.id] = quant.qty
+                            qty_available = 0
 
-                    if locations:
-                        for id_location in locations:
-                            id_warehouse = self.env['stock.warehouse'].search([('lot_stock_id', '=', id_location)])
-                            if id_warehouse and locations[id_location] != 0:
-                                item_data = {
-                                    # 'report_id': self.id,
-                                    'name': product_id.id,
-                                    'qty_available': locations[id_location] or 0,
-                                    'supplier_id': product_id.seller_id.id,
-                                    'ubication': id_warehouse[0],
-                                    'qty_min': 0,
-                                }
-                                item_ids.append(item_data)
+                            for quant in quants_ids:
+                                qty_available += quant.qty
+
+                            item_data = {
+                                # 'report_id': self.id,
+                                'name': product_id.id,
+                                'qty_available': qty_available,
+                                'supplier_id': product_id.seller_id.id,
+                                'sublocation': sublocation_id.id,
+                                'qty_min': 0,
+                            }
+                            item_ids.append(item_data)
+
                     else:
                         item_data = {
                             # 'report_id': self.id,
-                            'can_change_name': False,
                             'name': product_id.id,
                             'qty_available': int(product_id.qty_available) or 0,
                             'supplier_id': product_id.seller_id.id or
@@ -94,6 +92,8 @@ class sohovetStockReport(models.TransientModel):
                             'qty_min': 0,
                         }
                         item_ids.append(item_data)
+
+
         res.update({'item_ids': item_ids})
         return res
 
@@ -108,36 +108,24 @@ class sohovetStockReport(models.TransientModel):
 
     @api.multi
     def save(self):
+        templates = self.item_ids.mapped('name')
+        for template in templates:
+            item_ids2 = self.item_ids.filtered(lambda r: r.name == template)
+            sublocations = item_ids2.mapped('sublocation')
+            template.sublocation_ids = sublocations
+
         for item in self.item_ids:
             if not item.ubication:
                 continue
+
             update_stock_data = {
                 'product_id': item.name.id,
                 'new_quantity': item.qty_available,
-                'location_id': item.ubication.lot_stock_id.id,
+                'location_id': item.ubication.id,
             }
             update_stock_wizard = self.env['stock.change.product.qty'].create(update_stock_data)
             update_stock_wizard.change_product_qty()
 
-            # Updates also min_stock
-            if item.qty_min:
-                if item.stock_rule:
-                    if item.qty_min != int(item.stock_rule.product_min_qty):
-                        item.stock_rule.product_min_qty = item.qty_min
-                    if item.ubication != item.stock_rule.warehouse_id:
-                        item.stock_rule.warehouse_id = item.ubication
-                else:
-                    orderpoint_data = {
-                        'product_id': item.name.id,
-                        'warehouse_id': item.ubication.id,
-                        'location_id': item.ubication.lot_stock_id.id,
-                        'product_min_qty': item.qty_min,
-                        'product_max_qty': 0,
-                        'qty_multiple': 1,
-                    }
-                    self.env['stock.warehouse.orderpoint'].create(orderpoint_data)
-            elif item.stock_rule:
-                item.stock_rule.unlink()
 
 class sohovetStockReportItem(models.TransientModel):
     _name = 'sohovet.stock.report.item'
@@ -145,21 +133,10 @@ class sohovetStockReportItem(models.TransientModel):
     report_id = fields.Many2one('sohovet.stock.report', 'Informe')
     stock_rule = fields.Many2one('stock.warehouse.orderpoint', 'Regla de reabastecimiento')
     name = fields.Many2one('product.product', 'Producto')
-    can_change_name = fields.Boolean(default=True)
     qty_min = fields.Integer('Stock mínimo')
     qty_available = fields.Integer('Stock actual')
     qty_purchase = fields.Integer('Unidades compra', related='name.purchase_uom_factor')
-    ubication = fields.Many2one('stock.warehouse', 'Ubicación')
+    ubication = fields.Many2one('stock.location', 'Ubicación', related='sublocation.location_id')
+    sublocation = fields.Many2one('stock.sublocation', 'Localización')
     supplier_id = fields.Many2one('res.partner', 'Proveedor')
 
-    # @api.one
-    # def duplicate(self):
-    #     vals = {
-    #         'report_id': self.report_id.id,
-    #         'name': self.name.id,
-    #         'supplier_id': self.supplier_id.id,
-    #         'qty_min': 0,
-    #         'qty_available': 0,
-    #         'ubication': None,
-    #     }
-    #     self.create(vals)

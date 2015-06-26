@@ -11,22 +11,22 @@
                     </header>
                     <field name="item_ids">
                         <tree string="Productos" editable="bottom" delete="false" colors="{red:qty_available &lt; qty_min}">
-                            <field name="can_change_name" invisible="1"/>
                             <field name="supplier_id" invisible="1"/>
                             <field name="stock_rule" invisible="1"/>
-                            <field name="name" attrs="{'readonly': [('can_change_name', '=', False)]}"
-                                   options="{'no_open': True}"/>
+                            <field name="name" readonly="1" options="{'no_open': True}"/>
                             <field name="qty_purchase" readonly="1" attrs="{'invisible': [('qty_purchase', '=', 1)]}"/>
-                            <field name="qty_min"/>
-                            <field name="ubication" options="{'no_open': True}"/>
+                            <field name="qty_min" readonly="1" attrs="{'invisible': [('qty_min', '=', 0)]}"/>
+                            <!--<field name="ubication" options="{'no_open': True, 'no_create': True}"-->
+                                   <!--domain="[('usage', '=', 'internal')]" />-->
+                            <field name="sublocation" options="{'no_open': True}"/>
                             <field name="qty_available"/>
                         </tree>
                     </field>
 
                     <footer>
                         <button name="save" string="Guardar stock actual" type="object" class="oe_highlight"/>
-                        or
-                        <button string="_Cancel" class="oe_link" special="cancel" />
+                        o
+                        <button string="_Cancelar" class="oe_link" special="cancel" />
                     </footer>
                 </form>
             </field>

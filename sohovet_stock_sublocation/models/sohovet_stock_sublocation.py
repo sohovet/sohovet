@@ -26,7 +26,8 @@ from openerp.exceptions import ValidationError
 
 class StockSubLocation(models.Model):
     _name = 'stock.sublocation'
-    _description = 'Stock sublocation'
+    _description = 'Stock localizacion'
+    _rec_name = 'code'
 
     name = fields.Char('Name', required=True)
     code = fields.Char('Code', size=5, required=True)

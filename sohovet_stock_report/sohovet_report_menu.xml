@@ -10,7 +10,7 @@
             file="sohovet_stock_report.informe_stock"
         />
 
-        <act_window name="Hoja de almacén (sólo stock mínimo)"
+        <act_window name="Hoja de almacén (sólo con stock mínimo)"
            res_model="sohovet.stock.report"
            src_model="product.template"
            view_mode="form"

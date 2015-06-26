@@ -27,4 +27,24 @@ from openerp.exceptions import ValidationError
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    sublocation_id = fields.Many2one('stock.sublocation', string='Sublocation')
+    sublocation_ids = fields.Many2many('stock.sublocation', string='Sublocations')
+
+    @api.constrains('sublocation_ids')
+    def _check_sublocation_ids(self):
+        locations = self.sublocation_ids.mapped('location_id')
+        if len(locations) != len(self.sublocation_ids):
+            raise ValidationError(_('One product can not be in two differents sublocations of the same location. '
+                                    'Check sublocations'))
+
+    def sublocations(self, location_id):
+        sublocations = self.sublocation_ids.filtered(lambda r: r.location_id == location_id)
+        return sublocations
+
+
+class ProductProduct(models.Model):
+    _inherit = 'product.product'
+
+    def sublocations(self, location_id):
+        sublocations = self.product_tmpl_id.sublocation_ids.filtered(lambda r: r.location_id == location_id)
+        print sublocations
+        return sublocations

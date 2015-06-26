@@ -21,12 +21,33 @@ msgid "Location"
 msgstr ""
 
 #. module: sohovet_product_sublocation
+#: code:addons/sohovet_product_sublocation/models/sohovet_product.py:36
+#, python-format
+msgid "One product can not be in two differents sublocations of the same location. Check sublocations"
+msgstr ""
+
+#. module: sohovet_product_sublocation
+#: model:ir.model,name:sohovet_product_sublocation.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: sohovet_product_sublocation
 #: model:ir.model,name:sohovet_product_sublocation.model_product_template
 msgid "Product Template"
 msgstr ""
 
 #. module: sohovet_product_sublocation
-#: field:product.template,sublocation_id:0
-msgid "Sublocation"
+#: view:product.template:sohovet_product_sublocation.sohovet_product_template_form_view
+msgid "Stock and Expected Variations"
+msgstr ""
+
+#. module: sohovet_product_sublocation
+#: model:ir.model,name:sohovet_product_sublocation.model_stock_sublocation
+msgid "Stock sublocation"
+msgstr ""
+
+#. module: sohovet_product_sublocation
+#: field:product.template,sublocation_ids:0
+msgid "Sublocations"
 msgstr ""
 
