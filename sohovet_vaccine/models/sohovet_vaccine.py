@@ -39,15 +39,15 @@ def join_str(str_list, mid_separator=u', ', final_separator=u' y '):
 
 class sohovet_vaccine_type(models.Model):
     _name = 'sohovet.vaccine.type'
-    _description = 'Tipo de vacuna'
+    _description = 'Vaccine types'
 
     name = fields.Char('Tipo', required=True)
 
 class sohovet_vaccine_rule(models.Model):
     _name = 'sohovet.vaccine.rule'
-    _description = 'Reglas de vacunacion'
+    _description = 'Vaccination rules'
 
-    sequence = fields.Integer('Secuencia')
+    sequence = fields.Integer('Sequence')
     animal_type_id = fields.Many2one('sohovet.animal.type', string='Tipo de animal', required=True)
     type_id = fields.Many2one('sohovet.vaccine.type', string='Tipo de vacuna', required=True)
     next_type_id = fields.Many2one('sohovet.vaccine.type', string='Tipo de la siguiente vacuna', required=True)
@@ -62,7 +62,7 @@ class sohovet_vaccine_rule(models.Model):
 
 class sohovet_vaccine(models.Model):
     _name = 'sohovet.vaccine'
-    _description = 'Vacuna'
+    _description = 'Vaccine'
     _order = 'date'
 
     type_id = fields.Many2one('sohovet.vaccine.type', 'Tipo', required=True)
@@ -170,6 +170,7 @@ class sohovet_vaccine(models.Model):
 
 class sohovet_vaccine_reminder(models.Model):
     _name = 'sohovet.vaccine.reminder'
+    _description = 'Vaccine reminder'
     _rec_name = 'partner_id'
     _inherit = ['ir.needaction_mixin']
     _order = 'state ASC, date DESC, id DESC'
@@ -308,7 +309,7 @@ class sohovet_vaccine_reminder(models.Model):
 
 class sohovet_vaccine_reminder_batch(models.Model):
     _name = 'sohovet.vaccine.reminder.batch'
-    _description = 'Lote de recordatorios enviados'
+    _description = 'Vaccine reminder batch'
 
     name = fields.Char('Nombre', readonly=True, required=True)
     type = fields.Selection([('first', 'Inicial'), ('other', 'Repesca'), ('mixed', 'Varios')], 'Tipo de recordatorio',
@@ -328,7 +329,7 @@ class sohovet_vaccine_reminder_batch(models.Model):
 
 class sohovet_vaccine_reminder_message(models.Model):
     _name = 'sohovet.vaccine.reminder.message'
-    _description = 'Mensaje para el recordatorio'
+    _description = 'Vaccine reminder message'
 
     type_id = fields.Many2one('sohovet.vaccine.type', string='Tipo de vacuna', required=True)
     animal_type_id = fields.Many2one('sohovet.animal.type', string='Tipo de animal', required=True)

@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <menuitem id="sohovet_vaccine_menu_top" name="Vacunas" sequence="21"/>
-        <menuitem id="sohovet_vaccine_menu_main" parent="sohovet_vaccine_menu_top" name="Vacunas" sequence="0"/>
+        <menuitem id="sohovet_vaccine_menu_top" name="Vaccines" sequence="80" groups="base.group_user"/>
+
+        <menuitem id="sohovet_animal_menu_main" parent="sohovet_vaccine_menu_top" name="Animals" sequence="0"/>
+            <menuitem id="sohovet_animal_partner_main" parent="sohovet_animal_menu_main" name="Owners" sequence="10"
+                      action="base.action_partner_form"/>
+            <menuitem id="sohovet_animal_menu" parent="sohovet_animal_menu_main" name="Animals" sequence="20"
+                      action="sohovet_animal.sohovet_animal_action"/>
+
+        <menuitem id="sohovet_vaccine_menu_main" parent="sohovet_vaccine_menu_top" name="Vaccines" sequence="10"/>
 		<menuitem id="sohovet_vaccine_menu_configuration" parent="sohovet_vaccine_menu_top" name="Configuración" sequence="20" groups="base.group_no_one"/>
+            <menuitem id="sohovet_animal_menu_configuration" parent="sohovet_vaccine_menu_configuration" name="Animals" sequence="0"
+                     groups="base.group_no_one"/>
+
+                <menuitem id="sohovet_animal_specie_menu" parent="sohovet_animal_menu_configuration" name="Species" sequence="10"
+                        action="sohovet_animal.sohovet_animal_specie_action" />
+                <menuitem id="sohovet_animal_breed_menu" parent="sohovet_animal_menu_configuration" name="Breeds" sequence="20"
+                        action="sohovet_animal.sohovet_animal_breed_action" />
+                <menuitem id="sohovet_animal_type_menu" parent="sohovet_animal_menu_configuration" name="Types" sequence="30"
+                        action="sohovet_animal.sohovet_animal_type_action"/>
 
         <record id="sohovet_vaccine_type_tree" model="ir.ui.view">
             <field name="name">sohovet.vaccine.type.tree</field>
@@ -81,7 +97,7 @@
             <field name="name">sohovet.vaccine.tree</field>
             <field name="model">sohovet.vaccine</field>
             <field name="arch" type="xml">
-                <tree string="Vacunas">
+                <tree string="Vaccines">
                     <field name="type_id"/>
                     <field name="animal_id"/>
                     <field name="date"/>
@@ -97,7 +113,7 @@
             <field name="name">sohovet.vaccine.form</field>
             <field name="model">sohovet.vaccine</field>
             <field name="arch" type="xml">
-                <form string="Vacunas" version="7.0">
+                <form string="Vaccines" version="7.0">
                     <sheet>
                         <group>
                             <group>
@@ -138,7 +154,7 @@
                                 </group>
                                 <group string="Recordatorios">
                                     <field name="reminder_ids" nolabel="1" domain="[('state', '!=', 'cancel')]">
-                                        <tree string="Vacunas">
+                                        <tree string="Vaccines">
                                             <field name="state"/>
                                             <field name="date"/>
                                             <!--<field name="text"/>-->
@@ -149,7 +165,7 @@
 
                             <!--<page string="Todas las vacunas">-->
                                 <!--<field name="other_vaccines" nolabel="1">-->
-                                    <!--<tree string="Vacunas">-->
+                                    <!--<tree string="Vaccines">-->
                                         <!--<field name="type_id"/>-->
                                         <!--<field name="date"/>-->
                                         <!--<field name="extern"/>-->
@@ -191,7 +207,7 @@
 			</field>
         </record>
 
-        <menuitem id="sohovet_vaccine_menu" parent="sohovet_vaccine_menu_main" action="sohovet_vaccine_action" name="Vacunas" sequence="1"/>
+        <menuitem id="sohovet_vaccine_menu" parent="sohovet_vaccine_menu_main" action="sohovet_vaccine_action" name="Vaccines" sequence="1"/>
 
         <record id="sohovet_vaccine_reminder_tree" model="ir.ui.view">
             <field name="name">sohovet.vaccine.reminder.tree</field>
@@ -232,7 +248,7 @@
                         </group>
                         <group>
                             <field name="vaccine_ids">
-                                <tree string="Vacunas">
+                                <tree string="Vaccines">
                                     <field name="type_id"/>
                                     <field name="date"/>
                                     <field name="date_next_computed" string="Fecha siguiente"/>
@@ -331,10 +347,10 @@
             <field name="model">sohovet.animal</field>
             <field name="inherit_id" ref="sohovet_animal.sohovet_animal_form"/>
             <field name="arch" type="xml">
-                <group name="information" position="after">
-                    <group name="vaccines">
-                        <field name="vaccines" readonly="1">
-                            <tree string="Vacunas">
+                <group name="main" position="after">
+                    <group name="vaccines" string="Vaccines" colspan="4">
+                        <field name="vaccines" readonly="1" nolabel="1" colspan="4">
+                            <tree string="Vaccines">
                                 <field name="type_id"/>
                                 <field name="date"/>
                                 <field name="extern"/>

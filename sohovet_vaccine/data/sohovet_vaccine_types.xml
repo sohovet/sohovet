@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
-        <!--<record model="sohovet.vaccine.config" id="sohovet_vacine_config">-->
-            <!--<field name="sms_initial_msg">Hola $nombre!</field>-->
-            <!--<field name="sms_end_msg">Pídenos cita en el 91 393 20 10</field>-->
-        <!--</record>-->
-
         <record model="sohovet.vaccine.type" id="sohovet_vacine_type1">
             <field name="name">Chip</field>
         </record>
