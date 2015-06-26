@@ -2,111 +2,148 @@
 <openerp>
 	<data noupdate="1">
         <record id="stock.warehouse0" model="stock.warehouse">
-			<field name="name">Tienda</field>
-			<field name="code">TIE</field>
+			<field name="name">Happy Animal</field>
+			<field name="code">HAP</field>
 		 </record>
 
-        <record id="warehouse1" model="stock.warehouse">
+        <record id="location1" model="stock.location">
             <field name="name">Consulta1</field>
             <field name="code">C1</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse2" model="stock.warehouse">
+        <record id="location2" model="stock.location">
             <field name="name">Consulta2</field>
             <field name="code">C2</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse3" model="stock.warehouse">
+        <record id="location3" model="stock.location">
             <field name="name">Consulta3</field>
             <field name="code">C3</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse4" model="stock.warehouse">
+        <record id="location4" model="stock.location">
             <field name="name">Prequirofano</field>
             <field name="code">PRE</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse5" model="stock.warehouse">
+        <record id="location5" model="stock.location">
             <field name="name">Quirofano</field>
             <field name="code">QUI</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse6" model="stock.warehouse">
+        <record id="location6" model="stock.location">
             <field name="name">Rayos</field>
             <field name="code">RX</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse7" model="stock.warehouse">
+        <record id="location7" model="stock.location">
             <field name="name">Laboratorio</field>
             <field name="code">LAB</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse8" model="stock.warehouse">
+        <record id="location8" model="stock.location">
             <field name="name">Baño</field>
             <field name="code">BAÑ</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse9" model="stock.warehouse">
+        <record id="location9" model="stock.location">
             <field name="name">Peluqueria</field>
             <field name="code">PEL</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse10" model="stock.warehouse">
+        <record id="location10" model="stock.location">
             <field name="name">Almacen</field>
             <field name="code">ALM</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse11" model="stock.warehouse">
+        <record id="location11" model="stock.location">
             <field name="name">Hospitalización</field>
             <field name="code">HOS</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse12" model="stock.warehouse">
+        <record id="location12" model="stock.location">
             <field name="name">Administración</field>
             <field name="code">ADM</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse13" model="stock.warehouse">
+        <record id="location13" model="stock.location">
             <field name="name">Consultas</field>
             <field name="code">CON</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse14" model="stock.warehouse">
+        <record id="location14" model="stock.location">
             <field name="name">Frigorifico laboratorio</field>
             <field name="code">FLAB</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse15" model="stock.warehouse">
+        <record id="location15" model="stock.location">
             <field name="name">Frigorifico consulta 1</field>
             <field name="code">FC1</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse16" model="stock.warehouse">
+        <record id="location16" model="stock.location">
             <field name="name">Frigorifico consulta 2</field>
             <field name="code">FC2</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse17" model="stock.warehouse">
+        <record id="location17" model="stock.location">
             <field name="name">Frigorifico consulta 3</field>
             <field name="code">FC3</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse18" model="stock.warehouse">
+        <record id="location18" model="stock.location">
             <field name="name">Armario medicamentos 1</field>
             <field name="code">ARM1</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse19" model="stock.warehouse">
+        <record id="location19" model="stock.location">
             <field name="name">Armario medicamentos 2</field>
             <field name="code">ARM2</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 
-        <record id="warehouse20" model="stock.warehouse">
+        <record id="location20" model="stock.location">
             <field name="name">Armario medicamentos 3</field>
             <field name="code">ARM3</field>
+            <!--<field name="location_id" search="[('usage','=','internal'), ('location_id', '=', False)]"/>-->
+            <field name="usage">internal</field>
         </record>
 	</data>
 </openerp>
-
-
-
