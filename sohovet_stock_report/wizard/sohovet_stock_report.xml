@@ -15,7 +15,7 @@
                             <field name="stock_rule" invisible="1"/>
                             <field name="name" readonly="1" options="{'no_open': True}"/>
                             <field name="qty_purchase" readonly="1" attrs="{'invisible': [('qty_purchase', '=', 1)]}"/>
-                            <field name="qty_min" readonly="1" attrs="{'invisible': [('qty_min', '=', 0)]}"/>
+                            <field name="qty_min" attrs="{'readonly': [('sublocation', '=', False)], 'invisible': [('sublocation', '=', False)]}"/>
                             <!--<field name="ubication" options="{'no_open': True, 'no_create': True}"-->
                                    <!--domain="[('usage', '=', 'internal')]" />-->
                             <field name="sublocation" options="{'no_open': True}"/>

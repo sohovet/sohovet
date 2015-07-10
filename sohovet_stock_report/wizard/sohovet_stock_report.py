@@ -126,6 +126,33 @@ class sohovetStockReport(models.TransientModel):
             update_stock_wizard = self.env['stock.change.product.qty'].create(update_stock_data)
             update_stock_wizard.change_product_qty()
 
+            # Updates also min_stock
+            if item.qty_min:
+                ascendants = item.ubication.getAscendants()
+                print ascendants
+                warehouse_id = self.env['stock.warehouse'].search([('lot_stock_id', 'in', [x.id for x in ascendants])])
+                if not warehouse_id:
+                    continue
+
+                if item.stock_rule:
+                    if item.qty_min != int(item.stock_rule.product_min_qty):
+                        item.stock_rule.product_min_qty = item.qty_min
+                    if item.ubication != item.stock_rule.location_id:
+                        item.stock_rule.location_id = item.ubication
+                        item.stock_rule.warehouse_id = item.warehouse_id
+                else:
+                    orderpoint_data = {
+                        'product_id': item.name.id,
+                        'warehouse_id': warehouse_id.id,
+                        'location_id': item.ubication.id,
+                        'product_min_qty': item.qty_min,
+                        'product_max_qty': 0,
+                        'qty_multiple': 1,
+                    }
+                    self.env['stock.warehouse.orderpoint'].create(orderpoint_data)
+            elif item.stock_rule:
+                item.stock_rule.unlink()
+
 
 class sohovetStockReportItem(models.TransientModel):
     _name = 'sohovet.stock.report.item'
@@ -140,3 +167,15 @@ class sohovetStockReportItem(models.TransientModel):
     sublocation = fields.Many2one('stock.sublocation', 'Localización')
     supplier_id = fields.Many2one('res.partner', 'Proveedor')
 
+
+class StockLocation(models.Model):
+    _inherit = 'stock.location'
+
+    def getAscendants(self):
+        ascendants = []
+        child = self
+        while child:
+            ascendants.append(child)
+            child = child.location_id
+
+        return ascendants
