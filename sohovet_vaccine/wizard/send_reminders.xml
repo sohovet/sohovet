@@ -45,7 +45,7 @@
            key2="client_action_multi"
            id="sohovet_vaccine_reminder_send_wizard_action2"
            context="{'send_selected_batch': True}"
-           groups="base.group_no_one"
+           groups="sohovet_vaccine.group_manage_reminders"
                 />
 
         <record id="sohovet_vaccine_reminder_send_batch_wizard_action" model="ir.actions.act_window">
@@ -70,7 +70,7 @@
 
         <menuitem id="sohovet_vaccine_reminder_send_batch_wizard_menu" parent="sohovet_vaccine.sohovet_vaccine_reminder_menu"
                   action="sohovet_vaccine_reminder_send_batch_wizard_action" name="Enviar lote" sequence="20"
-                  groups="base.group_no_one"/>
+                  groups="sohovet_vaccine.group_manage_reminders"/>
 
         <menuitem id="sohovet_vaccine_reminder_send_all_wizard_menu" parent="sohovet_vaccine.sohovet_vaccine_reminder_menu"
                   action="sohovet_vaccine_reminder_send_all_wizard_action" name="Enviar todos" sequence="30"

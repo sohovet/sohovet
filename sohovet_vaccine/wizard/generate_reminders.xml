@@ -36,6 +36,6 @@
 
         <menuitem id="sohovet_vaccine_reminder_wizard_menu" parent="sohovet_vaccine.sohovet_vaccine_reminder_menu"
                   action="sohovet_vaccine_reminders_wizard_action" name="Generar recordatorios" sequence="10"
-                 groups="base.group_no_one"/>
+                 groups="sohovet_vaccine.group_manage_reminders"/>
     </data>
 </openerp>

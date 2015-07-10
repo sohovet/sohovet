@@ -34,6 +34,8 @@
         'partner_firstname',
     ],
     'data': [
+        'security/ir.model.access.csv',
+        'security/manage_reminders.xml',
         'data/sohovet_vaccine_types.xml',
         'data/sohovet_reminder_batch_sequence.xml',
         'views/sohovet_vaccine_config.xml',
@@ -41,7 +43,6 @@
         'views/sohovet_res_partner_view.xml',
         'wizard/generate_reminders.xml',
         'wizard/send_reminders.xml',
-        'security/ir.model.access.csv',
     ],
     'active': False,
     'installable': True,
