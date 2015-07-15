@@ -109,3 +109,5 @@ En la opción "Configuración de mensajes" podemos configurar diversas opciones 
 En la opción "Mensajes por tipo de vacuna" se establece el texto que se utiliza en la generación de los SMS.
 
 ![Configuración de texto de los mensajes](images/vaccine_ConfigMensajes.png)
+
+Test ;)
