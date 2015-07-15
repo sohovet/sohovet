@@ -241,11 +241,11 @@ No se puede registrar una llamada si no se le ha enviado antes un recordatorio S
 Generamos todos los mensajes para el mes actual.</p>
 </blockquote>
 
-<p>Pulsando en la opción "Generar recordatorios" se nos abre un asistente. El asistente por defecto muestra la opción de generar el primer recordatorio, la fecha inicial se corresponde con el primer día del mes actual y la fecha final con el última día del mes actual.</p>
+<p>Pulsando en la opción "Generar recordatorios" se abre un asistente. El asistente por defecto muestra la opción de generar el primer recordatorio, la fecha inicial se corresponde con el primer día del mes actual y la fecha final con el última día del mes.</p>
 
 <p><img src="images/vaccine_GenerarRecordatorios.png" alt="Asistente para generar recordatorios"></p>
 
-<p>Pulsando el botón "Generar recordatorios" cerramos el asistente y se nos generará una lista de recordatorios en estado "borrador".</p>
+<p>Pulsando el botón "Generar recordatorios" se cierra el asistente y se genera una lista de recordatorios en estado "borrador".</p>
 
 <p><img src="images/vaccine_ejemplo_listaRecordatorios.png" alt="Lista de recordatorios en estado borrador"></p>
 
@@ -254,7 +254,7 @@ Generamos todos los mensajes para el mes actual.</p>
 
 <p>El envío de los recordatorios SMS se hace por lotes de un tamaño predeterminado (definido por el administrador). </p>
 
-<p>Pulsando en la opción "Enviar recordatorios" se nos abre el asistente para su envío. El asistente nos informa del número de propietarios que se van a notificar, de los SMS que se enviarán, de los créditos que tenemos en nuestra cuenta del proveedor de mensajes y el precio total del envío. También nos permite descargar un fichero excel con la lista de mensajes que se van a enviar.</p>
+<p>Pulsando en la opción "Enviar lote" se abre el asistente para el envío de SMS. El asistente informa del número de propietarios que se van a notificar, de los SMS que se enviarán, de los créditos que disponemos en la cuenta del proveedor de mensajes y el precio total del envío. También permite descargar un fichero excel con la lista de mensajes que se van a enviar.</p>
 
 <blockquote>
 <p><strong>Nota:</strong>
@@ -263,7 +263,7 @@ Es importante revisar la hoja de cálculo antes de enviar los SMS para corregir 
 
 <p><img src="images/vaccine_EnviarLoteSMS.png" alt="Asistente para enviar recordatorios"></p>
 
-<p>Marcando la opción "confirmar envío de mensajes" y pulsando el botón "Enviar mensajes" se cierra el asistente y se envía el lote de mensajes SMS. Los recordatorios enviados pasarán al estado "enviado".</p>
+<p>Marcando la opción "confirmar envío de mensajes" y pulsando el botón "Enviar mensajes" se cierra el asistente y se envía el lote de mensajes. Los recordatorios enviados pasarán al estado "enviado".</p>
 
 <blockquote>
 <p><strong>Nota:</strong>
@@ -278,7 +278,7 @@ Se debe seguir enviando lotes de SMS mientras queden SMS en estado borrador. Gen
 Generamos todos los mensajes de repesca del mes anterior.</p>
 </blockquote>
 
-<p>Pulsando en la opción "Enviar recordatorios" se nos abre el asistente para su envío. En "Tipo de recordatorio" seleccionaremos la opción "Recordatorios de repesca" y, por defecto, nos cambiará la fecha inicial al primer día del mes anterior al mes en curso y como fecha final el última día del mes anterior al mes en curso. El número máximo de recordatorios anteriores lo dejamos en el valor por defecto (1).</p>
+<p>Pulsando la opción "Generar recordatorios" se abre el asistente para la generación de mensajes. En "Tipo de recordatorio" seleccionamos la opción "Recordatorios de repesca" y, por defecto, cambiará la fecha inicial al primer día del mes anterior al mes en curso y como fecha final el última día de ese mes. El número máximo de recordatorios anteriores se dejará en el valor por defecto (1).</p>
 
 <blockquote>
 <p><strong>Nota:</strong>
@@ -290,7 +290,7 @@ Si seleccionamos enviar recordatorios SMS entre el 1 de Junio y el 31 de Junio s
 
 <p><img src="images/vaccine_ejemplo_Repesca.png" alt="Asistente para enviar recordatorios"></p>
 
-<p>Pulsando el botón "Generar recordatorios" cerramos el asistente y se nos generará una lista de recordatorios en estado "borrador".</p>
+<p>Pulsando el botón "Generar recordatorios" se cierra el asistente y se genera una lista de recordatorios en estado "borrador".</p>
 
 <p>El envío de este lote de SMS se realiza del mismo modo que el envío de recordatorios SMS iniciales.</p>
 
@@ -302,7 +302,7 @@ Si seleccionamos enviar recordatorios SMS entre el 1 de Junio y el 31 de Junio s
 Generamos la lista de llamadas pendientes para el lote enviado el LOTE 4, enviado el 23-04-2015.</p>
 </blockquote>
 
-<p>Pulsando la opción "Clientes a llamar" generaremos un listado de clientes a llamar. En el asistente debemos seleccionar un lote de mensajes (de repesca). La lista de clientes a llamar se corresponde con los clientes del lote seleccionado que todavía no han vacunado a sus animales, no tienen citas pendientes y no se les ha llamado previamente en referencia a este mismo lote de mensajes (ver nota).</p>
+<p>Pulsando la opción "Clientes a llamar" generamos un listado de clientes a llamar. En el asistente debemos seleccionar el lote de mensajes (de repesca) para el que se generará la lista de llamadas. La lista de clientes a llamar incluye los clientes del lote seleccionado que todavía no han vacunado a sus animales, no tienen citas pendientes y no se les ha llamado previamente en referencia a este mismo lote de mensajes (ver nota).</p>
 
 <blockquote>
 <p><strong>Nota:</strong> Las llamadas se pueden registrar con el resultado "Imposible contactar". Si en el asistente la opción "Excluir clientes imposible contactar" está desmarcada aquellos clientes que tengan llamadas en este estado también serán incluídos en el listado de llamadas pendientes.</p>
@@ -314,22 +314,22 @@ Generamos la lista de llamadas pendientes para el lote enviado el LOTE 4, enviad
 
 <p><img src="images/vaccine_ejemplo_listaLlamar.png" alt="Asistente para generar lista de llamadas"></p>
 
-<p>Pulsando en el primero de ellos accedemos a su ficha de cliente y desde ahí registraremos el resultado de la llamada.</p>
+<p>Pulsando en el primero de ellos accedemos a su ficha de cliente.</p>
 
 <p><img src="images/vaccine_ejemploCliente.png" alt="Asistente para generar lista de llamadas"></p>
 
 <h3>
 <a id="registrar-una-llamada" class="anchor" href="#registrar-una-llamada" aria-hidden="true"><span class="octicon octicon-link"></span></a>Registrar una llamada</h3>
 
-<p>En la ficha del cliente, pulsando en el botón "Registrar llamada" se abre el asistente donde introduciremos el resultado de la llamada.</p>
+<p>En la ficha del cliente, pulsando en el botón "Registrar llamada" se abre el asistente donde se introduce el resultado de la llamada.</p>
 
 <p><img src="images/vaccine_RegistrarLlamada.png" alt="Asistente para registar una llamada"></p>
 
-<p>Tras introducir los datos requeridos, pulsamos en guardar y procederemos a llamar al siguiente cliente de la lista (si todavía quedan clientes pendientes).</p>
+<p>Tras introducir los datos requeridos, se pulsa en guardar y se procede a llamar al siguiente cliente de la lista (si todavía quedan clientes pendientes).</p>
 
 <blockquote>
 <p><strong>Nota:</strong>
-Podemos desplazarnos de un cliente a otro utilizando las flechas que aparecen en la parte superior derecha de la ficha del cliente.</p>
+Podemos desplazarnos rapidamente de un cliente a otro utilizando las flechas que aparecen en la parte superior derecha de la ficha del cliente.</p>
 </blockquote>
       </section>
       <footer>
