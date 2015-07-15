@@ -1,5 +1,6 @@
 ---
 title: Módulo de vacunación
+layout: default
 ---
 
 ## Módulo de vacunación
