@@ -233,10 +233,30 @@ No se puede registrar una llamada si no se le ha enviado antes un recordatorio S
 <p><img src="images/vaccine_ConfigMensajes.png" alt="Configuración de texto de los mensajes"></p>
 
 <h1>
-<a id="casos-de-uso" class="anchor" href="#casos-de-uso" aria-hidden="true"><span class="octicon octicon-link"></span></a>Casos de uso</h1>
+<a id="ejemplos-de-uso" class="anchor" href="#ejemplos-de-uso" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ejemplos de uso</h1>
 
 <h2>
-<a id="generación-y-envío-del-recordatorio-inicial" class="anchor" href="#generaci%C3%B3n-y-env%C3%ADo-del-recordatorio-inicial" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generación y envío del recordatorio inicial</h2>
+<a id="generación-de-los-recordatorios-sms-iniciales-para-el-mes-actual-completo" class="anchor" href="#generaci%C3%B3n-de-los-recordatorios-sms-iniciales-para-el-mes-actual-completo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generación de los recordatorios SMS iniciales para el mes actual completo</h2>
+
+<p>Pulsando en la opción "Generar recordatorios" se nos abre un asistente. El asistente por defecto muestra la opción de generar el primer recordatorio, la fecha inicial se corresponde con el primer día del mes actual y la fecha final con el última día del mes actual.</p>
+
+<p><img src="images/vaccine_GenerarRecordatorios.png" alt="Asistente para generar recordatorios"></p>
+
+<p>Pulsando el botón "Generar recordatorios" cerramos el asistente y se nos generará una lista de recordatorios en estado borrador.</p>
+
+<p><img src="images/vaccine_ejemplo_listaRecordatorios.png" alt="Lista de recordatorios en estado borrador"></p>
+
+<h3>
+<a id="envío-de-un-lote-de-sms" class="anchor" href="#env%C3%ADo-de-un-lote-de-sms" aria-hidden="true"><span class="octicon octicon-link"></span></a>Envío de un lote de SMS</h3>
+
+<p>El envío de los recordatorios SMS se hace por lotes de un tamaño predeterminado (definido por el administrador). Pulsando en la opción "Enviar recordatorios" se nos abre el asistente para su envío. El asistente nos informa del número de propietarios que se van a notificar, de los SMS que se enviarán, de los créditos que tenemos en nuestra cuenta del proveedor de mensajes y el precio total del envío. También nos permite descargar un fichero excel con la lista de mensajes que se van a enviar.</p>
+
+<blockquote>
+<p><strong>Nota:</strong>
+Es importante revisar la hoja de cálculo antes de enviar los SMS para corregir posibles errores.</p>
+</blockquote>
+
+<p>Marcando la opción "confirmar envío de mensajes" y pulsando el botón "Enviar mensajes" se cierra el asistente y se envía el lote de mensajes SMS.</p>
 
 <h2>
 <a id="generación-y-envío-del-recordatorio-de-repesca" class="anchor" href="#generaci%C3%B3n-y-env%C3%ADo-del-recordatorio-de-repesca" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generación y envío del recordatorio de repesca</h2>
